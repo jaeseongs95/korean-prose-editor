@@ -1,0 +1,302 @@
+[
+  {
+    "id": "T01",
+    "category": "translationese_needing_edit",
+    "sourceText": "이번 변경의 목적은 사용자가 설정을 더 쉽게 찾을 수 있도록 하는 것에 있습니다.",
+    "userRequest": "문장만 자연스럽게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": [],
+    "rationale": "의미는 분명하지만 번역투 명사화가 겹친다.",
+    "riskTags": ["translationese", "nominalization"]
+  },
+  {
+    "id": "T02",
+    "category": "translationese_needing_edit",
+    "sourceText": "회의 일정의 조정에 대한 논의는 오후에 진행될 예정입니다.",
+    "userRequest": "격식은 유지하고 읽기 쉽게 고쳐 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["오후"],
+    "rationale": "행위와 대상을 과도하게 명사로 쌓아 썼다.",
+    "riskTags": ["translationese", "formal-register"]
+  },
+  {
+    "id": "T03",
+    "category": "translationese_needing_edit",
+    "sourceText": "고객 문의에 대한 신속한 대응을 제공하기 위한 체계를 구축했습니다.",
+    "userRequest": "뜻을 바꾸지 말고 자연스럽게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": [],
+    "rationale": "불필요한 명사화와 보조 동사가 자연스러운 서술을 가린다.",
+    "riskTags": ["translationese", "wordiness"]
+  },
+  {
+    "id": "T04",
+    "category": "translationese_needing_edit",
+    "sourceText": "자료의 검토가 완료된 이후에 결과를 공유하는 것이 가능합니다.",
+    "userRequest": "공지문 문체로 매끄럽게 고쳐 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": [],
+    "rationale": "시점과 가능 여부는 분명하나 직역식 구조가 부자연스럽다.",
+    "riskTags": ["translationese", "condition"]
+  },
+  {
+    "id": "T05",
+    "category": "translationese_needing_edit",
+    "sourceText": "운영팀은 장애 대응의 품질 향상을 위한 개선 활동을 수행하고 있습니다.",
+    "userRequest": "업무 보고서에 맞게 간결하게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["운영팀"],
+    "rationale": "핵심 동작을 명사구로 돌려 말한다.",
+    "riskTags": ["translationese", "wordiness"]
+  },
+  {
+    "id": "T06",
+    "category": "translationese_needing_edit",
+    "sourceText": "서비스 사용에 있어서 문제가 발생하는 경우 지원팀으로의 연락이 필요합니다.",
+    "userRequest": "안내문 문장으로 자연스럽게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["지원팀"],
+    "rationale": "조건은 유지하되 번역투 연결을 정리할 여지가 있다.",
+    "riskTags": ["translationese", "condition"]
+  },
+  {
+    "id": "T07",
+    "category": "translationese_needing_edit",
+    "sourceText": "신청서 제출의 마감은 2026년 10월 3일 18:00까지로 설정되어 있습니다.",
+    "userRequest": "날짜와 시간을 그대로 두고 문장만 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["2026년 10월 3일", "18:00"],
+    "rationale": "기한 정보는 명확하지만 설정 표현이 장황하다.",
+    "riskTags": ["translationese", "date-time", "protected-data"]
+  },
+  {
+    "id": "N01",
+    "category": "natural_original_needing_retain",
+    "sourceText": "비가 그친 뒤에 출발하면 길이 덜 미끄러울 거예요.",
+    "userRequest": "자연스럽게 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": [],
+    "rationale": "일상적이고 자연스러우며 불필요한 수정 대상이 없다.",
+    "riskTags": ["natural-original", "conditional"]
+  },
+  {
+    "id": "N02",
+    "category": "natural_original_needing_retain",
+    "sourceText": "이번 주에는 회의를 열지 않으니, 자료만 금요일까지 보내 주세요.",
+    "userRequest": "문장을 매끄럽게 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["금요일"],
+    "rationale": "부정과 요청의 범위가 자연스럽고 명확하다.",
+    "riskTags": ["natural-original", "negation", "deadline"]
+  },
+  {
+    "id": "N03",
+    "category": "natural_original_needing_retain",
+    "sourceText": "비용이 50만 원을 넘으면 구매 전에 팀장 승인을 받아야 합니다.",
+    "userRequest": "사내 규정 문장처럼 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["50만 원", "팀장"],
+    "rationale": "금액 기준과 조건이 이미 간결하게 표현됐다.",
+    "riskTags": ["natural-original", "condition", "number-unit"]
+  },
+  {
+    "id": "N04",
+    "category": "natural_original_needing_retain",
+    "sourceText": "박지훈 씨는 “확인한 뒤 다시 연락드리겠습니다”라고 답했습니다.",
+    "userRequest": "보도자료 문체로 자연스럽게 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["박지훈", "“확인한 뒤 다시 연락드리겠습니다”"],
+    "rationale": "인용과 발화 동사가 자연스럽고 직접 인용은 보존돼야 한다.",
+    "riskTags": ["natural-original", "direct-quote", "proper-name"]
+  },
+  {
+    "id": "N05",
+    "category": "natural_original_needing_retain",
+    "sourceText": "서울책방은 매주 화요일 오전 10시에 문을 엽니다.",
+    "userRequest": "한 줄 소개로 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["서울책방", "화요일", "오전 10시"],
+    "rationale": "고유명사와 운영 시간이 자연스러운 문장에 담겨 있다.",
+    "riskTags": ["natural-original", "fixed-name", "date-time"]
+  },
+  {
+    "id": "N06",
+    "category": "natural_original_needing_retain",
+    "sourceText": "이 수치는 잠정치라서 다음 달 보고서에서 달라질 수 있습니다.",
+    "userRequest": "조금 더 자연스럽게 고쳐 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["다음 달"],
+    "rationale": "불확실성의 수준이 적절하고 문장도 자연스럽다.",
+    "riskTags": ["natural-original", "uncertainty"]
+  },
+  {
+    "id": "N07",
+    "category": "natural_original_needing_retain",
+    "sourceText": "아이들이 잠든 뒤 거실에 앉아 책을 조금 읽었다.",
+    "userRequest": "문학적으로 과장하지 말고 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": [],
+    "rationale": "개인적 관찰의 호흡이 자연스럽다.",
+    "riskTags": ["natural-original", "personal-voice"]
+  },
+  {
+    "id": "A01",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "이번 분기부터 모델 카드를 외부에 공개합니다.",
+    "userRequest": "자연스러운 한국어로 바꿔 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["모델 카드"],
+    "rationale": "‘모델 카드’가 통용 용어인지 일반 명사인지 문맥만으로 알 수 없다.",
+    "riskTags": ["insufficient-context", "terminology", "fixed-name-risk"]
+  },
+  {
+    "id": "A02",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "정산 보류 건은 기준일 이후에 처리합니다.",
+    "userRequest": "딱딱하지 않게 다듬어 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["정산 보류", "기준일"],
+    "rationale": "회계 상태명과 기준일의 정의가 없어 안전한 표현 범위를 정할 수 없다.",
+    "riskTags": ["insufficient-context", "finance", "terminology"]
+  },
+  {
+    "id": "A03",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "승인 완료 후 게시 상태로 전환됩니다.",
+    "userRequest": "사용자 안내에 맞게 고쳐 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["승인 완료", "게시 상태"],
+    "rationale": "두 표현이 제품의 고정 상태명인지 일반 서술인지 알 수 없다.",
+    "riskTags": ["insufficient-context", "status-name", "fixed-language"]
+  },
+  {
+    "id": "A04",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "예외 처리 정책은 운영 환경에만 적용됩니다.",
+    "userRequest": "쉬운 말로 바꿔 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["예외 처리 정책", "운영 환경"],
+    "rationale": "기술 용어의 정확한 의미와 독자 수준이 제공되지 않았다.",
+    "riskTags": ["insufficient-context", "technical-terminology"]
+  },
+  {
+    "id": "A05",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "상담 후 반응이 좋지 않으면 다음 단계로 넘어갑니다.",
+    "userRequest": "의료 안내문처럼 자연스럽게 다듬어 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["다음 단계"],
+    "rationale": "‘반응’과 ‘다음 단계’가 의료적으로 무엇을 뜻하는지 불명확하다.",
+    "riskTags": ["insufficient-context", "medical", "condition"]
+  },
+  {
+    "id": "A06",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "해제 대상은 기본 그룹에서 제외됩니다.",
+    "userRequest": "자연스러운 문장으로 정리해 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["해제 대상", "기본 그룹"],
+    "rationale": "해제의 대상과 ‘기본 그룹’의 도메인상 의미가 부족하다.",
+    "riskTags": ["insufficient-context", "technical-terminology"]
+  },
+  {
+    "id": "A07",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "프로젝트 오로라는 2단계 검토를 통과해야 합니다.",
+    "userRequest": "보도자료에 맞게 다듬어 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["프로젝트 오로라", "2단계 검토"],
+    "rationale": "고유 프로젝트명과 검토 절차의 공식 명칭 여부를 확인할 수 없다.",
+    "riskTags": ["insufficient-context", "fixed-name-risk", "number"]
+  },
+  {
+    "id": "A08",
+    "category": "ambiguous_or_insufficient_context",
+    "sourceText": "이 기능은 공개 전환 시점에만 해제할 수 있습니다.",
+    "userRequest": "도움말 문구로 매끄럽게 다듬어 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["공개 전환", "해제"],
+    "rationale": "‘공개 전환’과 ‘해제’가 제품 내 명령 또는 상태명일 수 있다.",
+    "riskTags": ["insufficient-context", "status-name", "terminology"]
+  },
+  {
+    "id": "P01",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "복용을 잊었다고 해서 다음 복용 때 두 배 용량을 먹으면 안 됩니다.",
+    "userRequest": "환자 안내문으로 자연스럽게 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["두 배 용량"],
+    "rationale": "의료 안전상 부정과 금지의 강도를 바꾸면 안 되며 문장도 자연스럽다.",
+    "riskTags": ["medical", "negation", "safety-critical"]
+  },
+  {
+    "id": "P02",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "당사는 법령에서 요구하는 경우를 제외하고 이용자의 정보를 제3자에게 제공하지 않습니다.",
+    "userRequest": "개인정보 처리방침 문장으로 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["법령", "제3자", "개인정보 처리방침"],
+    "rationale": "법률적 예외와 부정의 범위가 이미 명확하다.",
+    "riskTags": ["legal", "negation", "condition", "fixed-language"]
+  },
+  {
+    "id": "P03",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "계약서에는 “본 약정은 2026년 12월 31일에 종료된다”라고 적혀 있습니다.",
+    "userRequest": "계약 안내에 맞게 자연스럽게 다듬어 줘.",
+    "expectedDecision": "retain",
+    "protectedStrings": ["“본 약정은 2026년 12월 31일에 종료된다”", "2026년 12월 31일"],
+    "rationale": "계약 문구의 직접 인용과 종료일은 바꾸지 않아야 한다.",
+    "riskTags": ["legal", "direct-quote", "date", "fixed-language"]
+  },
+  {
+    "id": "P04",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "문의는 https://help.example.org/guide 또는 support@example.org로 보내고, 로그는 C:\\Ops\\logs\\app.log에서 확인하세요. `--dry-run`으로 먼저 실행한 뒤 다음 명령을 사용합니다.\n\n```powershell\nDeploy-Release -Environment prod\n```",
+    "userRequest": "운영 안내 문장을 자연스럽게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["https://help.example.org/guide", "support@example.org", "C:\\Ops\\logs\\app.log", "`--dry-run`", "Deploy-Release -Environment prod"],
+    "rationale": "주소·경로·인라인 코드·명령은 그대로 보존하되 주변 절차 서술은 다듬을 여지가 있다.",
+    "riskTags": ["technical", "url", "email", "path", "inline-code", "code-block", "command"]
+  },
+  {
+    "id": "P05",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "검사 수치가 기준을 벗어나면 용량 조절을 고려합니다.",
+    "userRequest": "환자에게 이해하기 쉽게 고쳐 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["용량 조절"],
+    "rationale": "검사 종류·기준·결정 주체가 없어 의료 의미를 안전하게 풀 수 없다.",
+    "riskTags": ["medical", "insufficient-context", "condition", "safety-critical"]
+  },
+  {
+    "id": "P06",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "손실 한도에 닿으면 모든 주문을 정리합니다.",
+    "userRequest": "투자자 안내 문구로 부드럽게 바꿔 줘.",
+    "expectedDecision": "defer",
+    "protectedStrings": ["손실 한도", "모든 주문"],
+    "rationale": "상품·주문 범위·실행 주체가 없어 금융상 중요한 의미를 바꾸기 쉽다.",
+    "riskTags": ["financial", "insufficient-context", "safety-critical"]
+  },
+  {
+    "id": "P07",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "개인정보 처리방침의 변경 내용은 시행일 7일 전에 공지합니다.",
+    "userRequest": "정책 안내문을 간결하게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["개인정보 처리방침", "시행일", "7일"],
+    "rationale": "정책명·기간은 보존하면서 불필요한 격식 표현만 줄일 수 있다.",
+    "riskTags": ["legal", "fixed-language", "number", "safe-edit"]
+  },
+  {
+    "id": "P08",
+    "category": "risky_professional_or_fixed_language",
+    "sourceText": "검사 결과의 확인을 위해 담당 의사와의 상담을 진행해 주시기 바랍니다.",
+    "userRequest": "병원 안내문으로 간결하게 다듬어 줘.",
+    "expectedDecision": "edit",
+    "protectedStrings": ["담당 의사"],
+    "rationale": "의료 판단이나 권고 강도는 유지한 채 과도한 명사화를 줄일 수 있다.",
+    "riskTags": ["medical", "professional-register", "safe-edit"]
+  }
+]
