@@ -1,6 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "candidateCommit": "d8ffc6d730dd89b035ba3290033e6432ac960e19",
+  "candidateCommit": "ab87e153a80f9a9498081c0a3e6ef8b13369be5c",
+  "finalization": {
+    "entrypoint": "skills/korean-prose-editor/scripts/finalizer-core.mjs",
+    "adapter": "scripts/evaluation-finalizer.mjs",
+    "mode": "mcp",
+    "roleOutputsReused": true,
+    "implementation": "ab87e153a80f9a9498081c0a3e6ef8b13369be5c",
+    "receiptField": "final.jsonl:receipt"
+  },
   "releaseDecision": "fail",
   "reasonCodes": [
     "LEGACY_IMPROVEMENT_BELOW_THRESHOLD_ALL_RUNS",
@@ -22,7 +30,8 @@
     "finalRevision": 5,
     "rawProseInReceiptFiles": 0,
     "rawProseInSqliteReceipts": 0,
-    "status": "pass"
+    "status": "historical-pre-reaggregation",
+    "supportsCurrentFinalizerResults": false
   },
   "criteriaChanged": false,
   "casesReplaced": false,

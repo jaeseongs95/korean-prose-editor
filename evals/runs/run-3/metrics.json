@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "run": 3,
-  "candidateCommit": "d8ffc6d730dd89b035ba3290033e6432ac960e19",
+  "candidateCommit": "ab87e153a80f9a9498081c0a3e6ef8b13369be5c",
   "actorIds": [
     "1fd52075-427d-4c1c-9292-6f18b87a0706",
     "65da0000-c437-42ce-b1e8-635d0affa3f9",
@@ -15,8 +15,9 @@
       "retain": 56
     },
     "final": {
+      "defer": 3,
       "edit": 52,
-      "retain": 78
+      "retain": 75
     },
     "restored": 6,
     "uncertain": 2
