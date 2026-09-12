@@ -1,0 +1,793 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "run-korean-prose-evaluation-run-2-1",
+  "revision": 5,
+  "state": "passed",
+  "plan": {
+    "schemaVersion": "1.0.0",
+    "taskId": "korean-prose-evaluation-run-2",
+    "integrityToken": "hqs8XL7M-NGqfEjOtrxUZuwc87C_r7_AIDir-PC8V1E",
+    "executionMode": "orchestrated",
+    "state": "passed",
+    "selectedSkills": [
+      "korean-prose-editor"
+    ],
+    "stages": [
+      {
+        "stageId": "stage-01-korean-prose-selection",
+        "order": 1,
+        "requiredCapability": "korean-prose-selection",
+        "satisfiedCapabilities": [
+          "korean-prose-selection"
+        ],
+        "skillId": "korean-prose-editor",
+        "phase": "korean-prose-selection",
+        "selectionReason": "Selected 'korean-prose-editor' because provider 'korean-prose-editor:korean-prose-selection:1' supplies 'korean-prose-selection' at priority 50.",
+        "state": "passed",
+        "requiredArtifacts": [
+          "edit-decision-set"
+        ],
+        "riskGate": "none",
+        "providerKey": "korean-prose-editor:korean-prose-selection:1",
+        "executionClass": "workflow",
+        "phaseOrder": 50,
+        "requiredInputArtifacts": [
+          "korean-prose-request"
+        ],
+        "inputBindings": [
+          {
+            "targetArtifact": "korean-prose-request",
+            "sources": [
+              "caller.koreanProseRequest"
+            ],
+            "operation": "require-external"
+          }
+        ],
+        "producedArtifacts": [
+          "edit-decision-set"
+        ],
+        "outputSchema": {
+          "path": "skills/korean-prose-editor/contracts/edit-decision-set.v1.schema.json",
+          "digest": "sha256:4f4c621126254306269612ee9eacb4f90a870389fef3ef2f5a833b464fdbe0e9"
+        },
+        "resultSchema": {
+          "path": "skills/korean-prose-editor/integration/provider-result.v1.schema.json",
+          "digest": "sha256:788965c348cda56b92e048b7e4687b212bcea5f8613037f71ad62c726c6e2a08"
+        },
+        "stateMapping": {
+          "selector": "/output/decisions/status",
+          "values": {
+            "ready": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "needs-input": {
+              "state": "needs-input",
+              "errorRequired": false
+            },
+            "blocked": {
+              "state": "blocked",
+              "errorRequired": true,
+              "allowedErrorCodes": [
+                "MISSING_EVIDENCE",
+                "MCP_UNAVAILABLE"
+              ]
+            }
+          },
+          "default": "reject",
+          "adapterErrors": [
+            "INVALID_INPUT",
+            "MISSING_EVIDENCE",
+            "MCP_UNAVAILABLE"
+          ]
+        },
+        "gate": {
+          "kind": "none",
+          "policy": "none",
+          "validator": null,
+          "validatorSchema": null
+        },
+        "receiptPolicy": {
+          "mode": "reference-only",
+          "actorIdPointer": "/output/actorId",
+          "uniqueness": "run"
+        }
+      },
+      {
+        "stageId": "stage-02-korean-prose-editing",
+        "order": 2,
+        "requiredCapability": "korean-prose-editing",
+        "satisfiedCapabilities": [
+          "korean-prose-editing"
+        ],
+        "skillId": "korean-prose-editor",
+        "phase": "korean-prose-editing",
+        "selectionReason": "Selected 'korean-prose-editor' because provider 'korean-prose-editor:korean-prose-editing:2' supplies 'korean-prose-editing' at priority 50.",
+        "state": "passed",
+        "requiredArtifacts": [
+          "edit-candidate"
+        ],
+        "riskGate": "none",
+        "providerKey": "korean-prose-editor:korean-prose-editing:2",
+        "executionClass": "workflow",
+        "phaseOrder": 55,
+        "requiredInputArtifacts": [
+          "korean-prose-request",
+          "edit-decision-set"
+        ],
+        "inputBindings": [
+          {
+            "targetArtifact": "korean-prose-request",
+            "sources": [
+              "caller.koreanProseRequest"
+            ],
+            "operation": "require-external"
+          },
+          {
+            "targetArtifact": "edit-decision-set",
+            "sources": [
+              "provider:korean-prose-selection.edit-decision-set"
+            ],
+            "operation": "select"
+          }
+        ],
+        "producedArtifacts": [
+          "edit-candidate"
+        ],
+        "outputSchema": {
+          "path": "skills/korean-prose-editor/contracts/edit-candidate.v1.schema.json",
+          "digest": "sha256:3638bb8fecfcf5ecdf2a97d6f701d040ea2bc8e20e9b7680660515e5b4dd6da1"
+        },
+        "resultSchema": {
+          "path": "skills/korean-prose-editor/integration/provider-result.v1.schema.json",
+          "digest": "sha256:788965c348cda56b92e048b7e4687b212bcea5f8613037f71ad62c726c6e2a08"
+        },
+        "stateMapping": {
+          "selector": "/output/decisions/status",
+          "values": {
+            "ready": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "needs-input": {
+              "state": "needs-input",
+              "errorRequired": false
+            },
+            "blocked": {
+              "state": "blocked",
+              "errorRequired": true,
+              "allowedErrorCodes": [
+                "MISSING_EVIDENCE",
+                "MCP_UNAVAILABLE"
+              ]
+            }
+          },
+          "default": "reject",
+          "adapterErrors": [
+            "INVALID_INPUT",
+            "MISSING_EVIDENCE",
+            "MCP_UNAVAILABLE"
+          ]
+        },
+        "gate": {
+          "kind": "none",
+          "policy": "none",
+          "validator": null,
+          "validatorSchema": null
+        },
+        "receiptPolicy": {
+          "mode": "reference-only",
+          "actorIdPointer": "/output/actorId",
+          "uniqueness": "run"
+        }
+      },
+      {
+        "stageId": "stage-03-korean-prose-verification",
+        "order": 3,
+        "requiredCapability": "korean-prose-verification",
+        "satisfiedCapabilities": [
+          "korean-prose-verification"
+        ],
+        "skillId": "korean-prose-editor",
+        "phase": "korean-prose-verification",
+        "selectionReason": "Selected 'korean-prose-editor' because provider 'korean-prose-editor:korean-prose-verification:3' supplies 'korean-prose-verification' at priority 50.",
+        "state": "passed",
+        "requiredArtifacts": [
+          "edit-verification-report"
+        ],
+        "riskGate": "none",
+        "providerKey": "korean-prose-editor:korean-prose-verification:3",
+        "executionClass": "workflow",
+        "phaseOrder": 60,
+        "requiredInputArtifacts": [
+          "korean-prose-request",
+          "edit-decision-set",
+          "edit-candidate",
+          "korean-prose-rubric"
+        ],
+        "inputBindings": [
+          {
+            "targetArtifact": "korean-prose-request",
+            "sources": [
+              "caller.koreanProseRequest"
+            ],
+            "operation": "require-external"
+          },
+          {
+            "targetArtifact": "edit-decision-set",
+            "sources": [
+              "provider:korean-prose-selection.edit-decision-set"
+            ],
+            "operation": "select"
+          },
+          {
+            "targetArtifact": "edit-candidate",
+            "sources": [
+              "provider:korean-prose-editing.edit-candidate"
+            ],
+            "operation": "select"
+          },
+          {
+            "targetArtifact": "korean-prose-rubric",
+            "sources": [
+              "caller.koreanProseRubric"
+            ],
+            "operation": "require-external"
+          }
+        ],
+        "producedArtifacts": [
+          "edit-verification-report"
+        ],
+        "outputSchema": {
+          "path": "skills/korean-prose-editor/contracts/edit-verification-report.v1.schema.json",
+          "digest": "sha256:2954be26d5ef606db5dd0cedcdd75d932ba193f0a859fd71c117b813450456cf"
+        },
+        "resultSchema": {
+          "path": "skills/korean-prose-editor/integration/provider-result.v1.schema.json",
+          "digest": "sha256:788965c348cda56b92e048b7e4687b212bcea5f8613037f71ad62c726c6e2a08"
+        },
+        "stateMapping": {
+          "selector": "/output/decisions/status",
+          "values": {
+            "verified": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "partial": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "fallback": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "blocked": {
+              "state": "blocked",
+              "errorRequired": true,
+              "allowedErrorCodes": [
+                "MISSING_EVIDENCE",
+                "MCP_UNAVAILABLE"
+              ]
+            }
+          },
+          "default": "reject",
+          "adapterErrors": [
+            "INVALID_INPUT",
+            "MISSING_EVIDENCE",
+            "MCP_UNAVAILABLE"
+          ]
+        },
+        "gate": {
+          "kind": "none",
+          "policy": "none",
+          "validator": null,
+          "validatorSchema": null
+        },
+        "receiptPolicy": {
+          "mode": "reference-only",
+          "actorIdPointer": "/output/actorId",
+          "uniqueness": "run"
+        }
+      },
+      {
+        "stageId": "stage-04-korean-prose-finalization",
+        "order": 4,
+        "requiredCapability": "korean-prose-finalization",
+        "satisfiedCapabilities": [
+          "korean-prose-finalization"
+        ],
+        "skillId": "korean-prose-editor",
+        "phase": "korean-prose-finalization",
+        "selectionReason": "Selected 'korean-prose-editor' because provider 'korean-prose-editor:korean-prose-finalization:4' supplies 'korean-prose-finalization' at priority 50.",
+        "state": "passed",
+        "requiredArtifacts": [
+          "final-text-receipt"
+        ],
+        "riskGate": "conditional",
+        "providerKey": "korean-prose-editor:korean-prose-finalization:4",
+        "executionClass": "workflow",
+        "phaseOrder": 65,
+        "requiredInputArtifacts": [
+          "korean-prose-request",
+          "edit-candidate",
+          "edit-verification-report"
+        ],
+        "inputBindings": [
+          {
+            "targetArtifact": "korean-prose-request",
+            "sources": [
+              "caller.koreanProseRequest"
+            ],
+            "operation": "require-external"
+          },
+          {
+            "targetArtifact": "edit-candidate",
+            "sources": [
+              "provider:korean-prose-editing.edit-candidate"
+            ],
+            "operation": "select"
+          },
+          {
+            "targetArtifact": "edit-verification-report",
+            "sources": [
+              "provider:korean-prose-verification.edit-verification-report"
+            ],
+            "operation": "select"
+          }
+        ],
+        "producedArtifacts": [
+          "final-text-receipt"
+        ],
+        "outputSchema": {
+          "path": "skills/korean-prose-editor/contracts/final-text-receipt.v1.schema.json",
+          "digest": "sha256:102a3e53fe2da3e44134e893c8749e3a835d8cacda43e6e2fa08d4d74311d9b0"
+        },
+        "resultSchema": {
+          "path": "skills/korean-prose-editor/integration/provider-result.v1.schema.json",
+          "digest": "sha256:788965c348cda56b92e048b7e4687b212bcea5f8613037f71ad62c726c6e2a08"
+        },
+        "stateMapping": {
+          "selector": "/output/decisions/status",
+          "values": {
+            "finalized": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "fallback": {
+              "state": "passed",
+              "errorRequired": false
+            },
+            "blocked": {
+              "state": "blocked",
+              "errorRequired": true,
+              "allowedErrorCodes": [
+                "MISSING_EVIDENCE",
+                "GATE_FAILED",
+                "MCP_UNAVAILABLE"
+              ]
+            }
+          },
+          "default": "reject",
+          "adapterErrors": [
+            "INVALID_INPUT",
+            "MISSING_EVIDENCE",
+            "GATE_FAILED",
+            "MCP_UNAVAILABLE"
+          ]
+        },
+        "gate": {
+          "kind": "completion",
+          "policy": "conditional",
+          "validator": "skills/korean-prose-editor/contracts/final-text-receipt.v1.schema.json",
+          "validatorSchema": {
+            "path": "skills/korean-prose-editor/contracts/final-text-receipt.v1.schema.json",
+            "digest": "sha256:102a3e53fe2da3e44134e893c8749e3a835d8cacda43e6e2fa08d4d74311d9b0"
+          }
+        },
+        "receiptPolicy": {
+          "mode": "reference-only"
+        }
+      }
+    ],
+    "currentStageId": null,
+    "nextStageId": null,
+    "errors": []
+  },
+  "stageResults": [
+    {
+      "schemaVersion": "1.0.0",
+      "runId": "run-korean-prose-evaluation-run-2-1",
+      "stageId": "stage-01-korean-prose-selection",
+      "expectedRevision": 0,
+      "state": "passed",
+      "output": {
+        "schemaVersion": "1.0.0",
+        "kind": "output",
+        "output": {
+          "schemaVersion": "1.0.0",
+          "digest": {
+            "source": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "artifact": "ad65334235bc33662cba8dfafaf4aed5c26208d3bca2a0129cc4a5e7027a7589"
+          },
+          "length": {
+            "source": 36874
+          },
+          "decisions": {
+            "status": "ready",
+            "selectedCount": 62,
+            "retainedCount": 68
+          },
+          "warnings": [],
+          "actorId": "41df7e58-e77f-4452-84f6-f94f4aa056ae"
+        },
+        "artifacts": [
+          {
+            "artifactId": "edit-decision-set",
+            "schemaId": "schema://korean-prose/edit-decision-set",
+            "locator": "artifact://evaluation/run-2/edit-decision-set",
+            "digest": "ad65334235bc33662cba8dfafaf4aed5c26208d3bca2a0129cc4a5e7027a7589",
+            "targetDigest": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "verified": true
+          }
+        ],
+        "error": null
+      },
+      "evidence": [
+        {
+          "artifactId": "korean-prose-request",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/korean-prose-request",
+          "verified": true,
+          "note": ""
+        }
+      ],
+      "findings": [],
+      "blockers": [],
+      "error": null
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "runId": "run-korean-prose-evaluation-run-2-1",
+      "stageId": "stage-02-korean-prose-editing",
+      "expectedRevision": 1,
+      "state": "passed",
+      "output": {
+        "schemaVersion": "1.0.0",
+        "kind": "output",
+        "output": {
+          "schemaVersion": "1.0.0",
+          "actorId": "d5c3f4a1-7b29-4e86-91cd-2f0a6b8e5d73",
+          "digest": {
+            "source": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "candidate": "db2c5a6329ba377bc52c0dc8c02195cbd84c757cd336dee4a91b13d0098d6e75",
+            "artifact": "db2c5a6329ba377bc52c0dc8c02195cbd84c757cd336dee4a91b13d0098d6e75"
+          },
+          "length": {
+            "source": 36874,
+            "candidate": 26550
+          },
+          "decisions": {
+            "status": "ready",
+            "editCount": 62
+          },
+          "warnings": []
+        },
+        "artifacts": [
+          {
+            "artifactId": "edit-candidate",
+            "schemaId": "schema://korean-prose/edit-candidate",
+            "locator": "artifact://evaluation/run-2/edit-candidate",
+            "digest": "db2c5a6329ba377bc52c0dc8c02195cbd84c757cd336dee4a91b13d0098d6e75",
+            "targetDigest": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "verified": true
+          }
+        ],
+        "error": null
+      },
+      "evidence": [
+        {
+          "artifactId": "korean-prose-request",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/korean-prose-request",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "edit-decision-set",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/edit-decision-set",
+          "verified": true,
+          "note": ""
+        }
+      ],
+      "findings": [],
+      "blockers": [],
+      "error": null
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "runId": "run-korean-prose-evaluation-run-2-1",
+      "stageId": "stage-03-korean-prose-verification",
+      "expectedRevision": 2,
+      "state": "passed",
+      "output": {
+        "schemaVersion": "1.0.0",
+        "kind": "output",
+        "output": {
+          "schemaVersion": "1.0.0",
+          "actorId": "cd0c3af7-a79a-4a34-9def-436724cfe2c3",
+          "digest": {
+            "source": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "candidate": "db2c5a6329ba377bc52c0dc8c02195cbd84c757cd336dee4a91b13d0098d6e75",
+            "rubric": "8ee8f7aaa82f129f411713d8ccef3c1ad377ba4185ea4153760457be796f339d",
+            "artifact": "1e72208a3ca4b28cfcc166590b9cacbb65dcfba5d47628a95491f13f9adecbe8"
+          },
+          "length": {
+            "source": 36874,
+            "candidate": 26550
+          },
+          "decisions": {
+            "status": "partial",
+            "acceptedCount": 56,
+            "retainedCount": 74,
+            "fallback": false
+          },
+          "warnings": []
+        },
+        "artifacts": [
+          {
+            "artifactId": "edit-verification-report",
+            "schemaId": "schema://korean-prose/edit-verification-report",
+            "locator": "artifact://evaluation/run-2/edit-verification-report",
+            "digest": "1e72208a3ca4b28cfcc166590b9cacbb65dcfba5d47628a95491f13f9adecbe8",
+            "targetDigest": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "verified": true
+          }
+        ],
+        "error": null
+      },
+      "evidence": [
+        {
+          "artifactId": "korean-prose-request",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/korean-prose-request",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "edit-decision-set",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/edit-decision-set",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "edit-candidate",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/edit-candidate",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "korean-prose-rubric",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/korean-prose-rubric",
+          "verified": true,
+          "note": ""
+        }
+      ],
+      "findings": [],
+      "blockers": [],
+      "error": null
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "runId": "run-korean-prose-evaluation-run-2-1",
+      "stageId": "stage-04-korean-prose-finalization",
+      "expectedRevision": 3,
+      "state": "passed",
+      "output": {
+        "schemaVersion": "1.0.0",
+        "kind": "output",
+        "output": {
+          "schemaVersion": "1.0.0",
+          "actorIds": [
+            "41df7e58-e77f-4452-84f6-f94f4aa056ae",
+            "d5c3f4a1-7b29-4e86-91cd-2f0a6b8e5d73",
+            "cd0c3af7-a79a-4a34-9def-436724cfe2c3"
+          ],
+          "digest": {
+            "source": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "result": "fee5214577bb866ec37aa1f8cd8449984a2353c0eb9c7ccc0ebe35ee0b585f83",
+            "manifest": "137ea717bd7ac8f7406aedf40de4ff407f0a7cb4db8c32f34b32aca8e51eafa4"
+          },
+          "length": {
+            "source": 36874,
+            "result": 84121
+          },
+          "decisions": {
+            "mode": "mcp",
+            "assurance": "verified",
+            "status": "finalized",
+            "appliedEditDigests": [
+              "e1222cd69875cef6e7a308a8f250022863752edcf93226a6ef2aa2cc6e2b3172",
+              "8669e60dba3fc804cf84577140eb7d27f69132b40d4ee8aab8202aea706dab71",
+              "23ffc39e728080e154957988c78be2677480a427dc4a6792be484db1628b0936",
+              "8e846a0a3d6637b42d9de7abdffb41b5d2a4e8ee733105d9b3d26d1dbd9dd787",
+              "a717c446d66333ac645e1c5362c8c57701240fa181ce953aea291495ed0c5bf3",
+              "cba439d3610fe6ed6f41edaa8340923f6bb5012e9827e708c65b4988e6a2d254",
+              "3d85547ea455449ef710a943625a785e3f492a3b1303735645c41f2621097c3a",
+              "c9c2361ac997d34e6a3aca190302652ebc1e214117ad0518919d824495017918",
+              "cd5412da0d5d008a680650476596be968f96698c938d2f86a91397424eabc3ad",
+              "43e56b4cf0b72fe9ca120d6ddcfb4f1d621c1dff7f8e16a69747bde9fe7e81e9",
+              "0e7ca4ee661614d1a3418f9d00109e0e5d9f21d9795edb62b5588367faf35127",
+              "541c286df95028179a9ff8b437822b84e5216d2993874411f2d0a51d662c7073",
+              "0192c3f91f562bf9c556cc9e935a13bb4e48225ec24303e9dd2cba6146aab9d8",
+              "a2b5977eb910d29bf033bea0da89150af3a4d08b7615b31ad1711859a50c81e7",
+              "34ee55b4b4312157baae4e21f893abab1fae1c20559aa2b6657d6e5f3318bda6",
+              "db8040570e14d731dfde75f88f4647603054c7de35d0b89107acbab3e3681a18",
+              "6912e0cc1dcde10fc1f599823ee53b3f40fa21e330c33716d15d505383d3d009",
+              "4092f9c14a23395a1a791b5ba732ec000dfb5bc127162405a55d1d79ae1cb8f2",
+              "965fcb786ed38cb89385e48b6f66285b079c4c1ed4ed86c6aba4c51ac77856f4",
+              "224e237b1e5098f6d5455033a905647958d8a5b3cba8ab84969ca320cc9458f4",
+              "8244efeba41bc000f714b10b4f7d350369b5c6fb9ff891a11e73530fd79200fc",
+              "693d6e7a28622541c9501451d40ab696e85e62b700054866082113caa3500968",
+              "fe94f5b48bd9fdf70293d24dc7dae3d6479975cd9ef71deb6c8d8f14d4b8fcfe",
+              "3dc8f3590ed88ed026d0822ae10ad20118026d83a2531819d19728e58af2ec06",
+              "0e950bd22d597af9d2f0ce1f4e3429f1f33691f7e952823de61333f07354669e",
+              "11eaf2c5175bf47e9d786b80faa9af853a03d0d81b501e3bad78cffe0600add1",
+              "54dea23772007a200bcb2633d6291aaf3e5fa262449fe49ac43ae6689d1e7245",
+              "e4065ae598406730a875cdc6e385295f7a78e76ef7348a5ab4255136cf4e277f",
+              "e07bb9fa35cfe6532390662a1f0fe512f6c772cc9f8e7ca4f130eb779c8a9f39",
+              "44cabdf25bcf1f69785688c76227d7d09adb05fb02ce8fd62d566e81033e7eb7",
+              "fa010b333b0f983a8d4318775d40afe768e55ce3f409ba98dd538179e76a88d8",
+              "541fffc5ff7764a411e4e4aeb83c36ad853e76c9bb3a2cd6220dd33414a4205d",
+              "36e5e5a9753ae185881f0a63600b3af70104487b5000e513769a88235485d54d",
+              "d4ec2149e88d826dccc9cf6846c22b78cdc0323c0e846ee4a41b558fe480037e",
+              "da906028095adbb67f6e1026c3caa6e5d34f8d463cc1c94ea50add852fba9f54",
+              "7461f9f8622b0c35f34aa44e99c55d2d09a3e956b981d44570771741afe8c31a",
+              "e866d3aa151ddb15f4ada75691294dfc916bb7d0825b9c6598e6aefd53a24619",
+              "7129e52863d4364666b05cf8a6ea294156253c2fe859b4255955ebd9656c0977",
+              "b2728ab445672396cd872316169a338cdbebfb9a280210340deea37e5bfd1f3b",
+              "80f9d95d491a01320dd1fbce261f72b747d522d52a0575875569cfdfa48775c3",
+              "f76812fe6a32e38294e1f1ea4bcc7a5fd921f1b479977641e6b770a812e9da6e",
+              "775a9d3a1428e10c73596ca044faddc9e8dfddb33e2765777f851359a39fd003",
+              "b0131a6779c365d89a171502b8d469ffd922fe7b5a238a86415f21e736e27bfe",
+              "30f7cc96cd18295afb0a940167030f0f2920e925f3e8066e42f4ed55018af1a2",
+              "bdd7e168858cd4bd849da7e9a1badaecdf9840bd5c5aaf191cc7e2a345f54128",
+              "3d6cf7a262ded5055db203b485df8d2f32700028d9a2268240f3ae6e33394b2a",
+              "cfae32f2e5b908e79c855566b2d62c5bb4c87ed2c874fd8985e61b4a8b313e70",
+              "f3efd2da74431d36806369964a102fc542f4b7a2d2ab4b58291124c816d2886b",
+              "2903a9b770d75ffac0343434df03d50ba3781496508cb7db07b571c83f45d912",
+              "1f058802a97650ff2f7f2302769e3544f492a410265b5a32b043f1b6e8ee8ea4",
+              "ce68c56b5db583a76234ef9a36fbcb320d7b0ef4ee8ae259ac18c9aaee52d3cf",
+              "da8f8a7d2f81ab9375008421b0f83e16316b5ae82682d6a38f35524265821c6d",
+              "5969a464d6dab383e2423c41cfb04bc7e9ec48f6668214588824317764c47db6",
+              "686efd7fa98ac0c0f83b134f51bf9c28aa93100e6fa7ad85f785fc87806abce2",
+              "d73d54195454985b65f8a49caccda3b4318badd9f175c1102489dfa244bb6635",
+              "57463bc9ff3b44f4a295dec7c087f56942d3435fe6360d6be93b2b94cb11b735"
+            ],
+            "retainedEditDigests": [
+              "4d9bbfe439d268d9d19a29574264edd41fb1516d068659cba594e5eb185dd4ae",
+              "7e3a4c7060f402f774fbef84e8e390ce7ac827899cb016b12860487f426b9252",
+              "156629fdc395d66f4fecd812ef897689806ce4f16aa370746be8068bfa8696da",
+              "bbf33b62e07fcf72680831465d6efdd77625e687f282c7ffea78a7fb9ee68c7f",
+              "40f6e0b99f52fc6f6f026d8aad08b7a0bfb09216659fd478b199cc0512b502e3",
+              "3ff97e5dc5e45b594561bd209d671ac50db5645146e82acf2fe0a87e21a0bc15",
+              "abed819e9f92ba59defd5e706034873d0c82420db73c5d3befd87f8ee10a72c3",
+              "af248f3588c71d97b913955f5eb4f0f3843ad73428669fe598e19c6a17977106",
+              "285b018e68327775dd4b97b59a489b8936610e435b03b2798728c3c4ecef245d",
+              "8083da91a419c0607942f8475f012bb391d01678315bb8ec5516498d79e0618c",
+              "ccd2cd1b9f841f8f8231c86dcaac30ef05a0576ea681183f0dd2eeb821d8594e",
+              "ddda59b7af8e3e500bd2e4585aebea8eda79cabdb7ca4c673358a301853c8a3b",
+              "d96b558739629a245e412a3c6873cf7a3251982639547f3ec55f8515b7d75051",
+              "a48b22dea98493096807e2e19199f1cd9401c9ba5e95504feeb31801489527a8",
+              "edc97a09ee5ff8401b062702ca8367006d0329af9e8196248d7a60099e36793b",
+              "fcf34879fade82fee4922c945dc402d05895d4f377e42c3455e2a8ac1a3c175c",
+              "73fa0aba47060c6babf6aea3ff0d0888c5e2d79086c0342fd1980f88917e8a39",
+              "5578715efb8ffac0aae8f7814b3722e255494e28c6a69296929dac8914603ce6",
+              "8dcebc2b928ee7d5f67bb85e566e079eb1caabc78da2c1f4539124bc73c166b2",
+              "1619301af34c141fa3bc51848d096a9c3e1c6f1afdd6a2386c4571c2b862ecbe",
+              "274218f86dfa807d22246067c5afd52a55ba5d5b8e8e649f8f05ba20e73e61e2",
+              "0a8b073506e6b93e1f6f428da187da6c5a396270231e4cbbd5ad0914461059aa",
+              "2a104e27b3457a8bc88fd81747dc5f2cc59d471c7191195459e32d33098ad848",
+              "034eb0e9bcd0f1056552c72eead7cae79d21b6a9e157d4dbe4d943e9687a3090",
+              "9cdb4dafed4281f492185045262560a57a5c9fb0569a8b86708f6735020e32b1",
+              "d873b58454273bbf11a842187b42c5277937aecfede44410c48ef31562ec9df2",
+              "666389bf86a85ca0da2d4ffe5877941d7f29090df51de6d5be65e124470489ca",
+              "8529ba02c9ded476770dead1f534ae4b58f8c2bfcee35461ef88951a33050736",
+              "6f8dd643ced4e8bac5d07cfece50f78a469a00cc6951f4dadd0001b7550b4e84",
+              "e4cfe79a834c13010a07c60f289b6b94d1caadc2976779076501d4a593010bee",
+              "dd31c3b8fe43283776d1177ddb3b6f983903a9ac84d70e4c25f688b55aef397c",
+              "53fcc47a70980ee8a53df7895ce925131941e6d4a11d519493271816f72a9ec8",
+              "a78cd2f05e8553f2f6f800f7e0fd758399be64fd1e35702ce36f52b7983f0f97",
+              "4fa6c0c0183433f564aa4e1c5ca00f52d8d5d63eb6b1363fa3e857422b6f1fe1",
+              "32202cf1d3f92cf5f55dc0d991f07b0556766d736a3b59fb81f320223e415ca0",
+              "f0a8b9336dc9f5b3ff7b2d2a6fa595e45a3d16b753f79fb8e68e7502db2a106f",
+              "3c33fb587172bd24f850885b871547f638c3cd275d484264c9cb266e22b74a6d",
+              "612e01de21a1a749909b02d2dc6bafbe8c96cdf5ca71aa69e501897f9cedad3e",
+              "4cfc76db7b1361a1c2846fe5fbb222c7e386f438d826e7db7f414edd2d5f1778",
+              "d2b88711c794ffa780b48a3cba440ad64e093bfea5ee15b311318ec8e5eeb5b2",
+              "7c6a836b15637a24211a9b008cc1985e6e137b193134b001dc7e15fc7a4de602",
+              "eca55d6e61b99aea4a0f6bb12e08d0c4866a8c778eddb5a8e51d9ff6e9298701",
+              "33bb06151b5daaa6d00bdc2e3662933768a898f1168ab0e5adad926520fe3bfa",
+              "9f76cb9a03d75274ae11d378a63e8761dcff165d2a5964e614c6baaf26f8115a",
+              "922ea8d1ae773864a0ede002b06a6d501616ecc67e4f8793009c101fcdc4f4b3",
+              "224a9b4edad03a06ef4cd042475c744462cdcabd18086fec0a69dd0587d1ba10",
+              "21782d70c7e9609728478c5da513b164f472bd0b746b14b956f9b7d0fead4f86",
+              "4a8351c5d7e1f185495478052d79dc2954da73edea74ce75a191a61193eb2a06",
+              "6e8a06adaac836a7b9b076a9d59c5f00d052be7d1847449d7602e70a45b12a29",
+              "43aa5936868408c916e4b805c8d7c9ae3c7f01f417cdd4eabac31cd3c56628ef",
+              "a41f3a4691442c5f22dcb1ec956f5cd6d48d6ef7171f4c4c04a04a698066439d",
+              "6f43f148da8ee0c7aea4ab57cf2e76f2dac237fc5643caf027dfe4315b168c2f",
+              "f7b7c3a37e2b7442505245977093d3185d6d3c291656e621ae9c02dda7404024",
+              "f5915729175a4535aa0af3f9e3525b8985ea69f65a9dc26925e9c74495a33c1a",
+              "d0de2039be0dc06be89e893eeb409a6a75c8f8d1d9481e100454888ada2de842",
+              "6d159850bec25cf0413a9e737b306c5fb80b89f0d693e30618915d5c26bc636a",
+              "33038dd90b15ec3f1d4397895706800382a25db7c76772c115ac604b8ac1fd60",
+              "64c3525be31686285d9561f6c4e0e9bdfde89be430493a9e40425f75db6a3e01",
+              "49d80088d7d0a4bd9abf26cc70d5d4e724dd70d157d6d27f6b1981596bd8a046",
+              "db64c15a0bfe311c1d88a084b4f210a4c1e4185fedb80cc843067df29833300c",
+              "dbe7c5a847f579e18831793fff1c79e5e256ddc6f9d6bc161dcbf92545db187d",
+              "3101e933219c1ed860246218f1d1953bf6dfe1c1946247d8c4a00a20135522bd",
+              "296cb46e3f1aa7a1921bc8d2b8d32007cb2422ce5d7b10284e90eb48ac32008f",
+              "fb23462a90eede5948a46f1f4a2f2ed575d9beb0a0c9519433deee4b2842b686",
+              "5ee62dbc6e379a76591ee7bb4c58f9053c8e13302f3863be368f0df9e972bcb8",
+              "04f201b6c8ba73661185faab1baf04e67718585f4f04d6ee3b64fd950830a13f",
+              "5428a7e11afdf75c4111815227bf91dd2c8a4ea380a4a27d583ad279e75899ca",
+              "1561468d76a28909b7e368e13a940946e56a3ed96432f2199dd1e232eafe87c3",
+              "1acc99457e62999016b16d02b40533e588c090a6e4dca0759f061f10755e68da",
+              "ffd1d67bea632d832db30c96beb086a5e0c5b0a316818b3b92793f8e47c16b60",
+              "4104981b9c4524384e90420d500a4b1ada24198490188de36a5dcce2f94e80a2",
+              "e4c8274aeb25be46e67118570c5b5c72bfc89bff29a58e19da5db06fbd22a977",
+              "741f75c2060aadb4ba1ea160d974d5af7422739cf886a25182fe2f223ca5ede7",
+              "dab91e72d1b14e6b1458f4d9b54e730a23182d5a7ef0f976f9bd56cb71d6d377"
+            ],
+            "fallback": false
+          },
+          "warnings": []
+        },
+        "artifacts": [
+          {
+            "artifactId": "final-text-receipt",
+            "schemaId": "schema://korean-prose/final-text-receipt",
+            "locator": "artifact://evaluation/run-2/final-text-receipt",
+            "digest": "fee5214577bb866ec37aa1f8cd8449984a2353c0eb9c7ccc0ebe35ee0b585f83",
+            "targetDigest": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+            "verified": true
+          }
+        ],
+        "error": null
+      },
+      "evidence": [
+        {
+          "artifactId": "korean-prose-request",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/korean-prose-request",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "edit-candidate",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/edit-candidate",
+          "verified": true,
+          "note": ""
+        },
+        {
+          "artifactId": "edit-verification-report",
+          "kind": "document",
+          "locator": "artifact://evaluation/run-2/edit-verification-report",
+          "verified": true,
+          "note": ""
+        }
+      ],
+      "findings": [],
+      "blockers": [],
+      "error": null
+    }
+  ],
+  "blockers": [],
+  "unresolved": [],
+  "error": null
+}

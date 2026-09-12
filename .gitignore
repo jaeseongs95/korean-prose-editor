@@ -2,4 +2,6 @@ node_modules/
 coverage/
 dist/
 *.log
+*.sqlite3-shm
+*.sqlite3-wal
 .DS_Store

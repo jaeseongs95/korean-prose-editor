@@ -49,6 +49,12 @@
 
 원문, 기대 판정과 합격선은 그대로 유지했다. 절차상 무효인 실행은 위 표의 지표에 포함하지 않았다.
 
+## MCP 영수증 확인
+
+통합 플러그인의 `plan_workflow`, `start_workflow`, `record_stage_result`, `finalize_workflow` 경로로 세 실행을 각각 기록했다. 모든 실행은 `selection → editing → verification → finalization`의 네 단계를 revision 5에서 마쳤고, 선정자·편집자·검증자의 actor ID 세 개가 최종 receipt에 같은 순서로 연결됐다.
+
+각 실행의 `workflow-receipt.json`과 `workflow.sqlite3`를 실제 원문·후보·최종문 전체와 대조했다. receipt 파일과 SQLite의 `receipt_json`에는 해당 본문이 없었으며, 저장된 내용은 digest, 길이, 판정 수, artifact locator와 경고로 제한됐다. 이 확인은 MCP의 실행·저장 계약을 검증한 것이며, 위의 언어 품질 실패를 합격으로 바꾸지는 않는다.
+
 ## 판정 범위
 
 이 결과는 보수적 finalization이 위험한 수정을 되돌린다는 점은 뒷받침한다. 그러나 필요한 문장을 충분히 개선한다는 릴리스 기준은 뒷받침하지 못한다. 다음 후보를 만들려면 selection과 editing 정책을 수정한 뒤 새 후보 commit으로 같은 동결 세트를 세 번 다시 평가해야 한다. 현재 결과에 맞춰 합격선을 낮추거나 사례를 교체해서는 안 된다.

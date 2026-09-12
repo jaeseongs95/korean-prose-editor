@@ -16,6 +16,14 @@
     "report": "audit/DISAGREEMENT_AUDIT.md",
     "result": "supporting-evidence-only"
   },
+  "mcpReceiptEvidence": {
+    "runs": [1, 2, 3],
+    "stageCountPerRun": 4,
+    "finalRevision": 5,
+    "rawProseInReceiptFiles": 0,
+    "rawProseInSqliteReceipts": 0,
+    "status": "pass"
+  },
   "criteriaChanged": false,
   "casesReplaced": false,
   "releaseApproved": false,
