@@ -86,6 +86,7 @@ for (const [index, provider] of (descriptor.providers ?? []).entries()) {
     expect(provider.receiptPolicy?.actorIdPointer === "/output/actorId" && provider.receiptPolicy?.uniqueness === "run", `provider ${index} actor receipt policy mismatch`);
   } else {
     expect(!Object.hasOwn(provider.receiptPolicy ?? {}, "actorIdPointer") && !Object.hasOwn(provider.receiptPolicy ?? {}, "uniqueness"), "finalizer must not claim a language actor");
+    expect(provider.receiptPolicy?.actorIdsPointer === "/output/actorIds" && provider.receiptPolicy?.actorIdsMatch === "prior-policy-actors", "finalizer must bind prior policy actors in order");
   }
 }
 
@@ -112,6 +113,8 @@ for (const [index, schemaName] of ["edit-decision-set.v1", "edit-candidate.v1", 
     ? ["schemaVersion", "actorId", "digest", "length", "decisions", "warnings"]
     : ["schemaVersion", "actorIds", "digest", "length", "decisions", "warnings"];
   expect(JSON.stringify(outputSchema.required) === JSON.stringify(expected), `${schemaName} receipt fields mismatch`);
+  const warningItems = outputSchema.properties?.warnings?.items ?? outputSchema.$defs?.warnings?.items;
+  expect(Array.isArray(warningItems?.enum) && warningItems.enum.length > 0 && !Object.hasOwn(warningItems, "pattern"), `${schemaName} warnings must use a finite enum`);
 }
 
 const scriptFiles = await listFiles(path.join(skillRoot, "scripts"), ".mjs");

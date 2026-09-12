@@ -4,6 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { finalizeEvaluationCase } from "./evaluation-finalizer.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const run = Number(process.argv.slice(2).find((argument) => argument !== "--"));
@@ -44,9 +45,15 @@ const finals = input.map((item, index) => {
   if (selected?.actorId !== actorIds[0] || edited?.actorId !== actorIds[1] || verified?.actorId !== actorIds[2]) errors.push(`ACTOR_BINDING_MISMATCH:${item.id}`);
   if (edited?.selectionAction !== selected?.action) errors.push(`SELECTION_BINDING_MISMATCH:${item.id}`);
   if ((selected?.action === "retain" || selected?.action === "defer") && edited?.candidateText !== item.sourceText) errors.push(`NON_EDIT_CHANGED:${item.id}`);
-  const deterministicProtectedPass = protectedEqual(item.sourceText, edited?.candidateText ?? "", item.protectedStrings ?? []);
-  const safe = verified?.finalDecision === "accept" && verified.meaningPreservation === "pass" && verified.majorMeaningChange === false && verified.registerCompliance === "pass" && verified.protectedStrings === "pass" && verified.terminologyJudgment !== "fail" && deterministicProtectedPass;
-  const finalText = safe ? edited.candidateText : item.sourceText;
+  const finalization = finalizeEvaluationCase({
+    sourceText: item.sourceText,
+    candidateText: edited?.candidateText ?? item.sourceText,
+    protectedStrings: item.protectedStrings ?? [],
+    actorIds,
+    verification: verified ?? {},
+    selectionAction: selected?.action,
+    editingActorId: edited?.actorId,
+  });
   return {
     id: item.id,
     suite: item.suite,
@@ -54,9 +61,7 @@ const finals = input.map((item, index) => {
     selectionAction: selected?.action,
     sourceText: item.sourceText,
     candidateText: edited?.candidateText,
-    finalText,
-    finalAction: safe && finalText !== item.sourceText ? "edit" : verified?.finalDecision === "uncertain" ? "defer" : "retain",
-    restored: !safe && edited?.candidateText !== item.sourceText,
+    ...finalization,
     verification: verified,
   };
 });

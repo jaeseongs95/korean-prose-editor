@@ -227,11 +227,26 @@
           "type": "string",
           "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$"
         },
+        "actorIdsPointer": {
+          "type": "string",
+          "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$"
+        },
+        "actorIdsMatch": {
+          "const": "prior-policy-actors"
+        },
         "uniqueness": {
           "const": "run"
         }
       },
       "allOf": [
+        {
+          "if": { "required": ["actorIdsPointer"] },
+          "then": { "required": ["actorIdsMatch"] }
+        },
+        {
+          "if": { "required": ["actorIdsMatch"] },
+          "then": { "required": ["actorIdsPointer"] }
+        },
         {
           "if": {
             "required": [

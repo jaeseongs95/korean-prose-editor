@@ -16,6 +16,6 @@
   "$defs": {
     "actorId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
     "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
-    "warnings": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" }, "uniqueItems": true }
+    "warnings": { "type": "array", "items": { "enum": ["MEANING_UNCERTAIN", "MEANING_CHANGED", "REGISTER_CHANGED", "TERMINOLOGY_UNCERTAIN", "TERMINOLOGY_CHANGED", "PROTECTED_STRINGS_CHANGED", "VERIFICATION_BLOCKED"] }, "uniqueItems": true }
   }
 }

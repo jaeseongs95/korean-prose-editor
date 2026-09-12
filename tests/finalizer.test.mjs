@@ -71,6 +71,19 @@ test("an edit touching protected text is retained", () => {
   assert.ok(result.receipt.warnings.includes("PROTECTED_EDIT_RETAINED"));
 });
 
+test("a changed Korean counter is retained while a separate prose edit is applied", () => {
+  const source = "오류는 12건입니다. 검토가 진행되었습니다.";
+  const number = source.indexOf("12");
+  const prose = source.indexOf("검토");
+  const edits = [
+    { id: "number", start: number, end: number + 2, replacement: "13" },
+    { id: "prose", start: prose, end: source.length, replacement: "검토했습니다." },
+  ];
+  const result = finalizeRequest(request(source, edits, edits.map((edit) => ({ editId: edit.id, decision: "accept", reasonCode: "MEANING_PRESERVED" }))));
+  assert.equal(result.output, "오류는 12건입니다. 검토했습니다.");
+  assert.deepEqual(result.receipt.warnings, ["PROTECTED_EDIT_RETAINED"]);
+});
+
 test("global fallback restores the complete source", () => {
   const source = "첫 문장입니다. 둘째 문장입니다.";
   const edit = { id: "edit-1", start: 0, end: 7, replacement: "첫 문장이다." };

@@ -123,7 +123,7 @@
       "preconditions": ["The candidate and verification report target the same source digest.", "The deterministic finalizer is available."],
       "failureHandling": { "rejectedEdit": "retain", "contractFailure": "fallback", "protectedSpanFailure": "fallback" },
       "gate": { "kind": "completion", "policy": "conditional", "validator": "contracts/final-text-receipt.v1.schema.json" },
-      "receiptPolicy": { "mode": "reference-only" }
+      "receiptPolicy": { "mode": "reference-only", "actorIdsPointer": "/output/actorIds", "actorIdsMatch": "prior-policy-actors" }
     }
   ]
 }
