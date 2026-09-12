@@ -61,9 +61,9 @@
 
 통합 플러그인의 `plan_workflow`, `start_workflow`, `record_stage_result`, `finalize_workflow` 경로로 세 실행을 각각 기록했다. 모든 실행은 `selection → editing → verification → finalization`의 네 단계를 revision 5에서 마쳤고, 선정자·편집자·검증자의 actor ID 세 개가 최종 receipt에 같은 순서로 연결됐다.
 
-이 MCP 기록은 실제 finalizer 재집계 이전의 자료다. 이번 작업에서 다시 기록하지 않았으므로 현재 `final.jsonl`과 `metrics.json`을 증명하는 영수증으로 사용하지 않는다. 원래 파일은 과거 실행 증거로 보존했다.
+실제 finalizer 재집계와 계약 보강을 반영한 source commit `28e9e17e7cb522264e444fbcc21afab5b6fb6552`를 통합 플러그인에 가져온 뒤 세 실행을 새 SQLite 파일에 다시 기록했다. 수정 전 기록은 `evals/invalidated/pre-finalizer-e2e/`에 따로 보존했다.
 
-각 실행의 `workflow-receipt.json`과 `workflow.sqlite3`를 실제 원문·후보·최종문 전체와 대조했다. receipt 파일과 SQLite의 `receipt_json`에는 해당 본문이 없었으며, 저장된 내용은 digest, 길이, 판정 수, artifact locator와 경고로 제한됐다. 이 확인은 MCP의 실행·저장 계약을 검증한 것이며, 위의 언어 품질 실패를 합격으로 바꾸지는 않는다.
+각 실행의 `workflow-receipt.json`과 `workflow.sqlite3`를 현재 원문·후보·최종문 전체와 대조했다. receipt 파일과 SQLite의 `receipt_json`에는 해당 본문이 없었으며, 저장된 내용은 digest, 길이, 판정 수, artifact locator와 경고로 제한됐다. final receipt의 actor ID 세 개도 앞선 역할 receipt와 값·개수·순서가 모두 같아야 통과하도록 MCP가 검사했다. 이 확인은 MCP의 실행·저장 계약을 검증한 것이며, 위의 언어 품질 실패를 합격으로 바꾸지는 않는다.
 
 ## 판정 범위
 

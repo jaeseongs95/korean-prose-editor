@@ -30,8 +30,9 @@
     "finalRevision": 5,
     "rawProseInReceiptFiles": 0,
     "rawProseInSqliteReceipts": 0,
-    "status": "historical-pre-reaggregation",
-    "supportsCurrentFinalizerResults": false
+    "status": "pass",
+    "supportsCurrentFinalizerResults": true,
+    "sourceCommitImportedByRecorder": "28e9e17e7cb522264e444fbcc21afab5b6fb6552"
   },
   "criteriaChanged": false,
   "casesReplaced": false,
