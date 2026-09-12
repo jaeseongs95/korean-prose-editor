@@ -24,6 +24,11 @@
       "sha256": "bfea69599598eb23ad4767939fe427203430fed2ea43c98014d184bce14ce534"
     },
     {
+      "copyPath": "evals/legacy/translationese-100/validation-baseline.jsonl",
+      "sourcePath": "D:/codex/내 말투 학습/tests/evidence/translationese-100/validation-baseline.jsonl",
+      "sha256": "4d05bcc4335726b7cf7d05c8ef20052dd21630873bb9e27a76a1cff5f66e810c"
+    },
+    {
       "copyPath": "evals/legacy/failures/ROOT_CAUSE_1.0.2.md",
       "sourcePath": "D:/codex/내 말투 학습/tests/ROOT_CAUSE_1.0.2.md",
       "sha256": "5acd7e9643e87fc903597c28bce1880979284a2204fe069bbde217ea3860eddb"

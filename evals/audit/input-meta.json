@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseCount": 18,
+  "sha256": "dbbdcd997ed1649896b79fbb87cdca145827670ff4e225aafc47f079184e85e0",
+  "containsExpectedDecision": false,
+  "containsEditorRationale": false,
+  "containsPriorVerdicts": false
+}

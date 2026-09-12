@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "run": 1,
+  "candidateCommit": "d8ffc6d730dd89b035ba3290033e6432ac960e19",
+  "actorIds": [
+    "d5c0b7b1-d43c-43aa-b49b-524b20183a7f",
+    "7a498f57-1ac5-4b5f-94ed-84c45b937d43",
+    "0f1fb553-e65d-4daa-bff8-0137063a7392"
+  ],
+  "counts": {
+    "cases": 130,
+    "selection": {
+      "defer": 17,
+      "edit": 61,
+      "retain": 52
+    },
+    "final": {
+      "edit": 57,
+      "retain": 73
+    },
+    "restored": 4,
+    "uncertain": 1
+  },
+  "candidate": {
+    "protectedExactRate": 100,
+    "majorMeaningFailures": 2
+  },
+  "release": {
+    "protectedExactRate": 100,
+    "legacyMeaningPassRate": 100,
+    "legacyImprovementRate": 68.06,
+    "legacyRegressionRate": 0,
+    "legacyRestraintSuccessRate": 96.43,
+    "holdoutMajorMeaningFailures": 0,
+    "holdoutProtectedFailures": 0,
+    "holdoutImprovementRate": 70,
+    "holdoutRestraintSuccessRate": 100,
+    "roleReuse": 0,
+    "missingEvidence": 0,
+    "rubricChanges": 0
+  },
+  "errors": [],
+  "gate": {
+    "pass": false
+  }
+}

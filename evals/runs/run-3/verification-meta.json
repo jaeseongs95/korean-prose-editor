@@ -1,0 +1,9 @@
+{
+  "run": 3,
+  "role": "verification",
+  "actorId": "bfe49651-a0af-41b0-ac98-cc11194190b9",
+  "caseCount": 130,
+  "inputSha256": "26c81c300d2d6a67a671ad699b01e3a03dba921f0c37c118108e7e05146cb37b",
+  "rubricSha256": "8ee8f7aaa82f129f411713d8ccef3c1ad377ba4185ea4153760457be796f339d",
+  "status": "complete"
+}

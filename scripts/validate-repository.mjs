@@ -32,6 +32,7 @@ const required = [
   "evals/legacy/EVALUATION_PROTOCOL.md",
   "evals/legacy/translationese-100/corpus.jsonl",
   "evals/legacy/translationese-100/EVALUATION_PLAN.md",
+  "evals/legacy/translationese-100/validation-baseline.jsonl",
   "evals/legacy/failures/ROOT_CAUSE_1.0.2.md",
   "evals/legacy/failures/cases-2.0.3.json",
   "evals/legacy/provenance.json",

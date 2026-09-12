@@ -13,7 +13,11 @@
     "lint": "eslint .",
     "build": "tsc -p tsconfig.json",
     "test": "node --test",
-    "validate": "node scripts/validate-repository.mjs"
+    "validate": "node scripts/validate-repository.mjs",
+    "eval:prepare": "node scripts/prepare-evaluation.mjs",
+    "eval:prepare-verification": "node scripts/prepare-verification-input.mjs",
+    "eval:prepare-audit": "node scripts/prepare-disagreement-audit.mjs",
+    "eval:aggregate": "node scripts/aggregate-evaluation.mjs"
   },
   "devDependencies": {
     "@types/node": "24.5.2",

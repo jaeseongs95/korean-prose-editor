@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateCommit": "d8ffc6d730dd89b035ba3290033e6432ac960e19",
+  "caseCount": 130,
+  "inputSha256": "967fc00e5a8aba664500adf0926f5cbf53065c750e06881c38542e61a00bfe2c",
+  "keySha256": "3a56562c0d29413a5c19eaa73d8ba1dc04f91690965ed50788ded7b91ccadb6a",
+  "frozenBindings": {
+    "legacyCorpusSha256": "2a457c0bf1d5478afa4cf2469d38521b0c6d1bfde4e1dad195abff1477b34a1c",
+    "holdoutCasesSha256": "710c1c116fec0cbbcf22634a021f48bd979f6cce2518fd83ed93607d88bf1e84",
+    "protocolSha256": "ce0886a88d8efd68712210f0c1d3d59d42bfad6d18b626fed2ff36b0af944237"
+  },
+  "runCount": 3,
+  "thresholds": {
+    "protectedExactRate": 100,
+    "legacyMeaningPassRate": 99,
+    "legacyImprovementRate": 80,
+    "legacyRegressionRateMax": 5,
+    "legacyRestraintSuccessRate": 90,
+    "holdoutMajorMeaningFailuresMax": 0,
+    "holdoutProtectedFailuresMax": 0,
+    "holdoutImprovementRate": 80,
+    "holdoutRestraintSuccessRate": 85,
+    "roleReuseMax": 0,
+    "missingEvidenceMax": 0,
+    "rubricChangesMax": 0
+  }
+}

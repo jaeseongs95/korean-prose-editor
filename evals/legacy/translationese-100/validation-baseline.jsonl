@@ -1,0 +1,100 @@
+{"id":"T001","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘진행될 것으로 예정되어’가 중복되고 번역투라서 날짜·시간과 예정 상태를 유지하며 간결하게 다듬을 수 있다."}
+{"id":"T002","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘검토에 기반하여’는 번역투이며, 법무팀 검토를 근거로 추가 수정 없이는 서명할 수 없다는 조건을 그대로 살려 고칠 수 있다."}
+{"id":"T003","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"첨부 파일명과 확인 대상을 분명히 밝힌 자연스러운 격식체 요청이므로 그대로 두는 편이 적절하다."}
+{"id":"T004","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"직접 인용과 질문의 불확실성은 유지하되 ‘표현이 … 이해되어야 합니까’라는 딱딱한 구조를 자연스럽게 바꿀 수 있다."}
+{"id":"T005","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘이해를 가지게 되었습니다’가 번역투이므로 오늘 논의로 다음 단계가 더 명확해졌다는 뜻으로 다듬는 것이 안전하다."}
+{"id":"T006","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘제출에 있어’와 ‘대응을 요청드립니다’가 불필요하게 딱딱해, 지연 방지 목적과 즉각 대응 요청을 유지하며 줄일 수 있다."}
+{"id":"T007","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘사안을 소유하다’와 ‘커뮤니케이션을 리드하다’가 직역투이므로 김민지 매니저의 담당·소통 주도 역할을 자연스럽게 표현해야 한다."}
+{"id":"T008","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘발생된 불편에 대하여’가 장황하므로 일정 변경으로 생긴 불편에 사과한다는 뜻을 간결하게 다듬을 수 있다."}
+{"id":"T009","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘제안을 앞으로 가져가다’가 명백한 직역투이므로 현시점의 제안 추진 보류라는 뜻으로 고쳐야 한다."}
+{"id":"T010","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘짧은 통지’와 ‘시간을 만들다’가 번역투이므로 촉박한 안내에도 시간을 내 준 데 감사하는 표현으로 다듬을 수 있다."}
+{"id":"T011","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"의료 면책의 부정 범위와 제품명은 그대로 두고 ‘진단을 위해 의도된 제품’이라는 직역을 ‘진단용 제품’처럼 명확히 할 수 있다."}
+{"id":"T012","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"조건과 IP67 표기는 분명하지만 ‘보호가 제공됩니다’가 다소 번역투여서 보호 성능이 적용되는 조건을 자연스럽게 다듬을 수 있다."}
+{"id":"T013","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"최소 Android 버전과 iOS 미지원이 자연스럽고 정확하게 제시되어 있어 편집할 필요가 없다."}
+{"id":"T014","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"기능명은 보존하고 ‘자리를 비운 것으로 감지될 때’의 어색한 피동 구조만 고치면 동작 조건을 안전하게 전달할 수 있다."}
+{"id":"T015","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘폼 팩터 안에서’와 ‘경험하는 것을 가능하게’가 겹친 직역투이므로 작은 크기와 강한 소리의 결합을 자연스럽게 풀어야 한다."}
+{"id":"T016","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘내용물에 대한 빠른 가시성을 제공’은 한국어 결합이 어색해 투명창으로 내용물을 쉽게 확인한다는 기능으로 다듬을 수 있다."}
+{"id":"T017","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"필터 용례에서는 ‘캡처’보다 ‘포집’이 자연스러우며 다층 구조와 효과를 유지한 채 고칠 수 있다."}
+{"id":"T018","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘빛을 전달하다’와 ‘따뜻함을 가져오다’가 홍보 번역투이므로 부드러운 빛이 따뜻한 분위기를 만든다는 뜻으로 다듬어야 한다."}
+{"id":"T019","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘여정의 요구를 충족’과 ‘수납을 특징으로’가 부자연스러워 여행 수요를 고려한 유연한 수납이라는 핵심으로 고칠 수 있다."}
+{"id":"T020","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"키보드 문맥에서 ‘낮은 프로파일의 키’는 뜻이 분명한 직역투이므로 낮은 키 높이와 편안함을 유지하며 자연스럽게 바꿀 수 있다."}
+{"id":"T021","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"시간 제한, 반환 주체, 오류 식별자와 의무 수준이 기술 문서에 맞게 명확하므로 유지해야 한다."}
+{"id":"T022","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"설정값을 예외 조건으로 둔 논리와 기록 대상·위치가 자연스럽고 정확해 편집이 필요 없다."}
+{"id":"T023","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"보장 부재를 단정하지 않는 경고 양태와 버전 범위를 유지하면서 ‘보장되는 것으로 간주’ 구조를 더 직접적으로 다듬을 수 있다."}
+{"id":"T024","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"콜백 이름, 마지막 바이트의 플러시, 호출 가능 시점이 기술 문서 문체로 정확하고 자연스럽다."}
+{"id":"T025","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘검증을 수행한 후에’와 ‘사용자에 대한 접근’이 어색해 토큰 검증 뒤 사용자 접근을 허용한다는 순서로 다듬어야 한다."}
+{"id":"T026","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"일관성의 구체 모델은 단정하지 않되 각 쓰기 작업과 세 복제본의 관계를 유지하며 ‘가지도록 만들어집니다’를 자연스럽게 바꿀 수 있다."}
+{"id":"T027","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"입력·출력 형식은 명확하지만 ‘출력으로 생성합니다’가 중복되므로 문자열 배열을 받고 정수를 반환한다는 식으로 다듬을 수 있다."}
+{"id":"T028","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘실패의 이벤트에서’와 ‘건강한 인스턴스’가 직역투이므로 노드 장애 시 정상 인스턴스로 자동 전환된다는 뜻으로 고쳐야 한다."}
+{"id":"T029","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘활성화하는 것은 … 이용 가능하게 만듭니다’가 장황한 직역 구조라서 상세 모드에서 디버깅 정보가 늘어난다는 뜻으로 줄일 수 있다."}
+{"id":"T030","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘프로덕션으로 밀다’와 ‘환경에 대해 테스트’가 번역투이므로 배포 전 스테이징 환경에서 테스트하라는 명령으로 다듬어야 한다."}
+{"id":"T031","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘수익성 개선으로 번역되다’가 부자연스러워 매출 8.4% 증가가 수익성 개선으로 이어지지 않았다는 대조로 고칠 수 있다."}
+{"id":"T032","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"일반화 유보는 정확하지만 ‘대표하는 것으로 읽혀서는’이 번역투여서 전국 인구를 대표한다고 해석하면 안 된다고 다듬을 수 있다."}
+{"id":"T033","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"정보의 기준일과 이후 사건 미반영 범위가 보고서 문체로 명확하고 자연스러워 유지하는 것이 적절하다."}
+{"id":"T034","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"동반 변화와 인과를 구분하는 문장이 분석 보고서 문체에 맞고 의미도 명확하다."}
+{"id":"T035","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":false,"rationale":"뜻은 분명하지만 ‘핵심적인 역할을 수행’이 다소 상투적이고 무거워 팀의 추가 노력이 납기에 중요했다는 표현으로 줄일 수 있다."}
+{"id":"T036","recommendedAction":"defer","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘변동성’이 응답자 간 분산인지 시간상 변화인지 자료만으로 확정되지 않아 이를 단순 민감도 상승으로 바꾸면 의미가 달라질 수 있다."}
+{"id":"T037","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘12% 감소를 전달했다’가 명백한 직역투이므로 자동화 도입으로 처리 시간이 12% 줄었다고 고쳐야 한다."}
+{"id":"T038","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘도전을 나타냅니다’가 위험 평가 문맥에 어색해 공급망 중단이 사업 연속성에 중대한 위험이라는 뜻으로 다듬을 수 있다."}
+{"id":"T039","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘부정적인 영향을 가져왔습니다’가 번역투이므로 퇴사율 증가가 조직 안정성에 악영향을 미쳤다고 자연스럽게 고칠 수 있다."}
+{"id":"T040","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘데이터가 말해 준다’와 ‘선호하는 방향으로 이동’이 번역투여서 모바일 채널 선호가 커지는 추세로 다듬을 수 있다."}
+{"id":"T041","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"인과 해석 제한은 유지하되 ‘확립되는 것을 허용하지 않는다’는 직역 구조를 ‘확립할 수 없다’처럼 자연스럽게 바꿀 수 있다."}
+{"id":"T042","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"통계적 유의성과 임상적 의미를 구분하는 부정 범위가 학술 문체로 정확하고 자연스럽다."}
+{"id":"T043","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"정의 주체와 직접 인용이 분명하며 학술 문장으로 자연스러워 그대로 유지해야 한다."}
+{"id":"T044","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"정규성 조건과 우월성에 대한 유보 양태가 학술 문체에서 자연스럽고 정밀하게 표현되어 있다."}
+{"id":"T045","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"연구 목적은 명확하지만 ‘이해를 발전시키는 것’이 직역투여서 관계에 대한 이해를 높이는 것을 목표로 한다고 다듬을 수 있다."}
+{"id":"T046","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘증가하는 관심을 보여준다’가 번역투이므로 최근 문헌에서 이 현상에 대한 관심이 커지고 있다고 자연스럽게 표현할 수 있다."}
+{"id":"T047","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"집단이 오류율을 ‘경험했다’는 결합이 어색해 처치 집단의 오류율이 통제 집단보다 낮았다고 고칠 수 있다."}
+{"id":"T048","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘사용하는 것을 통해 분석되었다’가 장황한 피동문이므로 연령과 성별을 통제한 회귀 모형으로 분석했다고 다듬어야 한다."}
+{"id":"T049","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘새로운 빛을 비춘다’는 영어식 은유이므로 기억 형성 이론 논의에 새 통찰을 제공한다는 뜻으로 고칠 수 있다."}
+{"id":"T050","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘표본 크기’와 ‘제한을 부과’가 번역투여서 작은 표본이 결과의 일반화 가능성을 제한한다고 자연스럽게 다듬을 수 있다."}
+{"id":"T051","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"법률상 예외와 동의 없는 제3자 제공 금지가 정확한 법률 문체로 표현되어 있어 유지해야 한다."}
+{"id":"T052","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"효력 발생일과 이전 거래에 대한 비소급 범위가 명확하고 법률 문체로 자연스럽다."}
+{"id":"T053","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"권리 미행사와 권리 포기를 구분하는 규범적 표현이 약관 문체에 맞고 의미도 정확하다."}
+{"id":"T054","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"정식 법률명과 적용 기관의 제한 범위가 정확하고 자연스러워 과잉 편집을 피해야 한다."}
+{"id":"T055","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"합리적 조치라는 법률상 수준은 유지하되 ‘책임을 가집니다’를 ‘책임이 있습니다’처럼 자연스럽게 다듬을 수 있다."}
+{"id":"T056","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘업무상 필요를 가지는 직원’이 번역투이므로 업무상 필요한 직원으로 접근 대상을 제한한다는 뜻을 명확히 할 수 있다."}
+{"id":"T057","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"요청이 ‘만들어져야’ 한다는 직역이 어색해 구매일로부터 14일 이내에 환불을 요청해야 한다고 고쳐야 한다."}
+{"id":"T058","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"이해충돌 가능성이 있는 활동의 관여 금지를 정책 문체로 정확하게 규정하고 있어 그대로 둘 수 있다."}
+{"id":"T059","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"정책의 약속 수준은 보존하되 ‘장애를 가진 개인’과 ‘접근을 제공’은 국내 접근성 문맥에 더 자연스러운 표현으로 다듬을 여지가 있다."}
+{"id":"T060","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"관련 규정이 정한 기간과 기록 유지 의무가 정책 문체에 맞게 정확히 표현되어 있다."}
+{"id":"T061","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"주문 취소 후 승인 보류 가능성과 최대 기간은 유지하면서 ‘제거되지 않을 수’라는 어색한 표현을 자연스럽게 고칠 수 있다."}
+{"id":"T062","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"두 필수 조건은 분명하지만 ‘자격을 가집니다’가 번역투이므로 무료 반품이 가능하다는 표현으로 다듬을 수 있다."}
+{"id":"T063","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"공식 발신 주소와 비밀번호 요구 메시지의 경계 기준이 명확하고 고객 보안 안내로 자연스럽다."}
+{"id":"T064","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"점검 예정 시간과 실제 중단 시간이 더 짧을 가능성이 정확하고 자연스럽게 구분되어 있다."}
+{"id":"T065","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘배송 시간으로 인해 귀하가 경험한 불편’이 번역투이므로 배송 지연으로 불편을 드린 데 사과하는 문장으로 다듬을 수 있다."}
+{"id":"T066","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘계정에 대한 접근을 다시 얻다’가 직역투이므로 계정 접근 권한을 복구하려면 본인 확인을 완료하라는 안내로 고칠 수 있다."}
+{"id":"T067","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘높은 문의량을 경험’과 ‘답변을 제공’이 번역투이므로 문의가 많아 답변이 늦어진다는 안내로 다듬어야 한다."}
+{"id":"T068","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘시작에서 효과를 가집니다’가 명백히 어색하므로 다음 결제 주기 시작부터 요금제 변경이 적용된다고 고쳐야 한다."}
+{"id":"T069","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"추가 질문이 없다는 조건은 유지하면서 ‘닫힌 상태로 표시’라는 번역투를 요청 종료 안내로 자연스럽게 바꿀 수 있다."}
+{"id":"T070","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"URL은 그대로 두고 ‘더 많은 정보를 위해’라는 번역투를 ‘자세한 내용은’ 같은 안내 표현으로 다듬을 수 있다."}
+{"id":"T071","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":false,"rationale":"배타 조건은 분명하지만 일상 메모에서는 ‘돌아오지 않는 경우에만’보다 ‘안 돌아오면’ 같은 표현이 자연스러우며 ‘만’의 의미를 보존할 수 있다."}
+{"id":"T072","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":false,"rationale":"최대 수량과 무가당 제품 부재 시 구매 금지가 일상적인 말투로 명확하게 표현되어 있다."}
+{"id":"T073","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":false,"rationale":"직접 인용의 불확실성과 인원에서 제외하지 말자는 결론이 자연스러운 해체로 이어져 있다."}
+{"id":"T074","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"네트워크명과 암호 입력 순서는 유지하되 ‘입력하는 것으로 접근할 수 있어’라는 직역 구조를 자연스럽게 고칠 수 있다."}
+{"id":"T075","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘날씨가 좋은 쪽으로 간다면’과 ‘시간을 가지다’가 어색해 날씨가 좋으면 강가에서 시간을 보낼 수 있다는 뜻으로 고쳐야 한다."}
+{"id":"T076","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":false,"rationale":"뜻은 분명하지만 일상 메모에서 ‘비우는 것을 기억해 줘’가 번역투여서 잊지 말고 비워 달라는 부탁으로 다듬을 수 있다."}
+{"id":"T077","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":false,"rationale":"‘더 좋은 방향으로 갔어’가 직역투이므로 어제 만남이 기대보다 좋았다는 자연스러운 해체로 바꿀 수 있다."}
+{"id":"T078","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘기억을 가지고 있지 않아’가 장황한 직역이므로 우산을 어디에 뒀는지 기억나지 않는다고 고쳐야 한다."}
+{"id":"T079","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":false,"rationale":"조건은 분명하지만 친구에게 남긴 부탁치고 ‘시간이 허락한다면’이 지나치게 격식적이어서 ‘시간 되면’처럼 다듬을 수 있다."}
+{"id":"T080","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":false,"rationale":"마지막 장이 강한 인상을 남겼다는 표현은 일상 독서 감상에서 자연스럽고 의미도 분명하다."}
+{"id":"T081","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"신규 가입자 제한, 첫 달 가격, 혜택 종료 가능성이 홍보 문체 안에서 간결하고 정확하게 제시되어 있다."}
+{"id":"T082","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"시험 범위와 수치 유보는 유지하되 ‘더 빠른 건조를 전달’이라는 직역투를 건조 시간 또는 속도 개선으로 자연스럽게 풀어야 한다."}
+{"id":"T083","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"행사명과 표어는 보존하면서 ‘선택을 일상으로 가져옵니다’라는 홍보 번역투를 일상에서 실천한다는 메시지로 다듬을 수 있다."}
+{"id":"T084","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"쿠폰 코드, 입력 조건, 제외 상품과 할인율이 자연스럽고 정확한 홍보 문장으로 구성되어 있다."}
+{"id":"T085","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘가능성을 다음 수준으로 가져가다’가 전형적인 직역투이므로 발전을 권하는 질문 형식을 유지하며 자연스럽게 고쳐야 한다."}
+{"id":"T086","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘도시가 제공해야 하는 모든 것’이 의미상 어색해 도시의 다양한 매력을 발견하는 여정 참여 권유로 다듬어야 한다."}
+{"id":"T087","recommendedAction":"edit","originalNaturalness":4,"terminologyRelevant":true,"rationale":"뜻은 통하지만 ‘완벽하게 로스팅된 원두의 차이’가 번역 광고투여서 매 잔에서 잘 볶은 원두의 차이를 느끼라는 표현으로 다듬을 수 있다."}
+{"id":"T088","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘하루를 통제하다’가 한국어 홍보 문맥에 거칠어 하루를 주도적으로 관리하고 더 많은 일을 해내라는 뜻으로 고쳐야 한다."}
+{"id":"T089","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘맛을 테이블에 전달’이 직역투이므로 지역에서 조달한 재료로 만든 음식을 제공한다는 홍보 문장으로 다듬을 수 있다."}
+{"id":"T090","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘첫걸음을 취하다’와 ‘재정적 미래’가 어색해 오늘 더 나은 재정 상태를 위한 첫걸음을 내딛으라는 권유로 고칠 수 있다."}
+{"id":"T091","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"해제 전이라는 시간 조건과 예외 없는 재진입 금지가 공공 안전 안내로 명확하고 자연스럽다."}
+{"id":"T092","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"사진 없는 사본의 무효와 직인도 예외가 아니라는 범위가 공공 안내 문체로 정확하다."}
+{"id":"T093","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"날짜·시각, 도착 기준과 검토 대상 제한이 오해 없이 자연스럽게 제시되어 있다."}
+{"id":"T094","recommendedAction":"retain","originalNaturalness":5,"terminologyRelevant":true,"rationale":"미확인 게시물 공유 금지와 공식 URL 공지만 신뢰하라는 지시가 간결하고 자연스럽다."}
+{"id":"T095","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘닫힌 상태에 있을 것입니다’가 번역투이므로 시설 개선 공사로 도서관이 임시 휴관한다는 안내로 고쳐야 한다."}
+{"id":"T096","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘봉투 안에 놓여져야’가 어색한 이중 피동이므로 지정 요일에 투명 봉투로 배출해야 한다고 다듬어야 한다."}
+{"id":"T097","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":true,"rationale":"‘차량 흐름’과 ‘방향이 전환됩니다’가 직역투이므로 행사 기간 차량을 우회 도로로 통행시킨다는 안내로 고칠 수 있다."}
+{"id":"T098","recommendedAction":"edit","originalNaturalness":2,"terminologyRelevant":false,"rationale":"‘사용하는 것은 … 가능하게 합니다’가 장황해 온라인 양식을 사용하면 요청을 더 빨리 처리할 수 있다고 자연스럽게 바꿀 수 있다."}
+{"id":"T099","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘존중을 보여 줄 것이 기대됩니다’가 번역투이므로 모든 방문객에게 다른 이용자를 존중해 달라는 요구로 다듬을 수 있다."}
+{"id":"T100","recommendedAction":"edit","originalNaturalness":3,"terminologyRelevant":true,"rationale":"‘예약 가능성’과 피동 구조가 어색해 백신 공급 상황에 따라 예약 가능 여부가 달라질 수 있다고 고칠 수 있다."}

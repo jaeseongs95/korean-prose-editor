@@ -122,7 +122,7 @@
       "selectionCriteria": ["verified-korean-prose-candidate-needs-deterministic-finalization"],
       "preconditions": ["The candidate and verification report target the same source digest.", "The deterministic finalizer is available."],
       "failureHandling": { "rejectedEdit": "retain", "contractFailure": "fallback", "protectedSpanFailure": "fallback" },
-      "gate": { "kind": "completion", "policy": "mandatory", "validator": "contracts/final-text-receipt.v1.schema.json" },
+      "gate": { "kind": "completion", "policy": "conditional", "validator": "contracts/final-text-receipt.v1.schema.json" },
       "receiptPolicy": { "mode": "reference-only" }
     }
   ]

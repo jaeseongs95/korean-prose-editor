@@ -1,0 +1,9 @@
+{
+  "actorId": "0f1fb553-e65d-4daa-bff8-0137063a7392",
+  "role": "verification",
+  "caseCount": 130,
+  "verificationInputSha256": "d4d8147b6dad55fa534542b572d06db5537584279690dd4c530404fb61732e7f",
+  "rubricSha256": "8ee8f7aaa82f129f411713d8ccef3c1ad377ba4185ea4153760457be796f339d",
+  "protocolSha256": "ce0886a88d8efd68712210f0c1d3d59d42bfad6d18b626fed2ff36b0af944237",
+  "note": "허용된 run-1 검증 입력, 해당 입력 메타, 고정 평가 규약과 검증 rubric만 사용했다. 구현·selection 결과·편집 이유·정답 키·다른 실행·폐기된 시도·다른 글쓰기 스킬은 읽거나 사용하지 않았다. 새 verification UUID를 사용했으며 입력 메타에 다른 역할의 UUID가 없어 교차 역할 고유성은 집계 단계에서 확인한다. 보호 항목은 원문에 존재한 문자열의 출현 횟수 보존으로 검사했다."
+}

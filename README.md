@@ -51,6 +51,8 @@ MCP 경로의 receipt에는 원문이나 결과문이 들어가지 않는다. �
 
 `evals/legacy/translationese-100/corpus.jsonl`에는 이전 저장소의 100개 사례가 들어 있다. 평가 protocol, plan과 실패 회귀 사례도 함께 보존하며, `evals/legacy/provenance.json`이 원본 경로와 SHA-256을 고정한다. 이 자료는 회귀 평가에만 쓰며 현재 `SKILL.md`의 정본이 아니다. 독립 holdout은 `evals/FREEZE.json`의 digest로만 참조하고 구현 중에는 읽거나 수정하지 않는다.
 
+현재 `0.1.0` 후보는 세 번의 역할 분리 평가에서 의미·보호 문자열·과잉 편집 억제 기준을 지켰지만, 개선율 기준을 충족하지 못했다. 따라서 릴리스나 플러그인 설치 대상으로 승인되지 않았다. 실행별 수치와 무효 처리한 시도는 [평가 보고서](evals/EVALUATION_REPORT.md)에서 확인할 수 있다.
+
 ## 제한
 
 스크립트는 모델이나 외부 API를 호출하지 않는다. 보호 구간 검사는 문자 보존을 확인하지만 문장 전체의 의미 동등성을 판정하지 않는다. 의미 판정은 별도의 verification provider가 맡으며, 애매한 수정은 `retain`으로 결정한다.

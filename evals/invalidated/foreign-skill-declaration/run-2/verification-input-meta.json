@@ -1,0 +1,8 @@
+{
+  "run": 2,
+  "caseCount": 130,
+  "sha256": "2bdac820cc005a4526ca8619a73bdd084117198fc4e6defc1addda680621d869",
+  "containsExpectedDecision": false,
+  "containsEditorRationale": false,
+  "status": "frozen"
+}

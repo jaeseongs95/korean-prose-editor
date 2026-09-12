@@ -1,0 +1,10 @@
+{
+  "run": 3,
+  "role": "editing",
+  "actorId": "65da0000-c437-42ce-b1e8-635d0affa3f9",
+  "selectorActorId": "1fd52075-427d-4c1c-9292-6f18b87a0706",
+  "caseCount": 130,
+  "inputSha256": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+  "status": "complete",
+  "policy": "korean-prose-editor/editing-policy"
+}

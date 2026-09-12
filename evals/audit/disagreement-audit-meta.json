@@ -1,0 +1,42 @@
+{
+  "actorId": "a3b62cec-a540-4858-8b90-b2d4d6944a75",
+  "role": "disagreement-audit",
+  "caseCount": 18,
+  "auditInputSha256": "dbbdcd997ed1649896b79fbb87cdca145827670ff4e225aafc47f079184e85e0",
+  "rubricSha256": "8ee8f7aaa82f129f411713d8ccef3c1ad377ba4185ea4153760457be796f339d",
+  "protocolSha256": "ce0886a88d8efd68712210f0c1d3d59d42bfad6d18b626fed2ff36b0af944237",
+  "inputIsolation": "Only evals/audit/input.jsonl, evals/audit/input-meta.json, evals/EVALUATION_PROTOCOL.md, and skills/korean-prose-editor/references/verification-rubric.md were used as evaluation inputs. No implementation, prior verdicts, expected-answer keys, editor rationale, other evaluation outputs, or writing skills were read.",
+  "majorMeaningChangeConvention": "pass=no detected major meaning change; fail=detected major meaning change; uncertain=insufficient context to exclude a major meaning change",
+  "counts": {
+    "run-1": {
+      "accept": 9,
+      "retain": 9,
+      "meaningPass": 14,
+      "meaningFail": 2,
+      "meaningUncertain": 2,
+      "majorFail": 2,
+      "majorUncertain": 1,
+      "protectedPass": 18
+    },
+    "run-2": {
+      "accept": 7,
+      "retain": 11,
+      "meaningPass": 13,
+      "meaningFail": 3,
+      "meaningUncertain": 2,
+      "majorFail": 3,
+      "majorUncertain": 1,
+      "protectedPass": 18
+    },
+    "run-3": {
+      "accept": 6,
+      "retain": 12,
+      "meaningPass": 15,
+      "meaningFail": 1,
+      "meaningUncertain": 2,
+      "majorFail": 1,
+      "majorUncertain": 2,
+      "protectedPass": 18
+    }
+  }
+}

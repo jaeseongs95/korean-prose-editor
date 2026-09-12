@@ -1,0 +1,522 @@
+[
+  {
+    "id": "legacy:T001",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T002",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T003",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T004",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T005",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T006",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T007",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T008",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T009",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T010",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T011",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T012",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T013",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T014",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T015",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T016",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T017",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T018",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T019",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T020",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T021",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T022",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T023",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T024",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T025",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T026",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T027",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T028",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T029",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T030",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T031",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T032",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T033",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T034",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T035",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T036",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "legacy:T037",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T038",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T039",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T040",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T041",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T042",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T043",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T044",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T045",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T046",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T047",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T048",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T049",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T050",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T051",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T052",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T053",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T054",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T055",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T056",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T057",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T058",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T059",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T060",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T061",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T062",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T063",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T064",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T065",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T066",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T067",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T068",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T069",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T070",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T071",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T072",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T073",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T074",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T075",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T076",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T077",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T078",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T079",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T080",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T081",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T082",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T083",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T084",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T085",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T086",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T087",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T088",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T089",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T090",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T091",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T092",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T093",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T094",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "legacy:T095",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T096",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T097",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T098",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T099",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T100",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T01",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T02",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T03",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T04",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T05",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T06",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:T07",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:N01",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N02",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N03",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N04",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N05",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N06",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:N07",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:A01",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A02",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A03",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A04",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A05",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A06",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A07",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:A08",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:P01",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:P02",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:P03",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:P04",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:P05",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:P06",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:P07",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:P08",
+    "expectedDecision": "edit"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateCommit": "d8ffc6d730dd89b035ba3290033e6432ac960e19",
+  "releaseDecision": "fail",
+  "reasonCodes": [
+    "LEGACY_IMPROVEMENT_BELOW_THRESHOLD_ALL_RUNS",
+    "HOLDOUT_IMPROVEMENT_BELOW_THRESHOLD_ALL_RUNS"
+  ],
+  "runMetrics": [
+    { "run": 1, "metrics": "runs/run-1/metrics.json", "gatePass": false },
+    { "run": 2, "metrics": "runs/run-2/metrics.json", "gatePass": false },
+    { "run": 3, "metrics": "runs/run-3/metrics.json", "gatePass": false }
+  ],
+  "disagreementAudit": {
+    "caseCount": 18,
+    "report": "audit/DISAGREEMENT_AUDIT.md",
+    "result": "supporting-evidence-only"
+  },
+  "criteriaChanged": false,
+  "casesReplaced": false,
+  "releaseApproved": false,
+  "pluginInstallationApproved": false
+}
