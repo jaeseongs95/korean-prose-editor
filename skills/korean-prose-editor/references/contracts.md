@@ -10,7 +10,7 @@
 
 `selection-work-product`는 모든 unit에 `edit`, `retain`, `defer` 중 하나를 지정한다. `edit`에는 unit 안의 실제 문제를 가리키는 하나 이상의 `issueRanges`와 제한된 결함 코드를 기록하고, 편집자는 이 범위와 겹치는 국소 edit만 만들 수 있다. `retain`과 `defer`의 `issueRanges`는 비워 둔다. `reasonCodes`, `riskFlags`, `additionalProtectedStrings`는 기록할 수 있지만 replacement는 허용하지 않는다. 추가 보호 문자열은 지정한 unit 안에 실제로 있어야 한다.
 
-편집 행위자는 `editing-draft`에 원문 digest와 edit 목록만 기록한다. 각 edit에는 고유한 `id`, 대상 `unitId`, 원문 digest, UTF-16 `[start,end)`, `replacement`와 editing provider의 `actorId`가 들어간다. 호스트 recorder는 범위를 검증한 뒤 해당 사례 selection artifact의 canonical digest와 모든 edit를 적용한 후보 문자열 digest를 계산해 `editing-work-product`로 봉인한다. 범위는 실제 변경 부분으로 최소화하며 서로 겹치지 않아야 한다.
+편집 행위자는 `editing-draft`에 원문 digest와 edit 목록만 기록한다. 각 edit에는 고유한 `id`, 대상 `unitId`, 원문 digest, UTF-16 `[start,end)`, `replacement`와 editing provider의 `actorId`가 들어간다. 호스트 recorder는 범위를 검증한 뒤 해당 사례 selection artifact의 canonical digest와 모든 edit를 적용한 후보 문자열 digest를 계산해 `editing-work-product`로 봉인한다. 범위는 실제 변경 부분으로 최소화하며 서로 겹치지 않아야 한다. 각 edit는 다른 edit 없이 단독 적용해도 문법적으로 완결돼야 하고, 서로 의존하는 변화는 하나의 최소 edit로 묶는다.
 
 `verification-work-product`는 editing artifact digest, 고정 rubric digest, 전체 결정과 edit별 결정을 함께 기록한다. 각 edit에는 원문에서 제거한 구체적 결함인 `sourceDefect`와 수량·양태·권리·주장 강도 등의 변화인 `invariantDelta`를 기록한다. `accept`는 `sourceDefect`가 `NONE`이 아니고 `invariantDelta`가 `NONE`이며 후보가 원문보다 분명히 나을 때만 쓴다. 나머지는 `retain`이며 결정이 빠진 edit도 해당 edit만 `retain`한다.
 

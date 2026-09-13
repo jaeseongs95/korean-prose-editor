@@ -12,6 +12,8 @@ replacement를 쓰기 전에 원문과 제공된 `meaningConstraints`에서 다�
 
 직역 비유를 다듬을 때도 원문의 수사 기능을 유지한다. 학술 문장의 `새로운 빛을 비춘다`는 분석 결과를 새로 주장하는 `통찰을 제공한다`보다 같은 조명 비유를 자연스럽게 옮긴 `새롭게 조명한다`처럼 고친다. 홍보 문구의 평가나 강조는 selection이 해당 구간을 `UNSUPPORTED_EMPHASIS`로 특정한 경우에만 제거한다. 한 edit에 안전한 변화와 의미 변화가 섞이지 않도록 별도 범위로 나눈다.
 
+각 edit는 나머지 edit를 적용하지 않아도 문법적으로 완결되고 독립적으로 검증 가능해야 한다. 앞부분과 뒷부분을 함께 바꿔야만 하나의 표현이 성립하면 두 edit로 나누지 말고 첫 차이부터 마지막 차이까지 하나의 edit로 묶는다. 이때 가운데의 바뀌지 않는 문자열은 포함할 수 있지만, 원문 조각과 replacement가 공유하는 맨 앞·맨 뒤 문자는 범위 밖으로 잘라 최소성을 유지한다.
+
 편집자는 `editing-draft`에 판단 결과인 edit만 기록한다. 호스트 recorder가 해당 사례의 selection work product를 `stableJson`으로 직렬화한 SHA-256을 `selectionDigest`로, 모든 edit를 역순으로 적용해 재구성한 후보 문자열의 SHA-256을 `candidateDigest`로 계산해 `editing-work-product`를 봉인한다. draft와 각 edit의 `actorId`는 editing provider의 ID와 같아야 한다.
 
 검증자의 결정을 예상하거나 verification 결과를 작성하지 않는다.
