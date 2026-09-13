@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 3,
+  "status": "failed-final",
+  "requiredImprovement": "9/11",
+  "globalActorsDistinct": true,
+  "runs": [
+    {
+      "run": 1,
+      "actorIds": {
+        "selection": "51000000-0000-4000-8000-000000000001",
+        "editing": "61000000-0000-4000-8000-000000000001",
+        "verification": "71000000-0000-4000-8000-000000000001"
+      },
+      "improvedCases": "6/11",
+      "acceptedEditCount": 8,
+      "majorMeaningChangeCount": 0,
+      "protectedFailureCount": 0,
+      "pass": false
+    },
+    {
+      "run": 2,
+      "actorIds": {
+        "selection": "52000000-0000-4000-8000-000000000002",
+        "editing": "62000000-0000-4000-8000-000000000002",
+        "verification": "72000000-0000-4000-8000-000000000002"
+      },
+      "improvedCases": "2/11",
+      "acceptedEditCount": 2,
+      "majorMeaningChangeCount": 0,
+      "protectedFailureCount": 0,
+      "pass": false
+    },
+    {
+      "run": 3,
+      "actorIds": {
+        "selection": "53000000-0000-4000-8000-000000000003",
+        "editing": "63000000-0000-4000-8000-000000000003",
+        "verification": "73000000-0000-4000-8000-000000000003"
+      },
+      "improvedCases": "1/11",
+      "acceptedEditCount": 1,
+      "majorMeaningChangeCount": 0,
+      "protectedFailureCount": 0,
+      "pass": false
+    }
+  ],
+  "nextStep": "Preserve this attempt and diagnose the failed editing or verification evidence."
+}

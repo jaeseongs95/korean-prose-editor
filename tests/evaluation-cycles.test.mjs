@@ -227,6 +227,17 @@ test("new semantic candidates pass the third independent selection attempt", asy
   assert.ok(results.runs.every((run) => run.pass && run.selectedEditCases === "11/11"));
 });
 
+test("failed third editing attempt preserves complete independent verification evidence", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression", "new-candidates");
+  const results = JSON.parse(await readFile(path.join(directory, "attempt-3-final-results.json"), "utf8"));
+  assert.equal(results.status, "failed-final");
+  assert.equal(results.globalActorsDistinct, true);
+  assert.equal(results.runs.length, 3);
+  assert.equal(new Set(results.runs.flatMap((run) => Object.values(run.actorIds))).size, 9);
+  assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
+  assert.ok(results.runs.every((run) => !run.pass));
+});
+
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
   const holdout = Array.from({ length: 30 }, (_, index) => ({
     id: `private-${index + 1}`,

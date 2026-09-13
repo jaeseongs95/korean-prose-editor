@@ -70,6 +70,7 @@ const required = [
   "scripts/aggregate-selection-diagnostic.mjs",
   "scripts/aggregate-selection-taxonomy-contrast.mjs",
   "scripts/aggregate-new-semantic-candidates.mjs",
+  "scripts/finalize-new-semantic-candidates.mjs",
   "scripts/aggregate-evaluation-cycle.mjs",
   "scripts/summarize-evaluation-cycle.mjs",
 ];
