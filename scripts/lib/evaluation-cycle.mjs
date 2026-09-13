@@ -50,6 +50,7 @@ export function sealEditingDraft(draft, { source, selection }) {
     if (!isMinimalEdit(source, edit)) throw new Error("EDIT_NOT_MINIMAL");
     candidate = `${candidate.slice(0, edit.start)}${edit.replacement}${candidate.slice(edit.end)}`;
   }
+  assertNoNewBoundaryWhitespace(source, candidate);
   return {
     schemaVersion: WORK_PRODUCT_SCHEMA_VERSION,
     actorId: draft.actorId,
@@ -163,6 +164,7 @@ export function validateEditingWorkProduct(value, { source, manifest, selection 
     if (sorted[index].start < sorted[index - 1].end) throw new Error("EDIT_RANGES_OVERLAP");
   }
   const candidate = applyEdits(source, sorted);
+  assertNoNewBoundaryWhitespace(source, candidate);
   if (sha256(candidate) !== value.candidateDigest) throw new Error("EDITING_CANDIDATE_DIGEST_MISMATCH");
   return { value, candidate, edits: sorted };
 }
@@ -308,17 +310,64 @@ export function aggregateStructuredRun({ run, input, key, manifests, selections,
   return { finals, metrics };
 }
 
-export function validateRunMetadata({ run, inputSha256, products, metas }) {
+export function buildRunMetadata({ run, role, actorId, records, inputSha256, executionProvenance = null }) {
+  if (!Number.isInteger(run) || run < 1 || run > RUN_BUDGET) throw new Error("ROLE_META_RUN_INVALID");
+  if (!["selection", "editing", "verification"].includes(role)) throw new Error("ROLE_META_ROLE_INVALID");
+  requireActor(actorId, "role meta actorId");
+  requireDigest(inputSha256, "role meta inputSha256");
+  if (!Array.isArray(records) || records.length === 0) throw new Error("ROLE_META_RECORDS_INVALID");
+  const base = {
+    schemaVersion: executionProvenance === null ? "2.0.0" : "3.0.0",
+    run,
+    role,
+    actorId,
+    caseCount: records.length,
+    inputSha256,
+    workProductSha256: sha256(stableJson(records)),
+    status: "complete",
+  };
+  if (executionProvenance === null) return base;
+  validateExecutionProvenance(executionProvenance);
+  return { ...base, executionProvenance };
+}
+
+export function validateExecutionProvenance(value) {
+  requireExactObject(value, "execution provenance", [
+    "requestedModel",
+    "actualModel",
+    "provider",
+    "providerVersion",
+    "promptSha256",
+    "seed",
+    "decodingParametersSha256",
+  ]);
+  for (const field of ["requestedModel", "actualModel", "provider", "providerVersion"]) {
+    if (typeof value[field] !== "string" || value[field].trim().length === 0) throw new Error(`EXECUTION_PROVENANCE_${field.toUpperCase()}_INVALID`);
+  }
+  requireDigest(value.promptSha256, "execution provenance promptSha256");
+  if (value.seed !== "unverified" && !Number.isInteger(value.seed)) throw new Error("EXECUTION_PROVENANCE_SEED_INVALID");
+  if (value.decodingParametersSha256 !== "unverified") requireDigest(value.decodingParametersSha256, "execution provenance decodingParametersSha256");
+  return value;
+}
+
+export function validateRunMetadata({ run, inputSha256, products, metas, requireExecutionProvenance = false }) {
+  const schemaVersions = new Set();
   for (const role of ["selection", "editing", "verification"]) {
     const meta = metas[role];
     const records = products[role];
-    requireExactObject(meta, `${role} meta`, ["schemaVersion", "run", "role", "actorId", "caseCount", "inputSha256", "workProductSha256", "status"]);
-    if (meta.schemaVersion !== "2.0.0" || meta.run !== run || meta.role !== role || meta.status !== "complete") throw new Error(`ROLE_META_IDENTITY_MISMATCH:${role}`);
+    const keys = ["schemaVersion", "run", "role", "actorId", "caseCount", "inputSha256", "workProductSha256", "status"];
+    if (meta?.schemaVersion === "3.0.0") keys.push("executionProvenance");
+    requireExactObject(meta, `${role} meta`, keys);
+    if (!["2.0.0", "3.0.0"].includes(meta.schemaVersion) || meta.run !== run || meta.role !== role || meta.status !== "complete") throw new Error(`ROLE_META_IDENTITY_MISMATCH:${role}`);
+    schemaVersions.add(meta.schemaVersion);
+    if (meta.schemaVersion === "3.0.0") validateExecutionProvenance(meta.executionProvenance);
     if (!Array.isArray(records) || meta.caseCount !== records.length) throw new Error(`ROLE_META_CASE_COUNT_MISMATCH:${role}`);
     if (meta.inputSha256 !== inputSha256) throw new Error(`ROLE_META_INPUT_DIGEST_MISMATCH:${role}`);
     if (meta.workProductSha256 !== sha256(stableJson(records))) throw new Error(`ROLE_META_OUTPUT_DIGEST_MISMATCH:${role}`);
     if (new Set(records.map((record) => record.actorId)).size !== 1 || records[0]?.actorId !== meta.actorId) throw new Error(`ROLE_META_ACTOR_BINDING_MISMATCH:${role}`);
   }
+  if (schemaVersions.size !== 1) throw new Error("ROLE_META_SCHEMA_VERSION_MISMATCH");
+  if (requireExecutionProvenance && !schemaVersions.has("3.0.0")) throw new Error("ROLE_META_EXECUTION_PROVENANCE_REQUIRED");
 }
 
 export async function writeNewFile(file, contents) {
@@ -455,6 +504,12 @@ function isUtf16Boundary(source, index) {
 function rangesOverlap(left, right) {
   if (left.start === left.end) return right.start < left.start && left.start < right.end;
   return left.start < right.end && right.start < left.end;
+}
+
+function assertNoNewBoundaryWhitespace(source, candidate) {
+  if ((!/^\s/u.test(source) && /^\s/u.test(candidate)) || (!/\s$/u.test(source) && /\s$/u.test(candidate))) {
+    throw new Error("EDITING_BOUNDARY_WHITESPACE_ARTIFACT");
+  }
 }
 
 function requireSchemaVersion(value) {

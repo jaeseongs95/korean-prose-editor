@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { parseJsonl, sha256, stableJson, validateSelectionWorkProduct, validateSourceUnitManifest, writeNewFile } from "./lib/evaluation-cycle.mjs";
+import { buildRunMetadata, parseJsonl, sha256, validateSelectionWorkProduct, validateSourceUnitManifest, writeNewFile } from "./lib/evaluation-cycle.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const options = parseArguments(process.argv.slice(2));
@@ -26,18 +26,24 @@ for (let index = 0; index < input.length; index += 1) {
 }
 const actors = new Set(selections.map((record) => record.actorId));
 if (actors.size !== 1) throw new Error("SELECTION_ACTOR_CHANGED_WITHIN_RUN");
-const meta = {
-  schemaVersion: "2.0.0",
+const executionProvenance = await readExecutionProvenance(options["provenance-file"]);
+const meta = buildRunMetadata({
   run,
   role: "selection",
   actorId: [...actors][0],
-  caseCount: selections.length,
+  records: selections,
   inputSha256: sha256(inputText),
-  workProductSha256: sha256(stableJson(selections)),
-  status: "complete",
-};
+  executionProvenance,
+});
 await writeNewFile(path.join(runDir, "selection-meta.json"), `${JSON.stringify(meta, null, 2)}\n`);
 console.log(JSON.stringify(meta, null, 2));
+
+async function readExecutionProvenance(value) {
+  if (!value) return null;
+  const resolved = path.resolve(cycleDir, value);
+  if (resolved === cycleDir || !resolved.startsWith(`${cycleDir}${path.sep}`)) throw new Error("provenance file must be below the cycle directory");
+  return JSON.parse(await readFile(resolved, "utf8"));
+}
 
 function resolveCycleDir(value) {
   if (!value) throw new Error("--cycle-dir is required");

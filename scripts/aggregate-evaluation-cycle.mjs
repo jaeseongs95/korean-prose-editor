@@ -39,6 +39,7 @@ const workProducts = {
 validateRunMetadata({
   run,
   inputSha256: manifest.inputSha256,
+  requireExecutionProvenance: true,
   products: workProducts,
   metas: {
     selection: await readJson(path.join(runDir, "selection-meta.json")),

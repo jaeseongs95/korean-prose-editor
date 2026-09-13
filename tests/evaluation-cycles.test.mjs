@@ -8,11 +8,13 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import {
   aggregateStructuredRun,
+  buildRunMetadata,
   evaluateStructuredCase,
   parseJsonl,
   sealEditingDraft,
   sha256,
   stableJson,
+  validateEditingWorkProduct,
   validateRunMetadata,
   workProductDigest,
   writeNewFile,
@@ -112,6 +114,33 @@ test("editing drafts are deterministically sealed with per-record digests", () =
   assert.throws(() => sealEditingDraft(nonMinimal, { source: sourceText, selection }), /EDIT_NOT_MINIMAL/u);
 });
 
+test("editing drafts reject a newly introduced boundary whitespace artifact", () => {
+  const sourceText = "먼저 안내 말씀을 드리자면, 정기 점검 중에는 출입문을 수동으로 열어야 합니다.";
+  const selection = selectionProduct(sourceText, "edit");
+  selection.decisions[0].issueRanges = [{ start: 0, end: 15, reasonCode: "UNNECESSARY_META_PROSE" }];
+  selection.decisions[0].reasonCodes = ["UNNECESSARY_META_PROSE"];
+  const draft = {
+    schemaVersion: "1.0.0",
+    actorId: actorIds[1],
+    sourceDigest: sha256(sourceText),
+    edits: [{
+      id: "edit-1",
+      unitId: "unit-0001",
+      sourceDigest: sha256(sourceText),
+      start: 0,
+      end: 15,
+      replacement: "",
+      actorId: actorIds[1],
+    }],
+  };
+  assert.throws(() => sealEditingDraft(draft, { source: sourceText, selection }), /EDITING_BOUNDARY_WHITESPACE_ARTIFACT/u);
+  const manifest = sourceManifest(sourceText);
+  const unsafeWorkProduct = editingProduct(sourceText, selection, draft.edits);
+  assert.throws(() => validateEditingWorkProduct(unsafeWorkProduct, { source: sourceText, manifest, selection }), /EDITING_BOUNDARY_WHITESPACE_ARTIFACT/u);
+  const safe = sealEditingDraft({ ...draft, edits: [{ ...draft.edits[0], end: 16 }] }, { source: sourceText, selection });
+  assert.equal(safe.candidateDigest, sha256("정기 점검 중에는 출입문을 수동으로 열어야 합니다."));
+});
+
 test("editing recorder leaves no work product when draft validation fails", async () => {
   const temporaryCycle = await mkdtemp(path.join(root, "evals", "cycles", "recorder-failure-"));
   const suiteDirectory = path.join(temporaryCycle, "diagnostic", "test-suite");
@@ -144,6 +173,45 @@ test("editing recorder leaves no work product when draft validation fails", asyn
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /EDIT_SOURCE_DIGEST_MISMATCH/u);
     await assert.rejects(readFile(path.join(runDirectory, "editing-work-product.jsonl"), "utf8"), { code: "ENOENT" });
+  } finally {
+    await rm(temporaryCycle, { recursive: true, force: true });
+  }
+});
+
+test("selection recorder writes provenance-bound v3 metadata for a new run", async () => {
+  const temporaryCycle = await mkdtemp(path.join(root, "evals", "cycles", "recorder-provenance-"));
+  const suiteDirectory = path.join(temporaryCycle, "diagnostic", "test-suite");
+  const runDirectory = path.join(suiteDirectory, "runs", "run-1");
+  try {
+    await mkdir(runDirectory, { recursive: true });
+    const sourceText = "안녕 하세요.";
+    const manifest = sourceManifest(sourceText);
+    const selection = selectionProduct(sourceText, "edit");
+    const provenance = {
+      requestedModel: "gpt-5.6-sol",
+      actualModel: "unverified",
+      provider: "openai",
+      providerVersion: "unverified",
+      promptSha256: sha256("selection prompt"),
+      seed: "unverified",
+      decodingParametersSha256: "unverified",
+    };
+    await Promise.all([
+      writeFile(path.join(suiteDirectory, "input.jsonl"), `${JSON.stringify({ id: "case-1", sourceText })}\n`, "utf8"),
+      writeFile(path.join(suiteDirectory, "source-unit-manifest.jsonl"), `${JSON.stringify(manifest)}\n`, "utf8"),
+      writeFile(path.join(runDirectory, "selection-work-product.jsonl"), `${JSON.stringify(selection)}\n`, "utf8"),
+      writeFile(path.join(runDirectory, "selection-provenance.json"), `${JSON.stringify(provenance)}\n`, "utf8"),
+    ]);
+    const cycleArgument = path.relative(root, temporaryCycle).replaceAll(path.sep, "/");
+    const provenanceArgument = path.relative(temporaryCycle, path.join(runDirectory, "selection-provenance.json")).replaceAll(path.sep, "/");
+    const result = spawnSync(process.execPath, [
+      "scripts/record-selection-run.mjs", "--cycle-dir", cycleArgument,
+      "--suite-dir", "test-suite", "--run", "1", "--provenance-file", provenanceArgument,
+    ], { cwd: root, encoding: "utf8" });
+    assert.equal(result.status, 0, result.stderr);
+    const meta = JSON.parse(await readFile(path.join(runDirectory, "selection-meta.json"), "utf8"));
+    assert.equal(meta.schemaVersion, "3.0.0");
+    assert.deepEqual(meta.executionProvenance, provenance);
   } finally {
     await rm(temporaryCycle, { recursive: true, force: true });
   }
@@ -385,6 +453,33 @@ test("run metadata binds actor, count, input digest, and canonical work-product 
     status: "complete",
   }]));
   assert.doesNotThrow(() => validateRunMetadata({ run: 1, inputSha256, products, metas }));
+  assert.throws(() => validateRunMetadata({ run: 1, inputSha256, products, metas, requireExecutionProvenance: true }), /ROLE_META_EXECUTION_PROVENANCE_REQUIRED/u);
+  const executionProvenance = {
+    requestedModel: "gpt-5.6-sol",
+    actualModel: "unverified",
+    provider: "openai",
+    providerVersion: "unverified",
+    promptSha256: sha256("role prompt"),
+    seed: "unverified",
+    decodingParametersSha256: "unverified",
+  };
+  const provenanceMetas = Object.fromEntries(Object.entries(products).map(([role, records]) => [role, buildRunMetadata({
+    run: 1,
+    role,
+    actorId: records[0].actorId,
+    records,
+    inputSha256,
+    executionProvenance,
+  })]));
+  assert.doesNotThrow(() => validateRunMetadata({ run: 1, inputSha256, products, metas: provenanceMetas, requireExecutionProvenance: true }));
+  assert.throws(() => buildRunMetadata({
+    run: 1,
+    role: "editing",
+    actorId: actorIds[1],
+    records: products.editing,
+    inputSha256,
+    executionProvenance: { ...executionProvenance, actualModel: "" },
+  }), /EXECUTION_PROVENANCE_ACTUALMODEL_INVALID/u);
   assert.throws(() => validateRunMetadata({
     run: 1,
     inputSha256,

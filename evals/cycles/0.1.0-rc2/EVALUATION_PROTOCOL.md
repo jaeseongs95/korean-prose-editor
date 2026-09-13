@@ -8,7 +8,7 @@
 
 각 실행에서 selection, editing, verification의 `actorId`는 서로 달라야 한다. 한 역할은 실행 안에서 같은 `actorId`를 유지한다. editing은 selection의 canonical digest를, verification은 editing의 canonical digest와 이 규약의 digest를 참조한다. 작업 제품의 수와 순서는 `input.jsonl`과 정확히 같아야 한다.
 
-각 `runs/run-N/`에는 세 작업 제품 JSONL과 함께 `selection-meta.json`, `editing-meta.json`, `verification-meta.json`을 둔다. meta는 역할, 실행 번호, actor, 사례 수, 입력 digest, canonical 작업 제품 digest를 결합한다. 집계 결과인 `final.jsonl`과 `metrics.json`도 같은 실행 디렉터리에 새 파일로 기록한다.
+각 `runs/run-N/`에는 세 작업 제품 JSONL과 함께 `selection-meta.json`, `editing-meta.json`, `verification-meta.json`을 둔다. meta는 역할, 실행 번호, actor, 사례 수, 입력 digest, canonical 작업 제품 digest를 결합한다. 다음 정식 실행은 schema v3의 `executionProvenance`에 requested model, 관측 가능한 actual model과 provider version, prompt digest, seed와 decoding-parameter digest를 함께 기록한다. 관측할 수 없는 값은 추정하지 않고 `unverified`로 남긴다. selection·editing recorder에는 cycle 디렉터리 아래의 provenance JSON 경로를 `--provenance-file`로 전달한다. verification meta도 같은 객체를 포함해야 한다. v2 meta는 이미 봉인된 과거 증거를 읽기 위한 호환 형식일 뿐 새 정식 실행에는 사용할 수 없다. 집계 결과인 `final.jsonl`과 `metrics.json`도 같은 실행 디렉터리에 새 파일로 기록한다.
 
 ## 진단 세트
 

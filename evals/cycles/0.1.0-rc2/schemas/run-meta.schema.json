@@ -2,20 +2,78 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/korean-prose-editor/evaluation/run-meta.schema.json",
   "title": "Evaluation role work-product metadata",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["schemaVersion", "run", "role", "actorId", "caseCount", "inputSha256", "workProductSha256", "status"],
-  "properties": {
-    "schemaVersion": { "const": "2.0.0" },
-    "run": { "type": "integer", "minimum": 1, "maximum": 3 },
-    "role": { "enum": ["selection", "editing", "verification"] },
-    "actorId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
-    "caseCount": { "type": "integer", "minimum": 1 },
-    "inputSha256": { "$ref": "#/$defs/digest" },
-    "workProductSha256": { "$ref": "#/$defs/digest" },
-    "status": { "const": "complete" }
-  },
+  "oneOf": [
+    { "$ref": "#/$defs/legacyMeta" },
+    { "$ref": "#/$defs/provenanceMeta" }
+  ],
   "$defs": {
-    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "commonProperties": {
+      "type": "object",
+      "properties": {
+        "run": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "role": { "enum": ["selection", "editing", "verification"] },
+        "actorId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+        "caseCount": { "type": "integer", "minimum": 1 },
+        "inputSha256": { "$ref": "#/$defs/digest" },
+        "workProductSha256": { "$ref": "#/$defs/digest" },
+        "status": { "const": "complete" }
+      }
+    },
+    "legacyMeta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "run", "role", "actorId", "caseCount", "inputSha256", "workProductSha256", "status"],
+      "properties": {
+        "schemaVersion": { "const": "2.0.0" },
+        "run": { "$ref": "#/$defs/commonProperties/properties/run" },
+        "role": { "$ref": "#/$defs/commonProperties/properties/role" },
+        "actorId": { "$ref": "#/$defs/commonProperties/properties/actorId" },
+        "caseCount": { "$ref": "#/$defs/commonProperties/properties/caseCount" },
+        "inputSha256": { "$ref": "#/$defs/digest" },
+        "workProductSha256": { "$ref": "#/$defs/digest" },
+        "status": { "const": "complete" }
+      }
+    },
+    "provenanceMeta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "run", "role", "actorId", "caseCount", "inputSha256", "workProductSha256", "status", "executionProvenance"],
+      "properties": {
+        "schemaVersion": { "const": "3.0.0" },
+        "run": { "$ref": "#/$defs/commonProperties/properties/run" },
+        "role": { "$ref": "#/$defs/commonProperties/properties/role" },
+        "actorId": { "$ref": "#/$defs/commonProperties/properties/actorId" },
+        "caseCount": { "$ref": "#/$defs/commonProperties/properties/caseCount" },
+        "inputSha256": { "$ref": "#/$defs/digest" },
+        "workProductSha256": { "$ref": "#/$defs/digest" },
+        "status": { "const": "complete" },
+        "executionProvenance": { "$ref": "#/$defs/executionProvenance" }
+      }
+    },
+    "executionProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestedModel", "actualModel", "provider", "providerVersion", "promptSha256", "seed", "decodingParametersSha256"],
+      "properties": {
+        "requestedModel": { "type": "string", "minLength": 1 },
+        "actualModel": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "providerVersion": { "type": "string", "minLength": 1 },
+        "promptSha256": { "$ref": "#/$defs/digest" },
+        "seed": {
+          "oneOf": [
+            { "type": "integer" },
+            { "const": "unverified" }
+          ]
+        },
+        "decodingParametersSha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/digest" },
+            { "const": "unverified" }
+          ]
+        }
+      }
+    }
   }
 }

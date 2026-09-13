@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "purpose": "public-editor-regression-only",
+  "sourceRecovery": "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1",
+  "gateEligible": false,
+  "comparableToRecovery": false,
+  "cases": [
+    {
+      "id": "remediation:R002",
+      "sourceCaseId": "recovery:R002",
+      "failureMode": "UNNECESSARY_CONDITION_TRANSITION",
+      "sourceText": "QuickView는 파일 업로드가 완료된 경우에 미리보기 생성을 수행합니다.",
+      "unsafeCandidate": "QuickView는 파일 업로드가 완료되면 미리보기를 생성합니다.",
+      "safeCandidate": "QuickView는 파일 업로드가 완료된 경우에 미리보기를 생성합니다.",
+      "requiredInvariant": "현재 상태 조건을 미래 사건 조건으로 바꾸지 않고 기능 동사만 직접화한다."
+    },
+    {
+      "id": "remediation:R004",
+      "sourceCaseId": "recovery:R004",
+      "failureMode": "EXPLICIT_CATEGORY_REMOVED",
+      "sourceText": "새로 출시된 신제품 Nova Pass는 주문 내역을 한 화면에서 보여 줍니다.",
+      "unsafeCandidate": "새로 출시된 Nova Pass는 주문 내역을 한 화면에서 보여 줍니다.",
+      "safeCandidate": "새로 출시된 제품 Nova Pass는 주문 내역을 한 화면에서 보여 줍니다.",
+      "requiredInvariant": "중복된 신규성은 줄이되 Nova Pass의 명시적 제품 범주를 보존한다."
+    },
+    {
+      "id": "remediation:R006",
+      "sourceCaseId": "recovery:R006",
+      "failureMode": "LEADING_SPACE_ARTIFACT",
+      "sourceText": "먼저 안내 말씀을 드리자면, 정기 점검 중에는 출입문을 수동으로 열어야 합니다.",
+      "unsafeCandidate": " 정기 점검 중에는 출입문을 수동으로 열어야 합니다.",
+      "safeCandidate": "정기 점검 중에는 출입문을 수동으로 열어야 합니다.",
+      "requiredInvariant": "불필요한 서두와 인접 공백을 하나의 겹치는 최소 edit로 제거한다."
+    },
+    {
+      "id": "remediation:R008",
+      "sourceCaseId": "recovery:R008",
+      "failureMode": "PROXY_NOUN_INTRODUCED",
+      "sourceText": "표 3은 월별 문의량 변화에 대한 설명을 제공합니다.",
+      "unsafeCandidate": "표 3은 월별 문의량 변화에 대한 내용을 설명합니다.",
+      "safeCandidate": "표 3은 월별 문의량 변화를 설명합니다.",
+      "requiredInvariant": "설명 대상을 그대로 목적어로 삼고 내용 같은 대리 명사를 새로 만들지 않는다."
+    }
+  ]
+}
