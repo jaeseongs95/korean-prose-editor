@@ -47,6 +47,7 @@ export function sealEditingDraft(draft, { source, selection }) {
   if (!Array.isArray(draft.edits)) throw new Error("EDITING_DRAFT_EDITS_INVALID");
   let candidate = source;
   for (const edit of [...draft.edits].sort((left, right) => right.start - left.start || right.end - left.end)) {
+    if (!isMinimalEdit(source, edit)) throw new Error("EDIT_NOT_MINIMAL");
     candidate = `${candidate.slice(0, edit.start)}${edit.replacement}${candidate.slice(edit.end)}`;
   }
   return {
@@ -155,6 +156,7 @@ export function validateEditingWorkProduct(value, { source, manifest, selection 
     if (edit.actorId !== value.actorId) throw new Error("EDIT_ACTOR_BINDING_MISMATCH");
     if (!Number.isInteger(edit.start) || !Number.isInteger(edit.end) || edit.start < unit.start || edit.end > unit.end || edit.end < edit.start || !isUtf16Boundary(source, edit.start) || !isUtf16Boundary(source, edit.end)) throw new Error("EDIT_RANGE_INVALID");
     if (typeof edit.replacement !== "string") throw new Error("EDIT_REPLACEMENT_INVALID");
+    if (!isMinimalEdit(source, edit)) throw new Error("EDIT_NOT_MINIMAL");
     ids.add(edit.id);
   }
   for (let index = 1; index < sorted.length; index += 1) {
@@ -409,6 +411,15 @@ function applyEdits(source, edits) {
 
 function compareEdits(left, right) {
   return left.start - right.start || left.end - right.end || left.id.localeCompare(right.id);
+}
+
+function isMinimalEdit(source, edit) {
+  const original = source.slice(edit.start, edit.end);
+  if (original === edit.replacement) return false;
+  if (original.length === 0 || edit.replacement.length === 0) return true;
+  const originalCodePoints = Array.from(original);
+  const replacementCodePoints = Array.from(edit.replacement);
+  return originalCodePoints[0] !== replacementCodePoints[0] && originalCodePoints.at(-1) !== replacementCodePoints.at(-1);
 }
 
 function protectedEqual(source, target, values) {

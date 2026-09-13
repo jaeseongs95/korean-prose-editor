@@ -27,4 +27,6 @@
 
 세 번째 시도의 독립 편집·검증 결과는 최종 개선 6/11, 2/11, 1/11로 실패했다. 모든 run에서 최종 주요 의미 변화와 보호 문자열 실패는 0건이었지만, verifier가 예상과 의무, 과제와 위험, 조명 비유와 분석 주장 사이의 변화를 원복했다. 실패 증거는 `attempt-3-final-results.json`과 9개 고유 actor의 work product로 보존한다. 다음 시도 전에는 선택 범위를 수정 의무로 해석하지 않고, 양태·주장 유형·강도·수사 기능을 replacement 단계에서 보존하도록 editing policy를 강화한다.
 
+네 번째 시도는 최종 개선 9/11, 9/11, 6/11이었다. 세 번째 run의 verifier는 9개 edit를 승인했지만 recorder가 공통 접미사를 포함한 비최소 범위 세 개를 통과시켰고 finalizer가 이를 보류했다. 언어 판단과 별개인 이 계약 불일치를 없애기 위해 editing draft sealer와 work-product validator가 finalizer와 같은 최소성 규칙을 적용한다.
+
 이후에만 새 candidate commit을 봉인하고 새 비공개 holdout 30건을 만든다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.

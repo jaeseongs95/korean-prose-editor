@@ -105,6 +105,11 @@ test("editing drafts are deterministically sealed with per-record digests", () =
   assert.equal(Object.hasOwn(sealed, "candidateText"), false);
   assert.throws(() => sealEditingDraft({ ...draft, sourceDigest: sha256("다른 원문") }, { source: sourceText, selection }), /EDITING_DRAFT_SOURCE_DIGEST_MISMATCH/u);
   assert.throws(() => sealEditingDraft({ ...draft, unexpected: true }, { source: sourceText, selection }), /editing-draft fields/u);
+  const nonMinimal = {
+    ...draft,
+    edits: [{ ...draft.edits[0], start: 0, end: 3, replacement: "안녕" }],
+  };
+  assert.throws(() => sealEditingDraft(nonMinimal, { source: sourceText, selection }), /EDIT_NOT_MINIMAL/u);
 });
 
 test("diagnostic inventory fixes 18 expected edits, 20 controls, and 15/18 plus 18/20 gates", async () => {
