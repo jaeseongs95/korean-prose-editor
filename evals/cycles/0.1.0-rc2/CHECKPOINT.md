@@ -33,4 +33,6 @@
 
 여섯 번째 시도는 변경되지 않은 다섯 번째 selection을 digest provenance와 함께 재사용했다. 최종 개선은 8/11, 10/11, 8/11로 한 run만 통과했고, 최종 주요 의미 변화와 보호 문자열 실패는 모두 0건이었다. 한 verifier는 의미가 바뀐 edit와 같은 사례에 있다는 이유로 독립적으로 안전한 edit까지 함께 유지했다. 다음 시도 전에는 edit별 판정이 다른 edit의 실패와 분리되고 전체 assessment가 승인된 edit 집합을 요약하도록 verification rubric을 명확히 한다.
 
+일곱 번째 시도는 여섯 번째 selection·editing을 digest provenance와 함께 재사용하고 새 rubric으로만 검증했다. 최종 개선은 5/11, 7/11, 7/11이었다. edit를 독립적으로 적용했을 때 문법적으로 완결되지 않는 상호 의존 edit가 확인됐다. 다음 editing은 edit 하나가 단독으로 적용돼도 유효해야 하며, 서로 의존하는 변화는 하나의 최소 edit로 묶는다.
+
 이후에만 새 candidate commit을 봉인하고 새 비공개 holdout 30건을 만든다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.

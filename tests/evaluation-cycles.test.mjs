@@ -302,6 +302,18 @@ test("sixth editing attempt preserves carried selection provenance and final evi
   assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
 });
 
+test("seventh verification attempt preserves carried artifacts and independent-edit evidence", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression", "new-candidates");
+  const provenance = JSON.parse(await readFile(path.join(directory, "attempt-7-provenance.json"), "utf8"));
+  const results = JSON.parse(await readFile(path.join(directory, "attempt-7-final-results.json"), "utf8"));
+  assert.equal(provenance.sourceAttempt, 6);
+  assert.equal(provenance.files.length, 12);
+  assert.equal(results.status, "failed-final");
+  assert.equal(results.globalActorsDistinct, true);
+  assert.deepEqual(results.runs.map((run) => run.improvedCases), ["5/11", "7/11", "7/11"]);
+  assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
+});
+
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
   const holdout = Array.from({ length: 30 }, (_, index) => ({
     id: `private-${index + 1}`,

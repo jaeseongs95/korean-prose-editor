@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 7,
+  "sourceAttempt": 6,
+  "reason": "Selection, editing inputs, and implementation are unchanged; only the verification rubric now defines assessment over the accepted-edit subset.",
+  "files": [
+    { "path": "attempt-7/runs/run-1/selection-work-product.jsonl", "sha256": "e2bbd4816bd66767137748d74fcb1ec7a78f8351168a4c342cecb4c4cf6907de" },
+    { "path": "attempt-7/runs/run-1/selection-meta.json", "sha256": "e9bdf2f2ee86ae4ff7249ae432883af350f02e6b35d82dee4dc7f2a5f8514f39" },
+    { "path": "attempt-7/runs/run-1/editing-work-product.jsonl", "sha256": "a304754ba30fac4452717bbc1cee69e18cf5b573febaa67c1d4664d1a69546e7" },
+    { "path": "attempt-7/runs/run-1/editing-meta.json", "sha256": "3dc8936e56d78ccf438fa0bb94109c9c6c0c2041d18ce42c734f04320649ff95" },
+    { "path": "attempt-7/runs/run-2/selection-work-product.jsonl", "sha256": "1e39d73531826057bac7b8dce4f23d9aef5b71cae0a9c83b28db608411bc9ecf" },
+    { "path": "attempt-7/runs/run-2/selection-meta.json", "sha256": "187fa46d1abb8bc065264698f6b5833516fea07f5479fcd6e29dbf7cc6b28dd5" },
+    { "path": "attempt-7/runs/run-2/editing-work-product.jsonl", "sha256": "dcc3942e09183d9fe83d46a627464eabd9d5cb036f6ab559bd603b0cf1b98cf9" },
+    { "path": "attempt-7/runs/run-2/editing-meta.json", "sha256": "2f237ebba1d71eb25d06fd2e55ddab7b2818dcef46c61eb26d61a77076cbf03a" },
+    { "path": "attempt-7/runs/run-3/selection-work-product.jsonl", "sha256": "e5b272f59e6a424eee4da77d1768ab682be2481b630018f9875481f18571302f" },
+    { "path": "attempt-7/runs/run-3/selection-meta.json", "sha256": "b2135c78747ccad9896c72340c6b93e5e4643a68a252f8e0af6da62c86fbcb83" },
+    { "path": "attempt-7/runs/run-3/editing-work-product.jsonl", "sha256": "bc6146608ac8c916af97110e28c55a247c4c39c32ee917273ba53968426be22e" },
+    { "path": "attempt-7/runs/run-3/editing-meta.json", "sha256": "275fa7bf8c414a6475acba2c5cf2b81e2dac921a857d5323b23f94ebcf6aa13b" }
+  ]
+}
