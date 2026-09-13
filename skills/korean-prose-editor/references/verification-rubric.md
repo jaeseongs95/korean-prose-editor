@@ -21,6 +21,8 @@
 
 각 edit의 결정은 `accept` 또는 `retain`으로 제한하며 모든 edit를 독립적으로 판정한다. `accept`의 reason code는 `MEANING_PRESERVED`로 기록한다. 의미 변화나 불확실성을 나타내는 reason code를 붙인 edit는 `accept`하지 않는다. 애매하거나 필요한 문맥이 없으면 해당 edit를 `retain`한다. 하나라도 `accept`했다면 전체 `pairPreference`도 `candidate`여야 하며, 그 밖의 안전성 평가는 모두 `pass`여야 한다. work product의 `editingDigest`는 editing work product 전체를 `stableJson`으로 직렬화한 SHA-256이어야 한다. 입력 artifact, digest나 actor 계약을 신뢰할 수 없을 때만 `globalDecision: "fallback"`을 사용한다.
 
+같은 사례에 edit가 여러 개면 하나씩 나머지 edit를 원문으로 되돌린 상태에서 판정한다. 한 edit의 의미 변화나 개선 부족만으로 독립적으로 안전한 다른 edit를 `retain`하지 않는다. edit별 결정을 마친 뒤에는 `accept`된 edit만 적용한 유효 후보를 다시 구성하고, 전체 `assessment`는 편집자가 제안한 미필터 후보가 아니라 이 유효 후보를 요약한다. 따라서 의미가 바뀐 edit를 `retain`해 유효 후보에서 제거했다면 그 edit의 `invariantDelta`를 이유로 전체 `majorMeaningChange`를 `true`로 만들지 않는다.
+
 `rubricDigest`는 호출자가 전달한 동결 rubric의 SHA-256과 같아야 한다. finalizer는 이 기대 digest와 verification work product의 값을 다시 비교한다.
 
 `assessment`에는 전체 후보 쌍에 대한 `meaningPreservation`, `majorMeaningChange`, `registerCompliance`, `protectedStrings`, `terminologyJudgment`, `pairPreference`를 기록한다. 이 요약은 edit별 결정을 대신하지 않는다. `globalDecision: "continue"`일 때도 누락된 결정은 finalizer가 해당 edit만 유지한다.
