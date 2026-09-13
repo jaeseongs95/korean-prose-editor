@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "2.0.0",
+  "run": 3,
+  "role": "selection",
+  "actorId": "83000000-0000-4000-8000-000000000003",
+  "caseCount": 11,
+  "inputSha256": "e9b9b29570cf82b79d35b7c6da306b837fd4bf472faf6e93ac129d1f737db883",
+  "workProductSha256": "54ed81bf121fbf20953aaa85078cb1b3007f6ea179a9f53530772d700f289438",
+  "status": "complete"
+}

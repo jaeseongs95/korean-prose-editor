@@ -238,6 +238,16 @@ test("failed third editing attempt preserves complete independent verification e
   assert.ok(results.runs.every((run) => !run.pass));
 });
 
+test("fourth editing attempt preserves two passing runs and one failed run", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression", "new-candidates");
+  const results = JSON.parse(await readFile(path.join(directory, "attempt-4-final-results.json"), "utf8"));
+  assert.equal(results.status, "failed-final");
+  assert.equal(results.globalActorsDistinct, true);
+  assert.deepEqual(results.runs.map((run) => run.improvedCases), ["9/11", "9/11", "6/11"]);
+  assert.deepEqual(results.runs.map((run) => run.pass), [true, true, false]);
+  assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
+});
+
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
   const holdout = Array.from({ length: 30 }, (_, index) => ({
     id: `private-${index + 1}`,
