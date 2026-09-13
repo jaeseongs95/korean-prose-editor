@@ -18,9 +18,9 @@ provider 교환 객체를 만들기 전에 [contracts.md](references/contracts.m
 
 ## Provider 흐름
 
-1. selection provider는 원문, source-unit manifest, 사용자의 목적과 문체 샘플만 보고 모든 unit을 `edit`, `retain`, `defer` 중 하나로 분류한다. 필요한 추가 보호 문자열은 기록하되 replacement는 만들지 않는다. 자세한 기준은 [selection-policy.md](references/selection-policy.md)를 따른다.
-2. editing provider는 selection work product, 원문과 보호 구간 manifest를 받아 `edit`로 선택된 prose unit 안에 최소 범위 edit를 만든다. 새 사실을 보태지 않으며 애매한 표현은 유지한다. [editing-policy.md](references/editing-policy.md)를 따른다.
-3. verification provider는 원문과 각 edit를 직접 대조한다. edit마다 `accept` 또는 `retain`을 판정하며, 보존을 확신할 수 없으면 해당 edit만 `retain`한다. [verification-rubric.md](references/verification-rubric.md)를 따른다.
+1. selection provider는 원문, source-unit manifest, 사용자의 목적과 문체 샘플만 보고 모든 unit을 `edit`, `retain`, `defer` 중 하나로 분류한다. `edit`이면 추상적인 선호가 아니라 실제 문제가 있는 원문 `issueRanges`와 제한된 결함 코드를 기록한다. 필요한 추가 보호 문자열은 기록하되 replacement는 만들지 않는다. 자세한 기준은 [selection-policy.md](references/selection-policy.md)를 따른다.
+2. editing provider는 selection work product, 원문과 보호 구간 manifest를 받아 `edit`로 선택된 prose unit 안에서 `issueRanges`와 겹치는 최소 범위 edit를 `editing-draft`에 만든다. 호스트는 draft를 검증한 뒤 per-record `selectionDigest`와 `candidateDigest`를 계산해 `editing-work-product`로 봉인한다. 새 사실을 보태지 않으며 애매한 표현은 유지한다. [editing-policy.md](references/editing-policy.md)를 따른다.
+3. verification provider는 원문과 각 edit를 직접 대조한다. edit마다 `sourceDefect`, `invariantDelta`와 `accept` 또는 `retain`을 판정하며, 구체적인 원문 결함이 없거나 의미 불변량 보존을 확신할 수 없으면 해당 edit만 `retain`한다. [verification-rubric.md](references/verification-rubric.md)를 따른다.
 4. finalization provider는 `scripts/finalize.mjs`로 구조화된 selection, editing, verification work product를 검증하고 승인된 edit만 적용한다. 범위 밖 edit, 보호 구간 edit와 누락·`retain` 결정은 해당 edit만 원문으로 남긴다. artifact 계약이나 digest 연결을 신뢰할 수 없으면 원문 전체로 복귀한다. [finalization.md](references/finalization.md)를 따른다.
 
 ## 공통 불변 조건

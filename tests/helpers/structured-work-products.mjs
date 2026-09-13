@@ -12,18 +12,33 @@ export function structuredCase(sourceText, editSpecs = [], options = {}) {
   const manifest = extractProtectedSpans(sourceText, options.protectedStrings ?? []);
   const sourceUnitManifest = createSourceUnitManifest(sourceText, manifest);
   const actions = options.actions ?? {};
+  const issuesByUnit = new Map();
+  for (const spec of editSpecs) {
+    const start = spec.start ?? sourceText.indexOf(spec.original);
+    const end = spec.end ?? start + (spec.original?.length ?? 0);
+    const unit = sourceUnitManifest.units.find((item) => item.start <= start && end <= item.end);
+    if (!unit) continue;
+    const issues = issuesByUnit.get(unit.unitId) ?? [];
+    issues.push({ start, end, reasonCode: spec.issueReasonCode ?? "TRANSLATIONESE" });
+    issuesByUnit.set(unit.unitId, issues);
+  }
   const selection = {
     schemaVersion: "1.0.0",
     actorId: actorIds[0],
     sourceDigest: sha256(sourceText),
     status: options.selectionStatus ?? "ready",
-    decisions: sourceUnitManifest.units.map((unit) => ({
-      unitId: unit.unitId,
-      action: actions[unit.unitId] ?? (unit.kind === "prose" ? "edit" : "retain"),
-      reasonCodes: [],
-      riskFlags: [],
-      additionalProtectedStrings: options.additionalProtectedStrings?.[unit.unitId] ?? [],
-    })),
+    decisions: sourceUnitManifest.units.map((unit) => {
+      const action = actions[unit.unitId] ?? (unit.kind === "prose" && issuesByUnit.has(unit.unitId) ? "edit" : "retain");
+      const issueRanges = action === "edit" ? (issuesByUnit.get(unit.unitId) ?? [{ start: unit.start, end: unit.end, reasonCode: "TRANSLATIONESE" }]) : [];
+      return {
+        unitId: unit.unitId,
+        action,
+        reasonCodes: [...new Set(issueRanges.map((issue) => issue.reasonCode))],
+        riskFlags: [],
+        additionalProtectedStrings: options.additionalProtectedStrings?.[unit.unitId] ?? [],
+        issueRanges,
+      };
+    }),
   };
   const edits = editSpecs.map((spec, index) => {
     const start = spec.start ?? sourceText.indexOf(spec.original);
@@ -63,6 +78,8 @@ export function structuredCase(sourceText, editSpecs = [], options = {}) {
       editId: edit.id,
       decision: retained.has(edit.id) ? "retain" : "accept",
       reasonCode: retained.has(edit.id) ? "MEANING_RISK" : "MEANING_PRESERVED",
+      sourceDefect: retained.has(edit.id) ? "NONE" : "TRANSLATIONESE",
+      invariantDelta: retained.has(edit.id) ? "UNCERTAIN" : "NONE",
     })),
     assessment: {
       meaningPreservation: "pass",

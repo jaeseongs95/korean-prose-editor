@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "2.0.0",
+  "run": 1,
+  "role": "editing",
+  "actorId": "2c9a817e-6d43-4b50-9f26-a7e1d3c8b405",
+  "caseCount": 11,
+  "inputSha256": "e9b9b29570cf82b79d35b7c6da306b837fd4bf472faf6e93ac129d1f737db883",
+  "workProductSha256": "15bd0c0fa3cfb4d46fa2d2f7886c09b7a7b779df04f5edf92b3a5487bff930bd",
+  "status": "complete"
+}

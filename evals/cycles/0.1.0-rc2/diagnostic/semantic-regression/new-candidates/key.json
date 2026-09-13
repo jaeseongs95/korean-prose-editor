@@ -1,0 +1,46 @@
+[
+  {
+    "id": "new:legacy:T019",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T071",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T098",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T083",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T086",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T087",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T099",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T025",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T038",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T049",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "new:legacy:T050",
+    "expectedDecision": "edit"
+  }
+]

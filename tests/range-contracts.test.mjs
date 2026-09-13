@@ -12,9 +12,9 @@ const digest = sha256("artifact");
 test("private work-product schemas validate their closed range contracts", async () => {
   const samples = {
     "source-unit-manifest.v1": { schemaVersion: "1.0.0", sourceDigest: digest, sourceLength: 4, units: [{ unitId: "unit-0001", start: 0, end: 4, kind: "prose", digest, protectedSpanIds: [] }] },
-    "selection-work-product.v1": { schemaVersion: "1.0.0", actorId: actorIds[0], sourceDigest: digest, status: "ready", decisions: [{ unitId: "unit-0001", action: "edit", reasonCodes: ["TRANSLATIONESE"], riskFlags: [], additionalProtectedStrings: ["이름"] }] },
+    "selection-work-product.v1": { schemaVersion: "1.0.0", actorId: actorIds[0], sourceDigest: digest, status: "ready", decisions: [{ unitId: "unit-0001", action: "edit", reasonCodes: ["TRANSLATIONESE"], riskFlags: [], additionalProtectedStrings: ["이름"], issueRanges: [{ start: 0, end: 1, reasonCode: "TRANSLATIONESE" }] }] },
     "editing-work-product.v1": { schemaVersion: "1.0.0", actorId: actorIds[1], sourceDigest: digest, selectionDigest: digest, edits: [{ id: "edit-1", unitId: "unit-0001", sourceDigest: digest, start: 0, end: 1, replacement: "문", actorId: actorIds[1] }], candidateDigest: digest },
-    "verification-work-product.v1": { schemaVersion: "1.0.0", actorId: actorIds[2], sourceDigest: digest, editingDigest: digest, rubricDigest: digest, globalDecision: "continue", decisions: [{ editId: "edit-1", decision: "accept", reasonCode: "MEANING_PRESERVED" }], assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" } },
+    "verification-work-product.v1": { schemaVersion: "1.0.0", actorId: actorIds[2], sourceDigest: digest, editingDigest: digest, rubricDigest: digest, globalDecision: "continue", decisions: [{ editId: "edit-1", decision: "accept", reasonCode: "MEANING_PRESERVED", sourceDefect: "TRANSLATIONESE", invariantDelta: "NONE" }], assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" } },
   };
 
   for (const [name, sample] of Object.entries(samples)) {
@@ -26,8 +26,24 @@ test("private work-product schemas validate their closed range contracts", async
 
 test("selection work products cannot carry a proposed replacement", async () => {
   const validate = new Ajv2020({ strict: false }).compile(await readSchema("selection-work-product.v1"));
-  const selection = { schemaVersion: "1.0.0", actorId: actorIds[0], sourceDigest: digest, status: "ready", decisions: [{ unitId: "unit-0001", action: "edit", reasonCodes: [], riskFlags: [], additionalProtectedStrings: [], replacement: "미리 쓴 문장" }] };
+  const selection = { schemaVersion: "1.0.0", actorId: actorIds[0], sourceDigest: digest, status: "ready", decisions: [{ unitId: "unit-0001", action: "edit", reasonCodes: ["TRANSLATIONESE"], riskFlags: [], additionalProtectedStrings: [], issueRanges: [{ start: 0, end: 1, reasonCode: "TRANSLATIONESE" }], replacement: "미리 쓴 문장" }] };
   assert.equal(validate(selection), false);
+});
+
+test("selection edit decisions require a concrete issue range and non-edit decisions forbid one", async () => {
+  const validate = new Ajv2020({ strict: false }).compile(await readSchema("selection-work-product.v1"));
+  const base = { schemaVersion: "1.0.0", actorId: actorIds[0], sourceDigest: digest, status: "ready" };
+  assert.equal(validate({ ...base, decisions: [{ unitId: "unit-0001", action: "edit", reasonCodes: [], riskFlags: [], additionalProtectedStrings: [], issueRanges: [] }] }), false);
+  assert.equal(validate({ ...base, decisions: [{ unitId: "unit-0001", action: "retain", reasonCodes: ["ALREADY_NATURAL"], riskFlags: [], additionalProtectedStrings: [], issueRanges: [{ start: 0, end: 1, reasonCode: "TRANSLATIONESE" }] }] }), false);
+});
+
+test("verification accepts require a concrete source defect and no invariant delta", async () => {
+  const schema = await readSchema("verification-work-product.v1");
+  const validate = new Ajv2020({ strict: true }).compile(schema);
+  const base = { schemaVersion: "1.0.0", actorId: actorIds[2], sourceDigest: digest, editingDigest: digest, rubricDigest: digest, globalDecision: "continue", decisions: [{ editId: "edit-1", decision: "accept", reasonCode: "MEANING_PRESERVED", sourceDefect: "TRANSLATIONESE", invariantDelta: "NONE" }], assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" } };
+  assert.equal(validate(base), true);
+  assert.equal(validate({ ...base, decisions: [{ ...base.decisions[0], sourceDefect: "NONE" }] }), false);
+  assert.equal(validate({ ...base, decisions: [{ ...base.decisions[0], invariantDelta: "MODALITY_OR_CERTAINTY" }] }), false);
 });
 
 test("finalization request schema requires every structured work product", async () => {

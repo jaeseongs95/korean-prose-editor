@@ -5,11 +5,12 @@ import { ContractError, SCHEMA_VERSION, requireObject, sha256, stableJson } from
 import { validateProviderPlan } from "./provider-plan.mjs";
 
 /** @typedef {{id: string, unitId: string, sourceDigest: string, start: number, end: number, replacement: string, actorId: string}} Edit */
-/** @typedef {{editId: string, decision: "accept" | "retain", reasonCode: string}} VerificationDecision */
+/** @typedef {{editId: string, decision: "accept" | "retain", reasonCode: string, sourceDefect: string, invariantDelta: string}} VerificationDecision */
 /** @typedef {{unitId: string, start: number, end: number, kind: "prose" | "fenced-code"}} SourceUnit */
 
 const DIGEST = /^[a-f0-9]{64}$/u;
 const CODE = /^[A-Z][A-Z0-9_]*$/u;
+const ISSUE_CODES = new Set(["AMBIGUOUS_RELATIONSHIP", "GRAMMATICAL_MISMATCH", "NOUN_STACKING", "REDUNDANCY", "TRANSLATIONESE", "UNNECESSARY_META_PROSE", "UNSUPPORTED_EMPHASIS", "USER_FACING_IMPLEMENTATION_JARGON"]);
 const PROTECTED_KINDS = new Set(["fenced-code", "inline-code", "command", "markdown-target", "url", "email", "path", "quotation", "number-or-date", "user-defined"]);
 
 /**
@@ -136,7 +137,7 @@ export function finalizeRequest(value) {
   for (const edit of edits) {
     const unit = unitById.get(edit.unitId);
     const selected = selectionByUnit.get(edit.unitId);
-    if (!unit || !selected || selected.action !== "edit" || edit.start < unit.start || edit.end > unit.end) {
+    if (!unit || !selected || selected.action !== "edit" || edit.start < unit.start || edit.end > unit.end || !selected.issueRanges.some((issue) => rangesOverlap(edit, issue))) {
       retained.push(edit);
       warnings.add("EDIT_OUT_OF_SCOPE_RETAINED");
       continue;
@@ -234,16 +235,42 @@ function validSelection(selection, sourceDigest, actorId, unitById, source) {
   if (selection.decisions.length !== unitById.size) return false;
   const seen = new Set();
   for (const rawDecision of selection.decisions) {
-    if (!rawDecision || typeof rawDecision !== "object" || Array.isArray(rawDecision) || !hasExactKeys(rawDecision, ["unitId", "action", "reasonCodes", "riskFlags", "additionalProtectedStrings"])) return false;
+    if (!rawDecision || typeof rawDecision !== "object" || Array.isArray(rawDecision) || !hasExactKeys(rawDecision, ["unitId", "action", "reasonCodes", "riskFlags", "additionalProtectedStrings", "issueRanges"])) return false;
     const decision = /** @type {Record<string, unknown>} */ (rawDecision);
     const unit = typeof decision.unitId === "string" ? unitById.get(decision.unitId) : undefined;
     if (!unit || seen.has(decision.unitId) || !["edit", "retain", "defer"].includes(/** @type {string} */ (decision.action))) return false;
-    if (!validCodes(decision.reasonCodes) || !validCodes(decision.riskFlags) || !Array.isArray(decision.additionalProtectedStrings)) return false;
+    if (unit.kind === "fenced-code" && decision.action === "edit") return false;
+    if (!validCodes(decision.reasonCodes) || !validCodes(decision.riskFlags) || !Array.isArray(decision.additionalProtectedStrings) || !Array.isArray(decision.issueRanges)) return false;
     const protectedStrings = decision.additionalProtectedStrings;
     if (new Set(protectedStrings).size !== protectedStrings.length || protectedStrings.some((item) => typeof item !== "string" || item.length === 0 || !source.slice(unit.start, unit.end).includes(item))) return false;
+    if (decision.action === "edit") {
+      if (decision.issueRanges.length === 0 || !validIssueRanges(decision.issueRanges, unit, source)) return false;
+      const issueCodes = new Set(decision.issueRanges.map((issue) => issue.reasonCode));
+      if (decision.reasonCodes.length !== issueCodes.size || decision.reasonCodes.some((code) => !issueCodes.has(code))) return false;
+    } else if (decision.issueRanges.length !== 0) return false;
     seen.add(decision.unitId);
   }
   return true;
+}
+
+/** @param {any[]} issues @param {SourceUnit} unit @param {string} source */
+function validIssueRanges(issues, unit, source) {
+  const seen = new Set();
+  for (const issue of issues) {
+    if (!issue || typeof issue !== "object" || Array.isArray(issue) || !hasExactKeys(issue, ["start", "end", "reasonCode"])) return false;
+    if (!Number.isInteger(issue.start) || !Number.isInteger(issue.end) || issue.start < unit.start || issue.end > unit.end || issue.end <= issue.start) return false;
+    if (!isUtf16Boundary(source, issue.start) || !isUtf16Boundary(source, issue.end) || !ISSUE_CODES.has(issue.reasonCode)) return false;
+    const key = `${issue.start}:${issue.end}:${issue.reasonCode}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+  }
+  return true;
+}
+
+/** @param {{start:number,end:number}} left @param {{start:number,end:number}} right */
+function rangesOverlap(left, right) {
+  if (left.start === left.end) return right.start < left.start && left.start < right.end;
+  return left.start < right.end && right.start < left.end;
 }
 
 /** @param {Record<string, unknown>} editing @param {string} sourceDigest @param {string} selectionDigest @param {string} actorId */
@@ -300,11 +327,13 @@ function validVerificationRoot(verification, sourceDigest, editingDigest, actorI
 /** @param {any} decision */
 function validVerificationDecision(decision) {
   return decision && typeof decision === "object" && !Array.isArray(decision)
-    && hasExactKeys(decision, ["editId", "decision", "reasonCode"])
+    && hasExactKeys(decision, ["editId", "decision", "reasonCode", "sourceDefect", "invariantDelta"])
     && typeof decision.editId === "string" && decision.editId.length > 0
     && (decision.decision === "accept" || decision.decision === "retain")
     && typeof decision.reasonCode === "string" && CODE.test(decision.reasonCode)
-    && (decision.decision !== "accept" || decision.reasonCode === "MEANING_PRESERVED");
+    && ["GRAMMATICAL_MISMATCH", "NOUN_STACKING", "REDUNDANCY", "TRANSLATIONESE", "UNNECESSARY_META_PROSE", "UNSUPPORTED_EMPHASIS", "USER_FACING_IMPLEMENTATION_JARGON", "NONE"].includes(decision.sourceDefect)
+    && ["NONE", "QUANTIFIER_SCOPE", "CONDITION_OR_TENSE", "MODALITY_OR_CERTAINTY", "ACTION_OR_AUTHORITY", "CLAIM_TYPE_OR_STRENGTH", "PREDICATE_ARGUMENT_STRUCTURE", "RHETORICAL_FUNCTION", "ACTOR_OR_TARGET", "TIME", "NEGATION", "CAUSAL_RELATION", "TERMINOLOGY", "UNCERTAIN"].includes(decision.invariantDelta)
+    && (decision.decision !== "accept" || (decision.reasonCode === "MEANING_PRESERVED" && decision.sourceDefect !== "NONE" && decision.invariantDelta === "NONE"));
 }
 
 /** @param {any} assessment */

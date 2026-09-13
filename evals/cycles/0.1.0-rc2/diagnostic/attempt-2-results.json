@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 2,
+  "status": "failed",
+  "failureClass": "evidence-contract",
+  "inputSha256": "2d5a7175a60e2e7ce133c55dd1d8e7715b5e6d85e65b6fe5ee51d4c0f0b89aa8",
+  "executionConfiguration": {
+    "requestedModel": "gpt-5.6-sol",
+    "requestedReasoning": "high",
+    "verifiedByExecutionTool": false
+  },
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "7f1d4e74-13cd-44ba-80ae-2b76bd2d2126",
+      "workProductContract": "pass",
+      "metadataContract": "pass",
+      "editRecall": "16/18",
+      "restraint": "18/20",
+      "userFacingAbstractionSelected": true,
+      "pass": true
+    },
+    {
+      "run": 2,
+      "actorId": "1a1ef7a4-6a49-4dc3-a75b-39e86e0e5b2b",
+      "workProductContract": "pass",
+      "metadataContract": "fail:workProductSha256-missing",
+      "contentOnlyDiagnostic": {
+        "editRecall": "17/18",
+        "restraint": "18/20",
+        "userFacingAbstractionSelected": true
+      },
+      "pass": false
+    },
+    {
+      "run": 3,
+      "actorId": "da61e31f-85d1-4486-8eb1-fb57af906232",
+      "workProductContract": "pass",
+      "metadataContract": "fail:schema-input-digest-field-and-status",
+      "contentOnlyDiagnostic": {
+        "editRecall": "16/18",
+        "restraint": "19/20",
+        "userFacingAbstractionSelected": true
+      },
+      "pass": false
+    }
+  ],
+  "diagnosis": "All three work-product payloads met the selection thresholds when inspected, but two agent-authored metadata files violated the closed evidence contract. Preserve this attempt and move mechanical metadata construction to a deterministic recorder before running a new attempt.",
+  "nextStep": "Do not create a fresh holdout. Add a deterministic selection evidence recorder and run a new three-actor diagnostic in a new attempt directory."
+}

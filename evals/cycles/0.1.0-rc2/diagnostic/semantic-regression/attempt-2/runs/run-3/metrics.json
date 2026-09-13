@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "run": 3,
+  "actorId": "ddc01475-f555-4f0b-aac8-8df20d20d3bc",
+  "caseCount": 13,
+  "editLevelRetainCount": 8,
+  "sourceRestoredCount": 8,
+  "majorMeaningChangeCount": 7,
+  "gate": {
+    "pass": false
+  }
+}

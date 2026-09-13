@@ -8,8 +8,12 @@
 
 각 결정의 `action`은 `edit`, `retain`, `defer` 중 하나다. fenced-code unit은 `retain`한다. prose unit은 다음 우선순위로 판단한다.
 
-1. 위험 구간을 고정한 뒤 주변에 독립적으로 개선할 수 있는 표현이 하나라도 있으면 `edit`한다. 법률·의료·전문 용어·인용·조건·숫자·코드가 포함됐거나 문서 전체가 고위험이라는 사실만으로 `retain`하거나 `defer`하지 않는다.
+1. 위험 구간을 고정한 뒤 주변에 독립적으로 개선할 수 있는 표현이 하나라도 있으면 `edit`한다. 다만 “더 매끄럽게”, “문체 조정”, “어색함”, “사용자 안내에 맞춤”처럼 대체 표현도 가능한 정도의 평가는 개선점의 증거가 아니다. 불필요한 반복·안내형 서두·근거 없는 강조, 문법 불일치, 번역투, 관계가 둘 이상으로 읽히는 명사 적층, 사용자용 산문에 노출되어 독자가 실제 행동이나 결과를 알기 어려운 내부 구현 은유 가운데 하나를 원문의 연속된 문제 범위로 정확히 특정할 수 있어야 한다. 특정 낱말의 출현만으로 판정하지 않으며, 같은 낱말도 기술 계약·코드·스키마를 설명하는 문맥에서는 결함이 아닐 수 있다. 법률·의료·전문 용어·인용·조건·숫자·코드가 포함됐거나 문서 전체가 고위험이라는 사실만으로 `retain`하거나 `defer`하지 않는다.
 2. 원문이 이미 자연스럽거나 위험 구간 밖에 안전하게 개선할 부분이 전혀 없을 때만 `retain`한다.
 3. 문맥 부족이 가능한 모든 편집에 영향을 미쳐 안전한 부분을 하나도 특정할 수 없을 때만 `defer`한다. 한 표현의 뜻이나 고정 명칭이 불분명하더라도 나머지 표현을 독립적으로 고칠 수 있으면 `defer`하지 않는다.
 
-`reasonCodes`에는 결정 이유를, `riskFlags`에는 검증자가 다시 확인할 위험을 기록한다. 자동 보호 manifest가 놓친 이름·식별자·고정 용어는 해당 unit의 `additionalProtectedStrings`에 원문 그대로 넣는다. 문자열은 그 unit 안에 실제로 있어야 한다. selection 결과에는 replacement나 수정 문장을 넣지 않는다.
+번역투는 막연한 인상이 아니라 원문에서 국소적으로 확인할 수 있어야 한다. 행위나 관계를 불필요한 명사와 기능 동사로 늘인 표현, `것을 …하게 하다`처럼 겹친 명사절, 대상 언어의 문서 기능과 맞지 않는 직역 비유가 해당한다. 이때도 수량·조건·양태·논항 구조·수사적 기능을 그대로 둘 수 있는 구간만 `edit`한다. 그런 안전한 구간을 특정할 수 없으면 번역투처럼 보여도 `retain`한다.
+
+`edit` 결정에는 하나 이상의 `issueRanges`를 기록한다. 각 범위는 해당 unit 안의 UTF-16 반열린 구간 `[start,end)`이며 실제 문제가 있는 원문 어절을 가리킨다. surrogate pair를 자르거나 unit 밖을 가리킬 수 없다. `reasonCode`는 `AMBIGUOUS_RELATIONSHIP`, `GRAMMATICAL_MISMATCH`, `NOUN_STACKING`, `REDUNDANCY`, `TRANSLATIONESE`, `UNNECESSARY_META_PROSE`, `UNSUPPORTED_EMPHASIS`, `USER_FACING_IMPLEMENTATION_JARGON` 중 하나만 쓴다. `reasonCodes`에는 `issueRanges`에서 사용한 코드를 모두 넣고 추상적인 대체 표현 선호를 새 코드로 만들지 않는다. `retain`과 `defer`의 `issueRanges`는 빈 배열이다.
+
+`riskFlags`에는 검증자가 다시 확인할 위험을 기록한다. 자동 보호 manifest가 놓친 이름·식별자·고정 용어는 해당 unit의 `additionalProtectedStrings`에 원문 그대로 넣는다. 문자열은 그 unit 안에 실제로 있어야 한다. selection 결과에는 replacement나 수정 문장을 넣지 않는다.

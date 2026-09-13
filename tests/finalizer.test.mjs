@@ -33,7 +33,10 @@ function request(source, edits, decisions, overrides = {}) {
     actorId: actors[0],
     sourceDigest: sha256(source),
     status: "ready",
-    decisions: sourceUnitManifest.units.map((unit) => ({ unitId: unit.unitId, action: unit.kind === "prose" ? "edit" : "retain", reasonCodes: [], riskFlags: [], additionalProtectedStrings: [] })),
+    decisions: sourceUnitManifest.units.map((unit) => {
+      const action = unit.kind === "prose" && edits.length > 0 ? "edit" : "retain";
+      return { unitId: unit.unitId, action, reasonCodes: action === "edit" ? ["TRANSLATIONESE"] : [], riskFlags: [], additionalProtectedStrings: [], issueRanges: action === "edit" ? [{ start: unit.start, end: unit.end, reasonCode: "TRANSLATIONESE" }] : [] };
+    }),
   };
   const normalizedEdits = edits.map((edit) => ({ sourceDigest: sha256(source), actorId: actors[1], unitId: sourceUnitManifest.units.find((unit) => unit.start <= edit.start && edit.end <= unit.end)?.unitId, ...minimalEdit(source, edit) }));
   const editing = {
@@ -61,7 +64,11 @@ function request(source, edits, decisions, overrides = {}) {
       editingDigest: sha256(stableJson(editing)),
       rubricDigest: sha256("rubric"),
       globalDecision: "continue",
-      decisions,
+      decisions: decisions.map((decision) => ({
+        sourceDefect: decision.decision === "accept" ? "TRANSLATIONESE" : "NONE",
+        invariantDelta: decision.decision === "accept" ? "NONE" : "UNCERTAIN",
+        ...decision,
+      })),
       assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" },
     },
     rubricDigest: sha256("rubric"),

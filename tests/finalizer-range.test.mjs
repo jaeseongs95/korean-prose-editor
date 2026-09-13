@@ -28,7 +28,7 @@ test("selection-added strings, fenced code, and missing verification decisions r
     edit(source, "prose", "unit-0001", "길게 ", ""),
     edit(source, "code", "unit-0002", "old", "new"),
     edit(source, "missing", "unit-0003", "마지막", "끝"),
-  ], { "unit-0001": "edit", "unit-0002": "edit", "unit-0003": "edit" }, { protectedByUnit: { "unit-0001": ["Alpha"] }, missingDecisionIds: ["missing"] });
+  ], { "unit-0001": "edit", "unit-0002": "retain", "unit-0003": "edit" }, { protectedByUnit: { "unit-0001": ["Alpha"] }, missingDecisionIds: ["missing"] });
   const result = finalizeRequest(input);
 
   assert.equal(result.output, "Alpha 이름을 씁니다.\n```txt\nold\n```\n\n마지막 문단입니다.");
@@ -73,12 +73,17 @@ test("a user-facing internal metaphor can change while an explicit schema field 
     edit(source, "field", "unit-0001", "receiptPolicy", "정책"),
     edit(source, "metaphor", "unit-0001", "영수증 연결", "결과 전달"),
   ], {}, { protectedByUnit: { "unit-0001": ["receiptPolicy"] } });
+  const issueStart = source.indexOf("영수증 연결");
+  input.selection.decisions[0].issueRanges = [{ start: issueStart, end: issueStart + "영수증 연결".length, reasonCode: "USER_FACING_IMPLEMENTATION_JARGON" }];
+  input.selection.decisions[0].reasonCodes = ["USER_FACING_IMPLEMENTATION_JARGON"];
+  input.editing.selectionDigest = sha256(stableJson(input.selection));
+  input.verification.editingDigest = sha256(stableJson(input.editing));
   const result = finalizeRequest(input);
 
   assert.equal(result.output, "receiptPolicy를 설정하고 평가 결과 전달을 확인합니다.");
   assert.equal(result.receipt.decisions.appliedEditDigests.length, 1);
   assert.equal(result.receipt.decisions.retainedEditDigests.length, 1);
-  assert.ok(result.receipt.warnings.includes("PROTECTED_EDIT_RETAINED"));
+  assert.ok(result.receipt.warnings.includes("EDIT_OUT_OF_SCOPE_RETAINED"));
 });
 
 test("accepted edits fall back when the aggregate assessment says the result is unsafe", () => {
@@ -126,6 +131,21 @@ test("an accept decision cannot carry a contradictory reason code", () => {
   assert.ok(result.receipt.warnings.includes("VERIFICATION_DECISION_INVALID"));
 });
 
+test("an accept decision cannot hide an invariant change or lack a source defect", () => {
+  const source = "길게 안내합니다.";
+  for (const evidence of [
+    { sourceDefect: "TRANSLATIONESE", invariantDelta: "MODALITY_OR_CERTAINTY" },
+    { sourceDefect: "NONE", invariantDelta: "NONE" },
+  ]) {
+    const input = request(source, [edit(source, "edit-1", "unit-0001", "길게 ", "")]);
+    Object.assign(input.verification.decisions[0], evidence);
+    const result = finalizeRequest(input);
+    assert.equal(result.output, source);
+    assert.equal(result.receipt.decisions.fallback, true);
+    assert.ok(result.receipt.warnings.includes("VERIFICATION_DECISION_INVALID"));
+  }
+});
+
 test("verification rubric digest must match the finalization request", () => {
   const source = "길게 안내합니다.";
   const input = request(source, [edit(source, "edit-1", "unit-0001", "길게 ", "")]);
@@ -135,6 +155,20 @@ test("verification rubric digest must match the finalization request", () => {
   assert.equal(result.output, source);
   assert.equal(result.receipt.decisions.fallback, true);
   assert.ok(result.receipt.warnings.includes("VERIFICATION_RUBRIC_DIGEST_MISMATCH"));
+});
+
+test("an edit outside every identified issue range is retained", () => {
+  const source = "길게 안내합니다.";
+  const input = request(source, [edit(source, "edit-1", "unit-0001", "안내", "설명")]);
+  input.selection.decisions[0].issueRanges = [{ start: 0, end: 2, reasonCode: "TRANSLATIONESE" }];
+  input.selection.decisions[0].reasonCodes = ["TRANSLATIONESE"];
+  input.editing.selectionDigest = sha256(stableJson(input.selection));
+  input.verification.editingDigest = sha256(stableJson(input.editing));
+  const result = finalizeRequest(input);
+
+  assert.equal(result.output, source);
+  assert.equal(result.receipt.decisions.fallback, false);
+  assert.ok(result.receipt.warnings.includes("EDIT_OUT_OF_SCOPE_RETAINED"));
 });
 
 function plan() {
@@ -155,7 +189,10 @@ function request(source, edits, actions = {}, options = {}) {
     actorId: actors[0],
     sourceDigest: sha256(source),
     status: "ready",
-    decisions: sourceUnitManifest.units.map((unit) => ({ unitId: unit.unitId, action: actions[unit.unitId] ?? (unit.kind === "prose" ? "edit" : "retain"), reasonCodes: [], riskFlags: [], additionalProtectedStrings: options.protectedByUnit?.[unit.unitId] ?? [] })),
+    decisions: sourceUnitManifest.units.map((unit) => {
+      const action = actions[unit.unitId] ?? (unit.kind === "prose" && edits.some((item) => item.unitId === unit.unitId) ? "edit" : "retain");
+      return { unitId: unit.unitId, action, reasonCodes: action === "edit" ? ["TRANSLATIONESE"] : [], riskFlags: [], additionalProtectedStrings: options.protectedByUnit?.[unit.unitId] ?? [], issueRanges: action === "edit" ? [{ start: unit.start, end: unit.end, reasonCode: "TRANSLATIONESE" }] : [] };
+    }),
   };
   const editing = { schemaVersion: "1.0.0", actorId: actors[1], sourceDigest: sha256(source), selectionDigest: sha256(stableJson(selection)), edits, candidateDigest: sha256(applyEdits(source, edits)) };
   const missing = new Set(options.missingDecisionIds ?? []);
@@ -166,7 +203,7 @@ function request(source, edits, actions = {}, options = {}) {
     editingDigest: sha256(stableJson(editing)),
     rubricDigest: sha256("fixed rubric"),
     globalDecision: "continue",
-    decisions: edits.filter((item) => !missing.has(item.id)).map((item) => ({ editId: item.id, decision: "accept", reasonCode: "MEANING_PRESERVED" })),
+    decisions: edits.filter((item) => !missing.has(item.id)).map((item) => ({ editId: item.id, decision: "accept", reasonCode: "MEANING_PRESERVED", sourceDefect: "TRANSLATIONESE", invariantDelta: "NONE" })),
     assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" },
   };
   return { schemaVersion: "1.0.0", mode: "mcp", subagentsAvailable: true, plan: plan(), source, manifest, sourceUnitManifest, selection, editing, verification, rubricDigest: verification.rubricDigest };

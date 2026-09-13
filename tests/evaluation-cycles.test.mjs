@@ -10,6 +10,7 @@ import {
   aggregateStructuredRun,
   evaluateStructuredCase,
   parseJsonl,
+  sealEditingDraft,
   sha256,
   stableJson,
   validateRunMetadata,
@@ -29,7 +30,7 @@ const actorIds = [
 
 test("cycle work-product schemas compile and enforce the approved field contract", async () => {
   const ajv = new Ajv2020({ strict: true });
-  for (const name of ["source-unit-manifest", "selection-work-product", "editing-work-product", "verification-work-product", "fresh-holdout"]) {
+  for (const name of ["source-unit-manifest", "selection-work-product", "editing-draft", "editing-work-product", "verification-work-product", "fresh-holdout"]) {
     const schemaFile = name === "fresh-holdout"
       ? path.join(cycleDir, "schemas", `${name}.schema.json`)
       : path.join(root, "skills", "korean-prose-editor", "contracts", `${name}.v1.schema.json`);
@@ -44,7 +45,7 @@ test("structured edits, not candidateText diffs, determine candidate and final t
   const sourceText = "안녕 하세요.";
   const rubricDigest = sha256("rubric");
   const manifest = sourceManifest(sourceText);
-  const selection = selectionProduct(manifest.sourceDigest, "edit");
+  const selection = selectionProduct(sourceText, "edit");
   const edit = {
     id: "edit-1",
     unitId: "unit-0001",
@@ -79,6 +80,31 @@ test("structured edits, not candidateText diffs, determine candidate and final t
     verification,
     rubricDigest,
   }), /EDITING_CANDIDATE_DIGEST_MISMATCH/u);
+});
+
+test("editing drafts are deterministically sealed with per-record digests", () => {
+  const sourceText = "안녕 하세요.";
+  const selection = selectionProduct(sourceText, "edit");
+  const draft = {
+    schemaVersion: "1.0.0",
+    actorId: actorIds[1],
+    sourceDigest: sha256(sourceText),
+    edits: [{
+      id: "edit-1",
+      unitId: "unit-0001",
+      sourceDigest: sha256(sourceText),
+      start: 2,
+      end: 3,
+      replacement: "",
+      actorId: actorIds[1],
+    }],
+  };
+  const sealed = sealEditingDraft(draft, { source: sourceText, selection });
+  assert.equal(sealed.selectionDigest, workProductDigest(selection));
+  assert.equal(sealed.candidateDigest, sha256("안녕하세요."));
+  assert.equal(Object.hasOwn(sealed, "candidateText"), false);
+  assert.throws(() => sealEditingDraft({ ...draft, sourceDigest: sha256("다른 원문") }, { source: sourceText, selection }), /EDITING_DRAFT_SOURCE_DIGEST_MISMATCH/u);
+  assert.throws(() => sealEditingDraft({ ...draft, unexpected: true }, { source: sourceText, selection }), /editing-draft fields/u);
 });
 
 test("diagnostic inventory fixes 18 expected edits, 20 controls, and 15/18 plus 18/20 gates", async () => {
@@ -159,6 +185,34 @@ test("negative semantic-drift fixture contains exactly the 13 historical rejecte
   const result = spawnSync(process.execPath, ["scripts/extract-semantic-drift-regressions.mjs", "--output", "evals/cycles/0.1.0-rc2/diagnostic/semantic-drift-regressions.jsonl"], { cwd: root, encoding: "utf8" });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /REFUSE_OVERWRITE/u);
+});
+
+test("prepared semantic regressions expose structured edits without leaking the historical verdict", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression");
+  const input = parseJsonl(await readFile(path.join(directory, "input.jsonl"), "utf8"));
+  const key = JSON.parse(await readFile(path.join(directory, "key.json"), "utf8"));
+  assert.equal(input.length, 13);
+  assert.equal(key.length, 13);
+  assert.ok(input.every((item) => item.edit && !Object.hasOwn(item, "expectedDecision") && !Object.hasOwn(item, "historicalVerifierEvidence")));
+  assert.ok(input.every((item) => {
+    const candidate = `${item.sourceText.slice(0, item.edit.start)}${item.edit.replacement}${item.sourceText.slice(item.edit.end)}`;
+    return sha256(candidate) === item.edit.candidateDigest;
+  }));
+  assert.ok(key.every((item) => item.expectedDecision === "retain" && item.historicalVerifierEvidence));
+});
+
+test("user-facing abstraction diagnostic is a semantic contrast, not a receipt keyword list", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "user-facing-abstraction");
+  const input = parseJsonl(await readFile(path.join(directory, "input.jsonl"), "utf8"));
+  const key = JSON.parse(await readFile(path.join(directory, "key.json"), "utf8"));
+  const results = JSON.parse(await readFile(path.join(directory, "results.json"), "utf8"));
+  assert.equal(input.length, 10);
+  assert.deepEqual(key.map((item) => item.expectedDecision), ["edit", "edit", "edit", "edit", "edit", "retain", "retain", "retain", "retain", "retain"]);
+  assert.ok(input.some((item) => item.id.startsWith("UFA-E") && !item.sourceText.includes("영수증")));
+  assert.ok(input.some((item) => item.id.startsWith("UFA-R") && item.sourceText.includes("영수증")));
+  assert.ok(input.some((item) => item.id.startsWith("UFA-R") && item.sourceText.includes("digest")));
+  assert.equal(results.status, "pass");
+  assert.ok(results.runs.every((run) => run.expectedActionMatch === "10/10" && run.contractValidation === "pass"));
 });
 
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
@@ -286,13 +340,13 @@ function sourceManifest(source) {
   };
 }
 
-function selectionProduct(sourceDigest, action) {
+function selectionProduct(source, action) {
   return {
     schemaVersion: "1.0.0",
     actorId: actorIds[0],
-    sourceDigest,
+    sourceDigest: sha256(source),
     status: "ready",
-    decisions: [{ unitId: "unit-0001", action, reasonCodes: [], riskFlags: [], additionalProtectedStrings: [] }],
+    decisions: [{ unitId: "unit-0001", action, reasonCodes: action === "edit" ? ["TRANSLATIONESE"] : [], riskFlags: [], additionalProtectedStrings: [], issueRanges: action === "edit" ? [{ start: 0, end: source.length, reasonCode: "TRANSLATIONESE" }] : [] }],
   };
 }
 
@@ -317,7 +371,11 @@ function verificationProduct(sourceDigest, editing, rubricDigest, decisions) {
     editingDigest: workProductDigest(editing),
     rubricDigest,
     globalDecision: "continue",
-    decisions,
+    decisions: decisions.map((decision) => ({
+      sourceDefect: decision.decision === "accept" ? "TRANSLATIONESE" : "NONE",
+      invariantDelta: decision.decision === "accept" ? "NONE" : "UNCERTAIN",
+      ...decision,
+    })),
     assessment: {
       meaningPreservation: "pass",
       majorMeaningChange: false,
@@ -331,7 +389,7 @@ function verificationProduct(sourceDigest, editing, rubricDigest, decisions) {
 
 function makeCaseProducts(source, edited) {
   const manifest = sourceManifest(source);
-  const selection = selectionProduct(manifest.sourceDigest, edited ? "edit" : "retain");
+  const selection = selectionProduct(source, edited ? "edit" : "retain");
   const edits = edited ? [{
     id: "edit-1", unitId: "unit-0001", sourceDigest: manifest.sourceDigest,
     start: source.length - 1, end: source.length, replacement: "!", actorId: actorIds[1],

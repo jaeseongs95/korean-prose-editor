@@ -1,0 +1,8 @@
+[
+  { "id": "MC-NATURAL-CONSERVATIVE", "expectedDecision": "retain" },
+  { "id": "MC-NATURAL-DIRECT", "expectedDecision": "retain" },
+  { "id": "MC-AMBIGUOUS-CONSERVATIVE", "expectedDecision": "defer" },
+  { "id": "MC-AMBIGUOUS-DIRECT", "expectedDecision": "defer" },
+  { "id": "MC-TRANSLATIONESE-CONSERVATIVE", "expectedDecision": "edit" },
+  { "id": "MC-TRANSLATIONESE-DIRECT", "expectedDecision": "edit" }
+]

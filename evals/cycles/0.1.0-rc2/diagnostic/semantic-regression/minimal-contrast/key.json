@@ -1,0 +1,18 @@
+[
+  {
+    "id": "VR-C01-SAFE-POSSIBILITY",
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR-C02-POSSIBILITY-TO-CERTAINTY",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR-C03-ACTION-TO-AUTHORITY",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR-C04-NO-CLEAR-IMPROVEMENT",
+    "expectedDecision": "retain"
+  }
+]

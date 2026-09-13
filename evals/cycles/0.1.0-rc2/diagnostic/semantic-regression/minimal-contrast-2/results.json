@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "pass",
+  "rubricSha256": "a5e3670b39287932c0afd84b6f5f0fadf37cee966889462fb7c33756e40d22fe",
+  "expectedActions": ["accept", "retain", "accept", "retain", "accept", "retain", "accept", "retain", "retain", "retain"],
+  "runs": [
+    { "run": 1, "actorId": "8c294fc1-f20f-4536-bb1c-41a61d852299", "workProductSha256": "5a785b4daa8ef81f5c449b8eaddf99aec85c1c3979d824f2e68fc4f21aa8ba61", "actionMatch": "10/10" },
+    { "run": 2, "actorId": "6d2040de-10c6-4d9f-8b41-4fcc153e739c", "workProductSha256": "bfbba05ea73033da777f18132252af25873f6155c0e32ee03f1edf654a5d4e80", "actionMatch": "10/10" },
+    { "run": 3, "actorId": "5e16aad0-d701-4c38-9b84-dcec4b9de283", "workProductSha256": "ce98b328eeb53084e7cfcb47eb03548f761cb9718d85a6f9710ac519cc2b68a8", "actionMatch": "10/10" }
+  ],
+  "conclusion": "All runs accepted four edits that preserved condition, possibility, rhetorical function, or predicate argument structure and retained six paired edits that changed those invariants or lacked a clear improvement."
+}

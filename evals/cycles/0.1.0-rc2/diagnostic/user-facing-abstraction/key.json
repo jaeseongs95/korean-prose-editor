@@ -1,0 +1,12 @@
+[
+  { "id": "UFA-E01", "expectedDecision": "edit" },
+  { "id": "UFA-E02", "expectedDecision": "edit" },
+  { "id": "UFA-E03", "expectedDecision": "edit" },
+  { "id": "UFA-E04", "expectedDecision": "edit" },
+  { "id": "UFA-E05", "expectedDecision": "edit" },
+  { "id": "UFA-R01", "expectedDecision": "retain" },
+  { "id": "UFA-R02", "expectedDecision": "retain" },
+  { "id": "UFA-R03", "expectedDecision": "retain" },
+  { "id": "UFA-R04", "expectedDecision": "retain" },
+  { "id": "UFA-R05", "expectedDecision": "retain" }
+]

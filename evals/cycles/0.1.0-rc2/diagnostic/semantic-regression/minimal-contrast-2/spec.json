@@ -1,0 +1,72 @@
+[
+  {
+    "id": "VR2-C01-SAFE-CONDITION",
+    "sourceText": "내가 8시까지 돌아오지 않는 경우에만 고양이에게 약을 주는 것을 해 줘.",
+    "replacement": "내가 8시까지 돌아오지 않는 경우에만 고양이에게 약을 줘.",
+    "meaningConstraints": ["8시까지 돌아오지 않는 경우에만 약을 주라는 조건과 시제를 유지한다."],
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C02-CONDITION-TENSE",
+    "sourceText": "내가 8시까지 돌아오지 않는 경우에만 고양이에게 약을 줘.",
+    "replacement": "내가 8시까지 돌아오지 않을 때만 고양이에게 약을 줘.",
+    "meaningConstraints": ["현재 확인되는 부재 조건과 8시라는 경계를 유지한다."],
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C03-SAFE-POSSIBILITY",
+    "sourceText": "온라인 양식을 사용하는 것은 요청을 더 빠르게 처리하는 것을 가능하게 할 수 있습니다.",
+    "replacement": "온라인 양식을 사용하면 요청을 더 빠르게 처리할 수 있습니다.",
+    "meaningConstraints": ["온라인 양식이 빠른 처리 가능성에 기여한다는 수준을 유지한다."],
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C04-POSSIBILITY-TO-RESULT",
+    "sourceText": "온라인 양식을 사용하는 것은 귀하의 요청이 더 빠르게 처리되는 것을 가능하게 합니다.",
+    "replacement": "온라인 양식을 사용하면 요청이 더 빠르게 처리됩니다.",
+    "meaningConstraints": ["빠른 처리를 가능하게 한다는 주장과 결과가 확정됐다는 주장을 구분한다."],
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C05-SAFE-RHETORICAL-FUNCTION",
+    "sourceText": "이 결과는 기억 형성에 관한 이론적 논의에 새로운 빛을 비추는 역할을 한다.",
+    "replacement": "이 결과는 기억 형성에 관한 이론적 논의를 새롭게 조명한다.",
+    "meaningConstraints": ["결과가 논의를 조명한다는 비유적 기능을 유지한다."],
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C06-RHETORICAL-TO-CLAIM",
+    "sourceText": "이 결과는 기억 형성에 관한 이론적 논의에 새로운 빛을 비춘다.",
+    "replacement": "이 결과는 기억 형성에 관한 이론적 논의에 새로운 통찰을 제공한다.",
+    "meaningConstraints": ["논의를 조명한다는 비유적 기능을 별도의 통찰 제공 주장으로 바꾸지 않는다."],
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C07-SAFE-PREDICATE-STRUCTURE",
+    "sourceText": "작은 표본 크기는 결과의 일반화 가능성에 제한을 부과한다.",
+    "replacement": "작은 표본 크기는 결과의 일반화 가능성을 제약한다.",
+    "meaningConstraints": ["작은 표본 크기가 일반화 가능성을 제약한다는 논항 관계를 유지한다."],
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C08-PREDICATE-STRUCTURE",
+    "sourceText": "작은 표본 크기는 결과의 일반화 가능성에 제한을 부과한다.",
+    "replacement": "작은 표본 크기는 결과를 일반화하는 데 한계가 있다.",
+    "meaningConstraints": ["제약을 가하는 원인과 제약받는 대상을 유지한다."],
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C09-NO-CLEAR-IMPROVEMENT",
+    "sourceText": "한 잔마다 완벽하게 로스팅된 원두의 차이를 경험하세요.",
+    "replacement": "한 잔 한 잔에서 완벽하게 로스팅된 원두의 차이를 경험하세요.",
+    "meaningConstraints": ["명확한 개선 없이 반복을 늘리지 않는다."],
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C10-NEW-REDUNDANCY",
+    "sourceText": "Green Week 2026은 “덜 쓰고 더 오래”라는 선택을 일상으로 가져옵니다.",
+    "replacement": "Green Week 2026은 “덜 쓰고 더 오래”라는 선택을 일상의 선택으로 만듭니다.",
+    "meaningConstraints": ["새 반복이나 자연스러움 회귀를 만들지 않는다."],
+    "expectedDecision": "retain"
+  }
+]

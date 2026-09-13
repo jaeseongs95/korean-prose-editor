@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "pass",
+  "rubricSha256": "b419ccd77de29d3b25a5c9e37c027517d22ee17a4ee56c8555d3492d322a06e2",
+  "expectedActions": ["accept", "retain", "retain", "retain"],
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "7bcb2b7d-e52d-4557-8409-871f66dcf8e8",
+      "workProductSha256": "6a0509450cebb7cb2942ed16b744a707f81d5a3bed64444c6f67031047fdbb7d",
+      "actionMatch": "4/4"
+    },
+    {
+      "run": 2,
+      "actorId": "bf171bca-d2be-4140-aa04-511f4d4807e5",
+      "workProductSha256": "790ccb46d566e14901fffece4ace38b44741f9ca470ac9a0529c9ff05de63c86",
+      "actionMatch": "4/4"
+    },
+    {
+      "run": 3,
+      "actorId": "971208f6-e915-4664-81e1-82aa565c1b00",
+      "workProductSha256": "a44a80dc6fd3c202f6c5c13c249dce00af8b08b95c49d3ce73c059b47d32b862",
+      "actionMatch": "4/4"
+    }
+  ],
+  "conclusion": "The revised contract distinguishes a meaning-preserving possibility edit from possibility-to-certainty, action-to-authority, and no-clear-improvement edits in all three runs. Proceed to a fresh historical-regression attempt without changing the frozen failure evidence."
+}

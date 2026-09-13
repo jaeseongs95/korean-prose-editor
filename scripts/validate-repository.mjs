@@ -31,6 +31,7 @@ const required = [
   "skills/korean-prose-editor/contracts/source-unit-manifest.v1.schema.json",
   "skills/korean-prose-editor/contracts/selection-work-product.v1.schema.json",
   "skills/korean-prose-editor/contracts/editing-work-product.v1.schema.json",
+  "skills/korean-prose-editor/contracts/editing-draft.v1.schema.json",
   "skills/korean-prose-editor/contracts/verification-work-product.v1.schema.json",
   "skills/korean-prose-editor/scripts/source-units.mjs",
   "evals/legacy/BEHAVIOR_CASES.md",
@@ -53,9 +54,22 @@ const required = [
   "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json",
   "scripts/prepare-evaluation-cycle.mjs",
   "scripts/prepare-source-unit-manifests.mjs",
+  "scripts/record-selection-run.mjs",
+  "scripts/record-editing-run.mjs",
+  "scripts/prepare-semantic-regression.mjs",
+  "scripts/prepare-historical-regression-work-products.mjs",
+  "scripts/aggregate-semantic-regression.mjs",
+  "scripts/prepare-verification-minimal-contrast.mjs",
+  "scripts/prepare-new-semantic-candidates.mjs",
   "scripts/aggregate-selection-diagnostic.mjs",
   "scripts/aggregate-evaluation-cycle.mjs",
   "scripts/summarize-evaluation-cycle.mjs",
+];
+const removedLegacyEvaluationEntrypoints = [
+  "scripts/prepare-evaluation.mjs",
+  "scripts/prepare-verification-input.mjs",
+  "scripts/prepare-disagreement-audit.mjs",
+  "scripts/aggregate-evaluation.mjs",
 ];
 
 /** @type {string[]} */
@@ -74,6 +88,17 @@ expect(packageJson.version === "0.1.0", "package version must be 0.1.0");
 expect(packageJson.engines?.node === ">=22", "Node engine must be >=22");
 expect(packageJson.packageManager === "pnpm@11.19.0", "packageManager must be pnpm@11.19.0");
 expect(packageJson.license === "MIT", "package license must be MIT");
+for (const command of ["eval:prepare", "eval:prepare-verification", "eval:prepare-audit", "eval:aggregate"]) {
+  expect(!Object.hasOwn(packageJson.scripts ?? {}, command), `legacy candidateText evaluation command must stay removed: ${command}`);
+}
+for (const relative of removedLegacyEvaluationEntrypoints) {
+  try {
+    await access(path.join(root, relative), constants.R_OK);
+    failures.push(`legacy candidateText evaluation entrypoint must stay removed: ${relative}`);
+  } catch {
+    // Absence is required: the sealed legacy evidence remains, but cannot be rerun through candidateText diff inference.
+  }
+}
 
 const skill = await readFile(path.join(skillRoot, "SKILL.md"), "utf8");
 expect(/^---\n[\s\S]+?\n---\n/.test(skill), "SKILL.md must have YAML frontmatter");
@@ -110,7 +135,7 @@ const finalizationProvider = descriptor.providers?.[3];
 expect(finalizationProvider?.requiredInputArtifacts?.includes("edit-decision-set"), "finalizer must require edit-decision-set");
 expect(finalizationProvider?.inputBindings?.some((binding) => binding.targetArtifact === "edit-decision-set" && binding.sources?.includes("provider:korean-prose-selection.edit-decision-set")), "finalizer must bind selection evidence");
 
-for (const schemaName of ["provider-plan", "protected-manifest", "finalization-request", "receipt", "edit-decision-set.v1", "edit-candidate.v1", "edit-verification-report.v1", "final-text-receipt.v1", "source-unit-manifest.v1", "selection-work-product.v1", "editing-work-product.v1", "verification-work-product.v1"]) {
+for (const schemaName of ["provider-plan", "protected-manifest", "finalization-request", "receipt", "edit-decision-set.v1", "edit-candidate.v1", "edit-verification-report.v1", "final-text-receipt.v1", "source-unit-manifest.v1", "selection-work-product.v1", "editing-draft.v1", "editing-work-product.v1", "verification-work-product.v1"]) {
   const schema = await readJson(`skills/korean-prose-editor/contracts/${schemaName}.schema.json`);
   expect(schema.$schema === "https://json-schema.org/draft/2020-12/schema", `${schemaName} schema draft mismatch`);
   expect(schema.type === "object" && schema.additionalProperties === false, `${schemaName} schema must close its root object`);

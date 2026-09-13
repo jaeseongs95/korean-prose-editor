@@ -4,7 +4,7 @@
 
 ## 작업 제품
 
-평가는 `source-unit-manifest`, `selection-work-product`, `editing-work-product`, `verification-work-product`를 입력 순서대로 결합한다. 편집 단계는 원문 범위와 대체 문자열을 `edits`에 기록한다. 집계기는 이 구조화된 편집을 원문에 적용해 후보문과 최종문을 만들며, 별도의 `candidateText`를 비교해 편집 내용을 추정하지 않는다.
+평가는 `source-unit-manifest`, `selection-work-product`, `editing-work-product`, `verification-work-product`를 입력 순서대로 결합한다. 선정 단계의 `edit` 결정에는 실제 문제가 있는 원문 `issueRanges`와 제한된 결함 코드를 기록한다. 편집 단계는 이 범위와 겹치는 원문 범위와 대체 문자열을 `edits`에 기록한다. 검증 단계는 edit별 `sourceDefect`와 `invariantDelta`를 기록하며, 구체적 결함이 제거되고 의미 불변량 변화가 없고 후보가 분명히 나을 때만 승인한다. 집계기는 구조화된 편집을 원문에 적용해 후보문과 최종문을 만들며, 별도의 `candidateText`를 비교해 편집 내용을 추정하지 않는다.
 
 각 실행에서 selection, editing, verification의 `actorId`는 서로 달라야 한다. 한 역할은 실행 안에서 같은 `actorId`를 유지한다. editing은 selection의 canonical digest를, verification은 editing의 canonical digest와 이 규약의 digest를 참조한다. 작업 제품의 수와 순서는 `input.jsonl`과 정확히 같아야 한다.
 

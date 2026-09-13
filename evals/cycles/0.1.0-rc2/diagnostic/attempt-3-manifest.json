@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 3,
+  "status": "frozen",
+  "bindings": {
+    "inputSha256": "2d5a7175a60e2e7ce133c55dd1d8e7715b5e6d85e65b6fe5ee51d4c0f0b89aa8",
+    "sourceUnitManifestSha256": "0ad97732a697c2e058c3ba32054497907209bf24f43ed1be08b1dca21da4ec3c",
+    "selectionPolicySha256": "f389bf2e69c12288112f3f92e2ee98cc0b15c46686000bcdcbfda46cb8e43b2a",
+    "selectionSchemaSha256": "4b4802c1f0d03d96bf1449d0f9f80a3915554da8b4cfbfc4c3643a20c77df31f"
+  },
+  "runCount": 3,
+  "metadataProducer": "scripts/record-selection-run.mjs",
+  "thresholds": {
+    "editRecallMinimum": 15,
+    "editRecallDenominator": 18,
+    "restraintMinimum": 18,
+    "restraintDenominator": 20,
+    "userFacingAbstractionSelectionRequired": true
+  },
+  "executionConfiguration": {
+    "requestedModel": "gpt-5.6-sol",
+    "requestedReasoning": "high",
+    "verifiedByExecutionTool": false
+  }
+}

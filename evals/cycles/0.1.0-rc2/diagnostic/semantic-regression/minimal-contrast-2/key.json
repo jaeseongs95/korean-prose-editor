@@ -1,0 +1,42 @@
+[
+  {
+    "id": "VR2-C01-SAFE-CONDITION",
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C02-CONDITION-TENSE",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C03-SAFE-POSSIBILITY",
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C04-POSSIBILITY-TO-RESULT",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C05-SAFE-RHETORICAL-FUNCTION",
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C06-RHETORICAL-TO-CLAIM",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C07-SAFE-PREDICATE-STRUCTURE",
+    "expectedDecision": "accept"
+  },
+  {
+    "id": "VR2-C08-PREDICATE-STRUCTURE",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C09-NO-CLEAR-IMPROVEMENT",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "VR2-C10-NEW-REDUNDANCY",
+    "expectedDecision": "retain"
+  }
+]

@@ -22,6 +22,9 @@ export const RELEASE_THRESHOLD_KEYS = Object.freeze([
 
 const DIGEST = /^[a-f0-9]{64}$/u;
 const ACTOR_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u;
+const ISSUE_CODES = new Set(["AMBIGUOUS_RELATIONSHIP", "GRAMMATICAL_MISMATCH", "NOUN_STACKING", "REDUNDANCY", "TRANSLATIONESE", "UNNECESSARY_META_PROSE", "UNSUPPORTED_EMPHASIS", "USER_FACING_IMPLEMENTATION_JARGON"]);
+const SOURCE_DEFECTS = new Set(["GRAMMATICAL_MISMATCH", "NOUN_STACKING", "REDUNDANCY", "TRANSLATIONESE", "UNNECESSARY_META_PROSE", "UNSUPPORTED_EMPHASIS", "USER_FACING_IMPLEMENTATION_JARGON", "NONE"]);
+const INVARIANT_DELTAS = new Set(["NONE", "QUANTIFIER_SCOPE", "CONDITION_OR_TENSE", "MODALITY_OR_CERTAINTY", "ACTION_OR_AUTHORITY", "CLAIM_TYPE_OR_STRENGTH", "PREDICATE_ARGUMENT_STRUCTURE", "RHETORICAL_FUNCTION", "ACTOR_OR_TARGET", "TIME", "NEGATION", "CAUSAL_RELATION", "TERMINOLOGY", "UNCERTAIN"]);
 
 export function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -33,6 +36,27 @@ export function stableJson(value) {
 
 export function workProductDigest(value) {
   return sha256(stableJson(value));
+}
+
+export function sealEditingDraft(draft, { source, selection }) {
+  requireExactObject(draft, "editing-draft", ["schemaVersion", "actorId", "sourceDigest", "edits"]);
+  requireSchemaVersion(draft);
+  requireActor(draft.actorId, "editing draft actorId");
+  requireDigest(draft.sourceDigest, "editing draft sourceDigest");
+  if (draft.sourceDigest !== sha256(source)) throw new Error("EDITING_DRAFT_SOURCE_DIGEST_MISMATCH");
+  if (!Array.isArray(draft.edits)) throw new Error("EDITING_DRAFT_EDITS_INVALID");
+  let candidate = source;
+  for (const edit of [...draft.edits].sort((left, right) => right.start - left.start || right.end - left.end)) {
+    candidate = `${candidate.slice(0, edit.start)}${edit.replacement}${candidate.slice(edit.end)}`;
+  }
+  return {
+    schemaVersion: WORK_PRODUCT_SCHEMA_VERSION,
+    actorId: draft.actorId,
+    sourceDigest: draft.sourceDigest,
+    selectionDigest: workProductDigest(selection),
+    edits: draft.edits,
+    candidateDigest: sha256(candidate),
+  };
 }
 
 export function parseJsonl(text) {
@@ -67,7 +91,7 @@ export function validateSourceUnitManifest(value, source) {
   return value;
 }
 
-export function validateSelectionWorkProduct(value, manifest) {
+export function validateSelectionWorkProduct(value, manifest, source) {
   requireExactObject(value, "selection-work-product", ["schemaVersion", "actorId", "sourceDigest", "status", "decisions"]);
   requireSchemaVersion(value);
   requireActor(value.actorId, "selection actorId");
@@ -78,13 +102,25 @@ export function validateSelectionWorkProduct(value, manifest) {
   const units = new Map(manifest.units.map((unit) => [unit.unitId, unit]));
   const seen = new Set();
   for (const decision of value.decisions) {
-    requireExactObject(decision, "selection decision", ["unitId", "action", "reasonCodes", "riskFlags", "additionalProtectedStrings"]);
+    requireExactObject(decision, "selection decision", ["unitId", "action", "reasonCodes", "riskFlags", "additionalProtectedStrings", "issueRanges"]);
     if (!units.has(decision.unitId) || seen.has(decision.unitId)) throw new Error("SELECTION_UNIT_BINDING_INVALID");
     if (!["edit", "retain", "defer"].includes(decision.action)) throw new Error("SELECTION_ACTION_INVALID");
     for (const field of ["reasonCodes", "riskFlags"]) {
       if (!Array.isArray(decision[field]) || new Set(decision[field]).size !== decision[field].length || decision[field].some((item) => typeof item !== "string" || !/^[A-Z][A-Z0-9_]*$/u.test(item))) throw new Error(`SELECTION_${field.toUpperCase()}_INVALID`);
     }
     if (!Array.isArray(decision.additionalProtectedStrings) || new Set(decision.additionalProtectedStrings).size !== decision.additionalProtectedStrings.length || decision.additionalProtectedStrings.some((item) => typeof item !== "string" || item.length === 0)) throw new Error("SELECTION_ADDITIONAL_PROTECTED_STRINGS_INVALID");
+    if (!Array.isArray(decision.issueRanges)) throw new Error("SELECTION_ISSUE_RANGES_INVALID");
+    if (decision.action === "edit") {
+      if (decision.issueRanges.length === 0) throw new Error("SELECTION_EDIT_ISSUE_REQUIRED");
+      const issueCodes = new Set();
+      for (const issue of decision.issueRanges) {
+        requireExactObject(issue, "selection issue", ["start", "end", "reasonCode"]);
+        const unit = units.get(decision.unitId);
+        if (!Number.isInteger(issue.start) || !Number.isInteger(issue.end) || issue.start < unit.start || issue.end > unit.end || issue.end <= issue.start || !isUtf16Boundary(source, issue.start) || !isUtf16Boundary(source, issue.end) || !ISSUE_CODES.has(issue.reasonCode)) throw new Error("SELECTION_ISSUE_RANGE_INVALID");
+        issueCodes.add(issue.reasonCode);
+      }
+      if (decision.reasonCodes.length !== issueCodes.size || decision.reasonCodes.some((code) => !issueCodes.has(code))) throw new Error("SELECTION_ISSUE_REASON_MISMATCH");
+    } else if (decision.issueRanges.length !== 0) throw new Error("SELECTION_NON_EDIT_HAS_ISSUE");
     if (units.get(decision.unitId).kind === "fenced-code" && decision.action === "edit") throw new Error("FENCED_CODE_SELECTED_FOR_EDIT");
     seen.add(decision.unitId);
   }
@@ -105,14 +141,15 @@ export function validateEditingWorkProduct(value, { source, manifest, selection 
   if (!Array.isArray(value.edits)) throw new Error("EDITING_EDITS_INVALID");
 
   const units = new Map(manifest.units.map((unit) => [unit.unitId, unit]));
-  const actions = new Map(selection.decisions.map((decision) => [decision.unitId, decision.action]));
+  const decisions = new Map(selection.decisions.map((decision) => [decision.unitId, decision]));
   const ids = new Set();
   const sorted = [...value.edits].sort(compareEdits);
   for (const edit of sorted) {
     requireExactObject(edit, "edit", ["id", "unitId", "sourceDigest", "start", "end", "replacement", "actorId"]);
     const unit = units.get(edit.unitId);
     if (typeof edit.id !== "string" || edit.id.length === 0 || ids.has(edit.id)) throw new Error("EDIT_ID_INVALID");
-    if (!unit || actions.get(edit.unitId) !== "edit" || unit.kind !== "prose") throw new Error("EDIT_UNIT_BINDING_INVALID");
+    const selected = decisions.get(edit.unitId);
+    if (!unit || selected?.action !== "edit" || unit.kind !== "prose" || !selected.issueRanges.some((issue) => rangesOverlap(edit, issue))) throw new Error("EDIT_UNIT_BINDING_INVALID");
     requireDigest(edit.sourceDigest, "edit sourceDigest");
     if (edit.sourceDigest !== manifest.sourceDigest) throw new Error("EDIT_SOURCE_DIGEST_MISMATCH");
     if (edit.actorId !== value.actorId) throw new Error("EDIT_ACTOR_BINDING_MISMATCH");
@@ -143,11 +180,12 @@ export function validateVerificationWorkProduct(value, { manifest, editing, rubr
   const editIds = new Set(editing.edits.map((edit) => edit.id));
   const seen = new Set();
   for (const decision of value.decisions) {
-    requireExactObject(decision, "verification decision", ["editId", "decision", "reasonCode"]);
+    requireExactObject(decision, "verification decision", ["editId", "decision", "reasonCode", "sourceDefect", "invariantDelta"]);
     if (!editIds.has(decision.editId) || seen.has(decision.editId)) throw new Error("VERIFICATION_EDIT_BINDING_INVALID");
     if (decision.decision !== "accept" && decision.decision !== "retain") throw new Error("VERIFICATION_EDIT_DECISION_INVALID");
     if (typeof decision.reasonCode !== "string" || !/^[A-Z][A-Z0-9_]*$/u.test(decision.reasonCode)) throw new Error("VERIFICATION_REASON_CODE_INVALID");
-    if (decision.decision === "accept" && decision.reasonCode !== "MEANING_PRESERVED") throw new Error("VERIFICATION_REASON_DECISION_CONFLICT");
+    if (!SOURCE_DEFECTS.has(decision.sourceDefect) || !INVARIANT_DELTAS.has(decision.invariantDelta)) throw new Error("VERIFICATION_JUDGMENT_EVIDENCE_INVALID");
+    if (decision.decision === "accept" && (decision.reasonCode !== "MEANING_PRESERVED" || decision.sourceDefect === "NONE" || decision.invariantDelta !== "NONE")) throw new Error("VERIFICATION_REASON_DECISION_CONFLICT");
     seen.add(decision.editId);
   }
   if (seen.size !== editIds.size) throw new Error("VERIFICATION_DECISION_COVERAGE_MISMATCH");
@@ -158,12 +196,16 @@ export function validateVerificationWorkProduct(value, { manifest, editing, rubr
   if (!["pass", "fail", "uncertain", "not-applicable"].includes(value.assessment.terminologyJudgment)) throw new Error("VERIFICATION_TERMINOLOGY_INVALID");
   if (!["candidate", "original", "tie", "neither"].includes(value.assessment.pairPreference)) throw new Error("VERIFICATION_PAIR_PREFERENCE_INVALID");
   if (typeof value.assessment.majorMeaningChange !== "boolean") throw new Error("VERIFICATION_MAJOR_MEANING_CHANGE_INVALID");
+  if (value.decisions.some((decision) => decision.decision === "accept") && (
+    value.assessment.meaningPreservation !== "pass" || value.assessment.majorMeaningChange || value.assessment.registerCompliance !== "pass" ||
+    value.assessment.protectedStrings !== "pass" || !["pass", "not-applicable"].includes(value.assessment.terminologyJudgment) || value.assessment.pairPreference !== "candidate"
+  )) throw new Error("VERIFICATION_ACCEPT_ASSESSMENT_CONFLICT");
   return value;
 }
 
 export function evaluateStructuredCase({ input, expectedDecision, manifest, selection, editing, verification, rubricDigest }) {
   validateSourceUnitManifest(manifest, input.sourceText);
-  validateSelectionWorkProduct(selection, manifest);
+  validateSelectionWorkProduct(selection, manifest, input.sourceText);
   const editingResult = validateEditingWorkProduct(editing, { source: input.sourceText, manifest, selection });
   validateVerificationWorkProduct(verification, { manifest, editing, rubricDigest });
   if (new Set([selection.actorId, editing.actorId, verification.actorId]).size !== 3) throw new Error("ROLE_ACTOR_REUSE");
@@ -397,6 +439,11 @@ function isUtf16Boundary(source, index) {
   const before = source.charCodeAt(index - 1);
   const after = source.charCodeAt(index);
   return !(before >= 0xD800 && before <= 0xDBFF && after >= 0xDC00 && after <= 0xDFFF);
+}
+
+function rangesOverlap(left, right) {
+  if (left.start === left.end) return right.start < left.start && left.start < right.end;
+  return left.start < right.end && right.start < left.end;
 }
 
 function requireSchemaVersion(value) {

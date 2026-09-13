@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "cycleId": "0.1.0-rc2",
+  "run": 2,
+  "actorId": "ee5ebcac-ffc9-49b5-8997-1f9b3938e401",
+  "counts": {
+    "cases": 39,
+    "units": 40,
+    "edit": 20,
+    "retain": 20,
+    "defer": 0
+  },
+  "diagnostic": {
+    "editRecallCount": 17,
+    "editRecallDenominator": 18,
+    "restraintCount": 18,
+    "restraintDenominator": 20,
+    "regressionResults": [
+      {
+        "caseId": "regression:user-facing-jargon-001",
+        "selectedEdit": true
+      }
+    ]
+  },
+  "gate": {
+    "editRecallPass": true,
+    "restraintPass": true,
+    "regressionPass": true,
+    "pass": true
+  }
+}

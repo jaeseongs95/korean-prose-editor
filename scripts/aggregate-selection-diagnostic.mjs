@@ -3,14 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import {
-  parseJsonl,
-  sha256,
-  stableJson,
-  validateSelectionWorkProduct,
-  validateSourceUnitManifest,
-  writeNewFile,
-} from "./lib/evaluation-cycle.mjs";
+import { parseJsonl, sha256, stableJson, validateSelectionWorkProduct, validateSourceUnitManifest, writeNewFile } from "./lib/evaluation-cycle.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const options = parseArguments(process.argv.slice(2));
@@ -18,7 +11,8 @@ const cycleDir = resolveCycleDir(options["cycle-dir"]);
 const run = Number(options.run);
 if (![1, 2, 3].includes(run)) throw new Error("run must be 1, 2, or 3");
 const diagnosticDir = path.join(cycleDir, "diagnostic");
-const runDir = path.join(diagnosticDir, "runs", `run-${run}`);
+const runsRoot = resolveRunsRoot(diagnosticDir, options["runs-dir"]);
+const runDir = path.join(runsRoot, `run-${run}`);
 const inputText = await readFile(path.join(diagnosticDir, "input.jsonl"), "utf8");
 const input = parseJsonl(inputText);
 const manifests = parseJsonl(await readFile(path.join(diagnosticDir, "source-unit-manifest.jsonl"), "utf8"));
@@ -33,12 +27,13 @@ if (new Set(selections.map((record) => record.actorId)).size !== 1 || selections
 const selectedById = new Map();
 for (let index = 0; index < input.length; index += 1) {
   validateSourceUnitManifest(manifests[index], input[index].sourceText);
-  validateSelectionWorkProduct(selections[index], manifests[index]);
+  validateSelectionWorkProduct(selections[index], manifests[index], input[index].sourceText);
   selectedById.set(input[index].id, selections[index].decisions.some((decision) => decision.action === "edit"));
 }
 const editRecallCount = inventory.editCases.filter((item) => selectedById.get(item.caseId) === true).length;
 const restraintCount = inventory.controlCases.filter((item) => selectedById.get(item.caseId) === false).length;
 const regressionResults = inventory.regressionCases.map((item) => ({ caseId: item.caseId, selectedEdit: selectedById.get(item.caseId) === true }));
+const allDecisions = selections.flatMap((record) => record.decisions);
 const metrics = {
   schemaVersion: "1.0.0",
   cycleId: path.basename(cycleDir),
@@ -46,18 +41,12 @@ const metrics = {
   actorId: meta.actorId,
   counts: {
     cases: input.length,
-    units: selections.reduce((total, record) => total + record.decisions.length, 0),
-    edit: selections.flatMap((record) => record.decisions).filter((decision) => decision.action === "edit").length,
-    retain: selections.flatMap((record) => record.decisions).filter((decision) => decision.action === "retain").length,
-    defer: selections.flatMap((record) => record.decisions).filter((decision) => decision.action === "defer").length,
+    units: allDecisions.length,
+    edit: allDecisions.filter((decision) => decision.action === "edit").length,
+    retain: allDecisions.filter((decision) => decision.action === "retain").length,
+    defer: allDecisions.filter((decision) => decision.action === "defer").length,
   },
-  diagnostic: {
-    editRecallCount,
-    editRecallDenominator: 18,
-    restraintCount,
-    restraintDenominator: 20,
-    regressionResults,
-  },
+  diagnostic: { editRecallCount, editRecallDenominator: 18, restraintCount, restraintDenominator: 20, regressionResults },
   gate: {
     editRecallPass: editRecallCount >= inventory.thresholds.editRecallMinimum,
     restraintPass: restraintCount >= inventory.thresholds.restraintMinimum,
@@ -73,6 +62,12 @@ function resolveCycleDir(value) {
   const cyclesRoot = path.resolve(root, "evals", "cycles");
   const resolved = path.resolve(root, value);
   if (resolved === cyclesRoot || !resolved.startsWith(`${cyclesRoot}${path.sep}`)) throw new Error("cycle directory must be a child of evals/cycles");
+  return resolved;
+}
+
+function resolveRunsRoot(diagnosticDir, value) {
+  const resolved = path.resolve(diagnosticDir, value ?? "runs");
+  if (resolved === diagnosticDir || !resolved.startsWith(`${diagnosticDir}${path.sep}`)) throw new Error("runs directory must be below the diagnostic directory");
   return resolved;
 }
 

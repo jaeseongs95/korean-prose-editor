@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 3,
+  "status": "historical-offending-edits-pass",
+  "rubricSha256": "a5e3670b39287932c0afd84b6f5f0fadf37cee966889462fb7c33756e40d22fe",
+  "runs": [
+    { "run": 1, "actorId": "66145cb3-2f88-4e5f-947c-38ed63c3152a", "editLevelRetain": "13/13", "sourceRestored": "13/13", "pass": true },
+    { "run": 2, "actorId": "57010fa9-ccd9-4a42-afe2-998bdae82ec5", "editLevelRetain": "13/13", "sourceRestored": "13/13", "pass": true },
+    { "run": 3, "actorId": "040e3911-2356-496f-ad32-b7bd8accb26d", "editLevelRetain": "13/13", "sourceRestored": "13/13", "pass": true }
+  ],
+  "nextStep": "Generate new role-separated candidates for the unique source cases and require zero major meaning changes plus at least 80 percent improvement in every run."
+}

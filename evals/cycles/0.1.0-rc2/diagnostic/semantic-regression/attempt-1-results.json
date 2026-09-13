@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 1,
+  "status": "failed",
+  "rubricSha256": "cc75e8882f96ef48ce29db5e2388e8cdd5fca034d3dfa6b657174f7b0e9e3670",
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "ad2662bf-8e3e-4e97-9d4c-4e162124eca3",
+      "editLevelRetain": "5/13",
+      "sourceRestored": "5/13",
+      "pass": false
+    },
+    {
+      "run": 2,
+      "actorId": "b4f634b2-d1d8-4c89-aeac-15204c45d857",
+      "editLevelRetain": "6/13",
+      "sourceRestored": "6/13",
+      "pass": false
+    },
+    {
+      "run": 3,
+      "actorId": "fb621df1-93e2-4700-90a0-66d9d97a703d",
+      "editLevelRetain": "5/13",
+      "sourceRestored": "5/13",
+      "pass": false
+    }
+  ],
+  "commonFalseAccepts": [
+    "historical-run-1:legacy:T071",
+    "historical-run-1:legacy:T098",
+    "historical-run-2:legacy:T087",
+    "historical-run-3:legacy:T025",
+    "historical-run-3:legacy:T038",
+    "historical-run-3:legacy:T049",
+    "historical-run-3:legacy:T050"
+  ],
+  "executionConfiguration": {
+    "requestedModel": "gpt-5.6-sol",
+    "requestedReasoning": "high",
+    "verifiedByExecutionTool": false
+  },
+  "nextStep": "Preserve this attempt. Diagnose the shared operator and pair-preference false accepts before changing the rubric or generating new candidates."
+}

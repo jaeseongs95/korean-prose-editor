@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 2,
+  "status": "failed-selection",
+  "requiredImprovement": "9/11",
+  "runs": [
+    {
+      "run": 1,
+      "selectionActorId": "7a3e1c5d-2b4f-4a80-9c61-8d7e6f5a4b32",
+      "selectedEditCases": "6/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": false
+    },
+    {
+      "run": 2,
+      "selectionActorId": "caa80a43-6eee-4913-9922-54bc3961c6b6",
+      "selectedEditCases": "11/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": true
+    },
+    {
+      "run": 3,
+      "selectionActorId": "c64442fb-0562-4a76-bc6a-fe56f136e17b",
+      "selectedEditCases": "9/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": true
+    }
+  ],
+  "failureClasses": ["selection-recall-variance", "translationese-classification-too-coarse"],
+  "limitations": [
+    "The attempt stopped before editing because every run must pass the selection gate.",
+    "The cooperative actor separation and output contracts were verified, but runtime model and reasoning configuration were not independently observable."
+  ],
+  "nextStep": "Preserve this attempt and use an independent diagnosis plus balanced minimal contrasts before changing the selection taxonomy or starting another attempt."
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "pass",
+  "purpose": "Check the user-facing abstraction class rather than a word blacklist.",
+  "caseDesign": {
+    "abstractOrStackedUserFacingProse": 5,
+    "preciseTechnicalNaturalOrLiteralUses": 5,
+    "includesNonKeywordAbstraction": true,
+    "includesLiteralReceiptControl": true,
+    "includesTechnicalDigestAndSQLiteControls": true
+  },
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "beae4df0-6bfb-4d3c-86cf-b8736b0965ed",
+      "workProductSha256": "222b3b70cffb7ca3c7d8c6834d5d3e3a44f861f6ac1c93ea5cc7d6042f30b840",
+      "expectedActionMatch": "10/10",
+      "contractValidation": "pass"
+    },
+    {
+      "run": 2,
+      "actorId": "781d4f0e-fde7-46f9-acfe-25f6f1608d6d",
+      "workProductSha256": "731c16c8b69cd0b5ab171ff86a10011fd2d60a35e1b65ab8651fec7f2352912d",
+      "expectedActionMatch": "10/10",
+      "contractValidation": "pass"
+    },
+    {
+      "run": 3,
+      "actorId": "caf9da50-25d6-4ac6-ab24-9ffb3b488285",
+      "workProductSha256": "5885e7221e7119750c0254abee4aa7a122c704bf7dd7ac11b8adc963b456d3ce",
+      "expectedActionMatch": "10/10",
+      "contractValidation": "pass"
+    }
+  ],
+  "conclusion": "All actors selected five semantically described abstraction or noun-stacking cases, including cases without the word receipt, and retained five precise controls, including a literal payment receipt and exact technical digest or SQLite statements. The rule is not a token blacklist."
+}

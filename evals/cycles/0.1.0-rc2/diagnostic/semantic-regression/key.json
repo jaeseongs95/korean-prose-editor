@@ -1,0 +1,211 @@
+[
+  {
+    "id": "historical-run-1:legacy:T019",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "fail",
+      "majorMeaningChange": true,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "original",
+      "warningCodes": [
+        "CLAIM_SCOPE_WEAKENED"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-1:legacy:T071",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "uncertain",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "original",
+      "warningCodes": [
+        "CONDITION_TENSE_AMBIGUITY",
+        "NO_CLEAR_IMPROVEMENT"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-1:legacy:T098",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "fail",
+      "majorMeaningChange": true,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "original",
+      "warningCodes": [
+        "POSSIBILITY_CHANGED_TO_CERTAINTY"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-2:legacy:T019",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "uncertain",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "candidate",
+      "warningCodes": [
+        "PURPOSE_STRENGTH_UNCERTAIN"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-2:legacy:T083",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "pass",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "pass",
+      "pairPreference": "original",
+      "warningCodes": [
+        "NATURALNESS_REGRESSION"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-2:legacy:T086",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "fail",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "original",
+      "warningCodes": [
+        "QUANTIFIER_SCOPE_CHANGED"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-2:legacy:T087",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "pass",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "pass",
+      "pairPreference": "tie",
+      "warningCodes": [
+        "NO_CLEAR_IMPROVEMENT"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-2:legacy:T099",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "uncertain",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "candidate",
+      "warningCodes": [
+        "MODAL_STRENGTH_UNCERTAIN"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-3:legacy:T019",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "fail",
+      "majorMeaningChange": true,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "neither",
+      "warningCodes": [
+        "QUANTIFIER_SCOPE_CHANGE"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-3:legacy:T025",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "uncertain",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "uncertain",
+      "pairPreference": "original",
+      "warningCodes": [
+        "ACCESS_AUTHORIZATION_AMBIGUITY"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-3:legacy:T038",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "uncertain",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "not-applicable",
+      "pairPreference": "original",
+      "warningCodes": [
+        "CLAIM_STRENGTH_SHIFT"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-3:legacy:T049",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "pass",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "pass",
+      "pairPreference": "tie",
+      "warningCodes": [
+        "NO_CLEAR_IMPROVEMENT"
+      ]
+    }
+  },
+  {
+    "id": "historical-run-3:legacy:T050",
+    "expectedDecision": "retain",
+    "historicalVerifierEvidence": {
+      "finalDecision": "retain",
+      "meaningPreservation": "pass",
+      "majorMeaningChange": false,
+      "registerCompliance": "pass",
+      "protectedStrings": "pass",
+      "terminologyJudgment": "pass",
+      "pairPreference": "original",
+      "warningCodes": [
+        "SUBJECT_PREDICATE_MISMATCH"
+      ]
+    }
+  }
+]

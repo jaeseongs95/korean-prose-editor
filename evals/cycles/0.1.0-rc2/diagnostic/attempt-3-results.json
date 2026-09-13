@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 3,
+  "status": "selection-gate-pass",
+  "manifest": "attempt-3-manifest.json",
+  "metadataProducer": "scripts/record-selection-run.mjs",
+  "actorIds": [
+    "2f05096a-d459-4ee6-a804-fe0ecdfa348a",
+    "ee5ebcac-ffc9-49b5-8997-1f9b3938e401",
+    "5bff6c3e-0165-4391-85f7-c77538c400b5"
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "editRecall": "16/18",
+      "restraint": "18/20",
+      "userFacingAbstractionSelected": true,
+      "contractValidation": "pass"
+    },
+    {
+      "run": 2,
+      "editRecall": "17/18",
+      "restraint": "18/20",
+      "userFacingAbstractionSelected": true,
+      "contractValidation": "pass"
+    },
+    {
+      "run": 3,
+      "editRecall": "18/18",
+      "restraint": "20/20",
+      "userFacingAbstractionSelected": true,
+      "contractValidation": "pass"
+    }
+  ],
+  "executionConfiguration": {
+    "requestedModel": "gpt-5.6-sol",
+    "requestedReasoning": "high",
+    "verifiedByExecutionTool": false
+  },
+  "limitations": [
+    "The cooperative actor separation and output contracts were verified, but runtime model and reasoning configuration were not independently observable.",
+    "This diagnostic gate is not release evidence and does not authorize fresh holdout creation until semantic-drift regression also passes."
+  ],
+  "nextStep": "Run historical offending-edit rejection and new-candidate semantic-drift regressions."
+}

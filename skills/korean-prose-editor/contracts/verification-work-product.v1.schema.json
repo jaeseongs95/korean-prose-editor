@@ -17,16 +17,24 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["editId", "decision", "reasonCode"],
+        "required": ["editId", "decision", "reasonCode", "sourceDefect", "invariantDelta"],
         "properties": {
           "editId": { "type": "string", "minLength": 1 },
           "decision": { "enum": ["accept", "retain"] },
-          "reasonCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" }
+          "reasonCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+          "sourceDefect": { "$ref": "#/$defs/sourceDefect" },
+          "invariantDelta": { "$ref": "#/$defs/invariantDelta" }
         },
         "allOf": [
           {
             "if": { "properties": { "decision": { "const": "accept" } }, "required": ["decision"] },
-            "then": { "properties": { "reasonCode": { "const": "MEANING_PRESERVED" } } }
+            "then": {
+              "properties": {
+                "reasonCode": { "const": "MEANING_PRESERVED" },
+                "sourceDefect": { "not": { "const": "NONE" } },
+                "invariantDelta": { "const": "NONE" }
+              }
+            }
           }
         ]
       }
@@ -47,6 +55,8 @@
   },
   "$defs": {
     "actorId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
-    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sourceDefect": { "enum": ["GRAMMATICAL_MISMATCH", "NOUN_STACKING", "REDUNDANCY", "TRANSLATIONESE", "UNNECESSARY_META_PROSE", "UNSUPPORTED_EMPHASIS", "USER_FACING_IMPLEMENTATION_JARGON", "NONE"] },
+    "invariantDelta": { "enum": ["NONE", "QUANTIFIER_SCOPE", "CONDITION_OR_TENSE", "MODALITY_OR_CERTAINTY", "ACTION_OR_AUTHORITY", "CLAIM_TYPE_OR_STRENGTH", "PREDICATE_ARGUMENT_STRUCTURE", "RHETORICAL_FUNCTION", "ACTOR_OR_TARGET", "TIME", "NEGATION", "CAUSAL_RELATION", "TERMINOLOGY", "UNCERTAIN"] }
   }
 }

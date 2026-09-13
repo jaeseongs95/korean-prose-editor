@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 2,
+  "status": "failed",
+  "rubricSha256": "b419ccd77de29d3b25a5c9e37c027517d22ee17a4ee56c8555d3492d322a06e2",
+  "runs": [
+    { "run": 1, "actorId": "958b9dbb-7b76-40ef-9815-b3bdafb37997", "editLevelRetain": "9/13", "sourceRestored": "9/13", "pass": false },
+    { "run": 2, "actorId": "6f04c209-3ee9-4a01-afd5-a5a40c58b1c5", "editLevelRetain": "10/13", "sourceRestored": "10/13", "pass": false },
+    { "run": 3, "actorId": "ddc01475-f555-4f0b-aac8-8df20d20d3bc", "editLevelRetain": "8/13", "sourceRestored": "8/13", "pass": false }
+  ],
+  "improvementsFromAttempt1": [
+    "All runs retained action-to-authority changes.",
+    "All runs retained challenge-to-risk claim changes.",
+    "False accepts decreased in every run."
+  ],
+  "remainingSharedFalseAccepts": [
+    "historical-run-3:legacy:T049",
+    "historical-run-3:legacy:T050"
+  ],
+  "remainingIntermittentFalseAcceptClasses": [
+    "condition-tense",
+    "possibility-to-certainty",
+    "no-clear-improvement-or-new-redundancy"
+  ],
+  "nextStep": "Preserve this attempt. Extend invariants to rhetorical function, predicate argument structure, condition tense, and explicit no-improvement cases; verify them on a new contrast before another historical run."
+}

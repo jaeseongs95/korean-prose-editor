@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 1,
+  "status": "failed-before-verification",
+  "requiredImprovement": "9/11",
+  "runs": [
+    { "run": 1, "selectionActorId": "5e6f7a8b-9c0d-4e1f-8a2b-3c4d5e6f7a81", "editingActorId": "2c9a817e-6d43-4b50-9f26-a7e1d3c8b405", "selectedEditCases": "6/11", "editingContract": "pass", "pass": false },
+    { "run": 2, "selectionActorId": "7bf333eb-6241-42d7-ba5c-d4ab225b31fc", "editingActorId": "74d8ac7b-02dd-43a6-8a19-a527d8b6eca1", "selectedEditCases": "11/11", "editingContract": "pass", "pass": null },
+    { "run": 3, "selectionActorId": "a0a8d9fb-3a91-472a-bc23-d30a5941d84d", "editingActorId": "b4d67f69-e2b1-4033-bbca-5f91b9d3f359", "selectedEditCases": "10/11", "editingContract": "fail:per-record-selectionDigest", "pass": false }
+  ],
+  "failureClasses": ["selection-recall-variance", "mechanical-digest-construction"],
+  "nextStep": "Preserve the partial run. Clarify locally identifiable translationese classes and move editing digest construction to a deterministic draft sealer before a new attempt."
+}

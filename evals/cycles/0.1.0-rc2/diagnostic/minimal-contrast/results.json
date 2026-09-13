@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "purpose": "Determine whether request wording or issue-bound selection evidence explains over-selection.",
+  "inputSha256": "47e37910ec6ac6cd0ee9ba3c73d5bb45d1f807f5e5a10a83733b2a8149597f64",
+  "expectedActions": [
+    "retain",
+    "retain",
+    "defer",
+    "defer",
+    "edit",
+    "edit"
+  ],
+  "baseline": {
+    "actorId": "c06a69e7-6620-49bb-8e55-cd907fd20945",
+    "actions": [
+      "retain",
+      "retain",
+      "retain",
+      "retain",
+      "edit",
+      "edit"
+    ],
+    "requestWordingChangedDecision": false,
+    "evidenceStatus": "invalid-meta",
+    "evidenceWarnings": [
+      "Metadata used outputSha256 instead of the required workProductSha256 field.",
+      "The work product predates the issueRanges contract and is retained as diagnostic evidence only."
+    ]
+  },
+  "issueBoundContract": {
+    "actorId": "90623ac5-e402-4e6a-b486-45d3e9ae4c58",
+    "actions": [
+      "retain",
+      "retain",
+      "defer",
+      "defer",
+      "edit",
+      "edit"
+    ],
+    "requestWordingChangedDecision": false,
+    "workProductSha256": "19268ae0941479dccde4223c6f8353c0596a6f717c2e14748a370b68298a8820",
+    "contractValidation": "pass",
+    "expectedActionMatch": "6/6",
+    "evidenceStatus": "structurally-verified"
+  },
+  "executionConfiguration": {
+    "requestedModel": "gpt-5.6-sol",
+    "requestedReasoning": "high",
+    "verifiedByExecutionTool": false
+  },
+  "diagnosis": "Request wording did not change decisions. Requiring an exact issue range and a bounded defect code separated natural, context-deficient, and locally editable prose in this six-case contrast. This is evidence for a fresh 39-case diagnostic attempt, not release evidence."
+}
