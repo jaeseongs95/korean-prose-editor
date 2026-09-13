@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0.0",
+  "recoveryId": "0.1.0-rc2-corpus-validity-v1",
+  "purpose": "one-time-source-authoritative-recovery-diagnostic",
+  "comparableToPriorAttempts": false,
+  "executionBudget": 1,
+  "candidateCommit": "8343430d5f79e0f37c353f2b267cd18669a36c7a",
+  "authorization": {
+    "statement": "기존 실패와 안전·릴리스 기준을 보존하고, 기존 11-case gate를 `invalid-corpus`로 종결한 뒤 축소된 recovery 경로로 진행한다",
+    "sha256": "76d4ddc0c5c8e089c019a955b7f3325fce298d6664b5bc8936afd936a6a33797"
+  },
+  "priorClosure": {
+    "gate": "0.1.0-rc2-feasibility-1",
+    "status": "invalid-corpus",
+    "originalRecordedStatus": "failed-feasibility",
+    "releaseDecision": "not-evaluated",
+    "feasibleEditUpperBound": 7,
+    "originalEditMinimum": 9,
+    "evidenceSha256": "b364802810958a525c0d5326bba5bde47abecc00bf0d61a393afca74caec716b",
+    "diagnosisSha256": "5c971a6cefa98a4be35281635b40757aef0c8e1c85d93236c758780141a8daf9"
+  },
+  "authorities": {
+    "semanticSource": "sourceText-and-protectedStrings",
+    "meaningConstraints": "derived-conservative-check",
+    "conflictDecision": "infeasible"
+  },
+  "caseDesign": {
+    "caseCount": 12,
+    "edit": 8,
+    "retain": 2,
+    "infeasible": 2
+  },
+  "thresholds": {
+    "editSuccessMinimum": 7,
+    "editDenominator": 8,
+    "restraintMinimum": 4,
+    "restraintDenominator": 4,
+    "majorMeaningChangesMaximum": 0,
+    "protectedFailuresMaximum": 0
+  },
+  "outcomeRoutes": {
+    "pass": "run-fixed-diagnostic",
+    "fail": "stop-and-diagnose",
+    "invalidCorpus": "stop-without-candidate-penalty"
+  },
+  "forbiddenActions": [
+    "rerun-invalid-11-case-gate",
+    "reinterpret-prior-failure-as-pass",
+    "change-existing-safety-or-release-thresholds",
+    "modify-candidate-after-seeing-results",
+    "repeat-recovery-execution"
+  ],
+  "freezeFiles": [
+    "evals/cycles/0.1.0-rc2/EVALUATION_PROTOCOL.md",
+    "evals/cycles/0.1.0-rc2/thresholds.json",
+    "evals/cycles/0.1.0-rc2/RECOVERY-DIAGNOSIS.md",
+    "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/INVALID-CORPUS-CLOSURE.md",
+    "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/CORPUS-VALIDITY.md",
+    "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/final-results.json",
+    "skills/korean-prose-editor/SKILL.md",
+    "skills/korean-prose-editor/references/selection-policy.md",
+    "skills/korean-prose-editor/references/editing-policy.md",
+    "skills/korean-prose-editor/references/verification-rubric.md",
+    "skills/korean-prose-editor/contracts/source-unit-manifest.v1.schema.json",
+    "skills/korean-prose-editor/contracts/selection-work-product.v1.schema.json",
+    "skills/korean-prose-editor/contracts/editing-draft.v1.schema.json",
+    "skills/korean-prose-editor/contracts/editing-work-product.v1.schema.json",
+    "skills/korean-prose-editor/contracts/verification-work-product.v1.schema.json",
+    "skills/korean-prose-editor/scripts/protected-spans.mjs",
+    "skills/korean-prose-editor/scripts/source-units.mjs",
+    "skills/korean-prose-editor/scripts/finalize-edits.mjs",
+    "scripts/lib/evaluation-cycle.mjs",
+    "scripts/lib/recovery-diagnostic.mjs",
+    "scripts/record-selection-run.mjs",
+    "scripts/record-editing-run.mjs",
+    "scripts/prepare-recovery-diagnostic.mjs",
+    "scripts/finalize-recovery-diagnostic.mjs"
+  ]
+}

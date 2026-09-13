@@ -32,6 +32,8 @@
     "eval:feasibility:candidates": "node scripts/record-feasibility-candidates.mjs",
     "eval:feasibility:verification": "node scripts/record-feasibility-verification.mjs",
     "eval:feasibility:finalize": "node scripts/finalize-feasibility-calibration.mjs",
+    "eval:recovery:prepare": "node scripts/prepare-recovery-diagnostic.mjs",
+    "eval:recovery:finalize": "node scripts/finalize-recovery-diagnostic.mjs",
     "eval:cycle:prepare": "node scripts/prepare-evaluation-cycle.mjs",
     "eval:cycle:aggregate": "node scripts/aggregate-evaluation-cycle.mjs",
     "eval:cycle:summarize": "node scripts/summarize-evaluation-cycle.mjs"

@@ -61,6 +61,11 @@ const required = [
   "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/canonical-candidate.v1.schema.json",
   "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/verification-draft.v1.schema.json",
   "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/verification-work-product.v1.schema.json",
+  "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/contract.json",
+  "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/input.jsonl",
+  "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/key.json",
+  "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/INVALID-CORPUS-CLOSURE.md",
+  "evals/cycles/0.1.0-rc2/recovery/corpus-validity-v1/CORPUS-VALIDITY.md",
   "evals/cycles/0.1.0-rc2/schemas/fresh-holdout.schema.json",
   "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json",
   "scripts/prepare-evaluation-cycle.mjs",
@@ -80,6 +85,9 @@ const required = [
   "scripts/record-feasibility-candidates.mjs",
   "scripts/record-feasibility-verification.mjs",
   "scripts/finalize-feasibility-calibration.mjs",
+  "scripts/lib/recovery-diagnostic.mjs",
+  "scripts/prepare-recovery-diagnostic.mjs",
+  "scripts/finalize-recovery-diagnostic.mjs",
   "scripts/aggregate-evaluation-cycle.mjs",
   "scripts/summarize-evaluation-cycle.mjs",
 ];
@@ -127,6 +135,9 @@ for (const command of ["eval:prepare", "eval:prepare-verification", "eval:prepar
 }
 for (const command of ["eval:feasibility:prepare", "eval:feasibility:candidates", "eval:feasibility:verification", "eval:feasibility:finalize"]) {
   expect(Object.hasOwn(packageJson.scripts ?? {}, command), `feasibility calibration command missing: ${command}`);
+}
+for (const command of ["eval:recovery:prepare", "eval:recovery:finalize"]) {
+  expect(Object.hasOwn(packageJson.scripts ?? {}, command), `recovery diagnostic command missing: ${command}`);
 }
 for (const relative of removedLegacyEvaluationEntrypoints) {
   try {
