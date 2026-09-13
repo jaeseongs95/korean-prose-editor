@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 8,
+  "sourceAttempt": 5,
+  "reason": "Selection policy and inputs are unchanged; editing is rerun under the independently-valid-edit contract.",
+  "files": [
+    { "path": "attempt-8/runs/run-1/selection-work-product.jsonl", "sha256": "e2bbd4816bd66767137748d74fcb1ec7a78f8351168a4c342cecb4c4cf6907de" },
+    { "path": "attempt-8/runs/run-1/selection-meta.json", "sha256": "e9bdf2f2ee86ae4ff7249ae432883af350f02e6b35d82dee4dc7f2a5f8514f39" },
+    { "path": "attempt-8/runs/run-2/selection-work-product.jsonl", "sha256": "1e39d73531826057bac7b8dce4f23d9aef5b71cae0a9c83b28db608411bc9ecf" },
+    { "path": "attempt-8/runs/run-2/selection-meta.json", "sha256": "187fa46d1abb8bc065264698f6b5833516fea07f5479fcd6e29dbf7cc6b28dd5" },
+    { "path": "attempt-8/runs/run-3/selection-work-product.jsonl", "sha256": "e5b272f59e6a424eee4da77d1768ab682be2481b630018f9875481f18571302f" },
+    { "path": "attempt-8/runs/run-3/selection-meta.json", "sha256": "b2135c78747ccad9896c72340c6b93e5e4643a68a252f8e0af6da62c86fbcb83" }
+  ]
+}
