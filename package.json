@@ -28,6 +28,10 @@
     "eval:selection:contrast:aggregate": "node scripts/aggregate-selection-taxonomy-contrast.mjs",
     "eval:regressions:new-candidates:aggregate": "node scripts/aggregate-new-semantic-candidates.mjs",
     "eval:regressions:new-candidates:finalize": "node scripts/finalize-new-semantic-candidates.mjs",
+    "eval:feasibility:prepare": "node scripts/prepare-feasibility-calibration.mjs",
+    "eval:feasibility:candidates": "node scripts/record-feasibility-candidates.mjs",
+    "eval:feasibility:verification": "node scripts/record-feasibility-verification.mjs",
+    "eval:feasibility:finalize": "node scripts/finalize-feasibility-calibration.mjs",
     "eval:cycle:prepare": "node scripts/prepare-evaluation-cycle.mjs",
     "eval:cycle:aggregate": "node scripts/aggregate-evaluation-cycle.mjs",
     "eval:cycle:summarize": "node scripts/summarize-evaluation-cycle.mjs"

@@ -18,6 +18,16 @@
 
 별도 `user-facing-jargon` 회귀 사례는 사용자용 진행 업데이트에서 추상적인 명사구를 구체적인 행동으로 풀 수 있는지 확인한다. 기존 18건·20건 분모에는 넣지 않는다. 이 사례는 지정한 보호 문자열을 100% 보존하고 최종 `pairPreference`가 `candidate`여야 한다.
 
+### 새 편집 후보 feasibility calibration
+
+새 편집 후보 11건의 반복 attempt는 중단한다. 이 세트의 gate는 candidate freeze 전에 편집 가능성을 확인하는 진단이며, 정식 릴리스 평가나 holdout 결과를 대신하지 않는다. 이전 attempt와 pass 조건이 다른 1회성 `frozen-candidate feasibility calibration` 결과를 이전 점수와 비교하거나 합산하지 않는다.
+
+calibration에서는 `sourceText`와 `protectedStrings`를 의미 판정의 원자료로 고정한다. `meaningConstraints`는 원문에서 파생한 보수적 확인 항목일 뿐 원문에 없는 뜻을 보태거나 양태·주장 유형·수사 기능을 바꿀 권한을 주지 않는다. 둘이 충돌하거나 안전한 개선을 확정할 문맥이 부족하면 해당 사례를 `infeasible`로 기록한다.
+
+독립 editor와 adjudicator가 사례마다 정확히 하나의 minimal atomic edit 또는 `infeasible`을 확정한다. recorder는 원문·제약·보호 문자열 digest와 단일 편집을 적용한 `candidateDigest`를 계산해 candidate set을 동결한다. 이후 이전 역할과 겹치지 않는 새 verifier 세 명이 같은 candidate set을 평가하고, 각 판단을 candidate set·canonical record·candidate digest와 결속하며 `independentValidity`와 `safetyFailure`를 기록한다.
+
+동일한 edit 중 최소 9건을 세 verifier가 모두 승인하고 safety failure가 0건일 때만 feasibility를 통과한다. 결과와 무관하게 실행은 한 번으로 끝낸다. 통과하면 기존 full fixed diagnostic으로 돌아가고, 실패하면 새 candidate를 조정하거나 재실행하지 않고 원인을 진단한다. 어느 결과도 즉시 candidate freeze, holdout, 통합이나 릴리스를 허용하지 않는다.
+
 ## 새 릴리스 평가 준비
 
 새 holdout은 30건이며 `edit`, `retain`, `defer`를 각각 10건 포함해야 한다. 실제 사례는 이 cycle 준비 작업에 포함하지 않는다. 평가를 시작할 때 후보 commit, 역할별 policy, private schema, 기존 corpus, 새 holdout, 이 규약, 합격선을 모두 SHA-256으로 동결한다. 입력 세트는 정확히 세 번 실행한다.

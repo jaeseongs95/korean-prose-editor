@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "calibrationId": "0.1.0-rc2-feasibility-1",
+  "purpose": "pre-freeze-feasibility-diagnostic",
+  "comparableToPriorAttempts": false,
+  "executionBudget": 1,
+  "authorities": {
+    "semanticSource": "sourceText-and-protectedStrings",
+    "meaningConstraints": "derived-conservative-check",
+    "conflictDecision": "infeasible"
+  },
+  "thresholds": {
+    "caseCount": 11,
+    "verifierCount": 3,
+    "unanimousEditAcceptMinimum": 9,
+    "safetyFailureMaximum": 0
+  },
+  "outcomeRoutes": {
+    "passed": "return-to-full-fixed-diagnostic",
+    "failed": "stop-and-diagnose",
+    "invalid": "stop-and-preserve"
+  },
+  "forbiddenActions": [
+    "attempt-9",
+    "candidate-freeze",
+    "fresh-holdout",
+    "suite-integration",
+    "release",
+    "tag",
+    "deploy",
+    "install",
+    "push"
+  ]
+}

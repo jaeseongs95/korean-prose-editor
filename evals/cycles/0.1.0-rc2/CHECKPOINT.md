@@ -35,4 +35,10 @@
 
 일곱 번째 시도는 여섯 번째 selection·editing을 digest provenance와 함께 재사용하고 새 rubric으로만 검증했다. 최종 개선은 5/11, 7/11, 7/11이었다. edit를 독립적으로 적용했을 때 문법적으로 완결되지 않는 상호 의존 edit가 확인됐다. 다음 editing은 edit 하나가 단독으로 적용돼도 유효해야 하며, 서로 의존하는 변화는 하나의 최소 edit로 묶는다.
 
-이후에만 새 candidate commit을 봉인하고 새 비공개 holdout 30건을 만든다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.
+여덟 번째 시도는 유효한 확인 시도로 인정하지 않는다. verification meta 세 개와 final results가 없고 run 2의 T050 `editingDigest`가 canonical editing work-product digest와 일치하지 않는다. digest 오류만 메모리에서 바로잡아 재생한 결과도 5/11, 6/11, 6/11이었다. 기존 파일은 `invalid/incomplete` 증거로 보존하며 attempt 9로 이어가지 않는다.
+
+독립 토론 결론에 따라 기존 시도와 비교하지 않는 1회성 `frozen-candidate feasibility calibration`을 별도 실행했다. `sourceText`와 `protectedStrings`를 의미 권위 원본으로 고정하고, `meaningConstraints`가 충돌하거나 맥락이 부족하면 편집을 강제하지 않고 `infeasible`로 분류했다. 신규 editor와 adjudicator가 같은 11건에서 canonical edit 7건과 infeasible 4건을 동결했고, 과거 참여자와 겹치지 않는 신규 verifier 세 명이 같은 candidate-set digest를 검증했다. 세 verifier 모두 편집 7건을 수용하고 infeasible 4건을 확인했으며 safety failure는 0건이었다.
+
+최종 판정은 `failed-feasibility`다. 합의 수용 편집은 7건으로 고정 합격선 9건에 미달했다. 이 결과는 `comparableToPriorAttempts: false`, `releaseDecision: not-evaluated`, `executionCount: 1`로 봉인했으며 다음 경로는 `stop-and-diagnose`다. candidate freeze, fresh holdout, 통합, 릴리스, 태그, 배포, 설치와 push는 허용하지 않는다.
+
+feasibility 실패 원인을 별도 진단해 새 실행 근거가 생기기 전에는 candidate commit 봉인과 새 비공개 holdout 30건으로 넘어가지 않는다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.

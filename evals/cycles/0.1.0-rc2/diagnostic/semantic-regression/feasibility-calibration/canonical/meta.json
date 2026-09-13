@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "calibrationId": "0.1.0-rc2-feasibility-1",
+  "editorActorId": "6ce05830-4a6d-4d24-9e31-1a5ce26d8bfd",
+  "adjudicatorActorId": "48f55549-5754-415d-b9fa-638045c21ad0",
+  "caseCount": 11,
+  "editCount": 7,
+  "inputSha256": "e9b9b29570cf82b79d35b7c6da306b837fd4bf472faf6e93ac129d1f737db883",
+  "candidateSetDigest": "480cd5d5cbce17af7653cbf513a44114c89328d7e4a9568117d5e53f6351016b",
+  "freezeDigest": "6bf3163522268a15b912971024b7247f273d84517bb175f2ef10e01e79cdb4de",
+  "status": "complete"
+}

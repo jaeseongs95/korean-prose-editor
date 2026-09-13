@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/korean-prose-editor/feasibility/canonical-candidate-draft.v1.schema.json",
+  "title": "Feasibility calibration canonical candidate draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "calibrationId", "caseId", "editorActorId", "adjudicatorActorId", "disposition", "rationaleCode", "edit"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "calibrationId": { "type": "string", "minLength": 1 },
+    "caseId": { "type": "string", "minLength": 1 },
+    "editorActorId": { "$ref": "#/$defs/actorId" },
+    "adjudicatorActorId": { "$ref": "#/$defs/actorId" },
+    "disposition": { "enum": ["edit", "infeasible"] },
+    "rationaleCode": { "enum": ["SAFE_MINIMAL_EDIT", "SOURCE_CONSTRAINT_CONFLICT", "NO_SAFE_CLEAR_IMPROVEMENT", "SOURCE_ALREADY_ACCEPTABLE"] },
+    "edit": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/edit" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "disposition": { "const": "edit" } }, "required": ["disposition"] },
+      "then": {
+        "properties": {
+          "rationaleCode": { "const": "SAFE_MINIMAL_EDIT" },
+          "edit": { "$ref": "#/$defs/edit" }
+        }
+      },
+      "else": {
+        "properties": {
+          "rationaleCode": { "enum": ["SOURCE_CONSTRAINT_CONFLICT", "NO_SAFE_CLEAR_IMPROVEMENT", "SOURCE_ALREADY_ACCEPTABLE"] },
+          "edit": { "type": "null" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "actorId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "edit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "unitId", "sourceDigest", "start", "end", "replacement", "actorId"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "unitId": { "type": "string", "pattern": "^unit-[0-9]{4,}$" },
+        "sourceDigest": { "$ref": "#/$defs/digest" },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 },
+        "replacement": { "type": "string" },
+        "actorId": { "$ref": "#/$defs/actorId" }
+      }
+    }
+  }
+}

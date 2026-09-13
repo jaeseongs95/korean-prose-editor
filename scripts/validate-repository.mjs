@@ -56,6 +56,11 @@ const required = [
   "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/input.jsonl",
   "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/key.json",
   "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/source-unit-manifest.jsonl",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/contract.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/canonical-candidate-draft.v1.schema.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/canonical-candidate.v1.schema.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/verification-draft.v1.schema.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration/schemas/verification-work-product.v1.schema.json",
   "evals/cycles/0.1.0-rc2/schemas/fresh-holdout.schema.json",
   "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json",
   "scripts/prepare-evaluation-cycle.mjs",
@@ -71,6 +76,10 @@ const required = [
   "scripts/aggregate-selection-taxonomy-contrast.mjs",
   "scripts/aggregate-new-semantic-candidates.mjs",
   "scripts/finalize-new-semantic-candidates.mjs",
+  "scripts/prepare-feasibility-calibration.mjs",
+  "scripts/record-feasibility-candidates.mjs",
+  "scripts/record-feasibility-verification.mjs",
+  "scripts/finalize-feasibility-calibration.mjs",
   "scripts/aggregate-evaluation-cycle.mjs",
   "scripts/summarize-evaluation-cycle.mjs",
 ];
@@ -115,6 +124,9 @@ for (const requiredNotice of [
 ]) expect(rootNotices.includes(requiredNotice), `third-party notice missing: ${requiredNotice}`);
 for (const command of ["eval:prepare", "eval:prepare-verification", "eval:prepare-audit", "eval:aggregate"]) {
   expect(!Object.hasOwn(packageJson.scripts ?? {}, command), `legacy candidateText evaluation command must stay removed: ${command}`);
+}
+for (const command of ["eval:feasibility:prepare", "eval:feasibility:candidates", "eval:feasibility:verification", "eval:feasibility:finalize"]) {
+  expect(Object.hasOwn(packageJson.scripts ?? {}, command), `feasibility calibration command missing: ${command}`);
 }
 for (const relative of removedLegacyEvaluationEntrypoints) {
   try {
@@ -176,6 +188,32 @@ expect(
   JSON.stringify(receiptSchema.required) === JSON.stringify(["schemaVersion", "actorIds", "digest", "length", "decisions", "warnings"]),
   "receipt root allowlist mismatch",
 );
+
+const calibrationRoot = "evals/cycles/0.1.0-rc2/diagnostic/semantic-regression/feasibility-calibration";
+const calibrationContract = await readJson(`${calibrationRoot}/contract.json`);
+expect(calibrationContract.purpose === "pre-freeze-feasibility-diagnostic", "feasibility purpose must stay diagnostic-only");
+expect(calibrationContract.comparableToPriorAttempts === false && calibrationContract.executionBudget === 1, "feasibility frame must be non-comparable and one-time");
+expect(JSON.stringify(calibrationContract.authorities) === JSON.stringify({
+  semanticSource: "sourceText-and-protectedStrings",
+  meaningConstraints: "derived-conservative-check",
+  conflictDecision: "infeasible",
+}), "feasibility meaning authority changed");
+expect(JSON.stringify(calibrationContract.thresholds) === JSON.stringify({
+  caseCount: 11,
+  verifierCount: 3,
+  unanimousEditAcceptMinimum: 9,
+  safetyFailureMaximum: 0,
+}), "feasibility thresholds changed");
+for (const schemaName of ["canonical-candidate-draft.v1", "canonical-candidate.v1", "verification-draft.v1", "verification-work-product.v1"]) {
+  const schema = await readJson(`${calibrationRoot}/schemas/${schemaName}.schema.json`);
+  expect(schema.$schema === "https://json-schema.org/draft/2020-12/schema" && schema.type === "object" && schema.additionalProperties === false, `${schemaName} feasibility schema invalid`);
+  const calibrationAjv = new Ajv2020({ allErrors: true, strict: true });
+  try {
+    calibrationAjv.compile(schema);
+  } catch (error) {
+    failures.push(`${schemaName} feasibility schema compile failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
 
 for (const [index, schemaName] of ["edit-decision-set.v1", "edit-candidate.v1", "edit-verification-report.v1", "final-text-receipt.v1"].entries()) {
   const outputSchema = await readJson(`skills/korean-prose-editor/contracts/${schemaName}.schema.json`);

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "calibrationId": "0.1.0-rc2-feasibility-1",
+  "run": 1,
+  "role": "verification",
+  "actorId": "8d41adbf-e5ec-468f-9f82-098114cf316d",
+  "caseCount": 11,
+  "inputSha256": "e9b9b29570cf82b79d35b7c6da306b837fd4bf472faf6e93ac129d1f737db883",
+  "candidateSetDigest": "480cd5d5cbce17af7653cbf513a44114c89328d7e4a9568117d5e53f6351016b",
+  "workProductSha256": "bf26b00ae247b3b68e38b90e162a4aeb04570722dee7245d7c81108a9f1f8390",
+  "freezeDigest": "6bf3163522268a15b912971024b7247f273d84517bb175f2ef10e01e79cdb4de",
+  "status": "complete"
+}
