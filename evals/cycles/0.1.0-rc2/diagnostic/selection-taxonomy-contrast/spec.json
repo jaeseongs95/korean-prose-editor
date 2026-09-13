@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "purpose": "Distinguish locally editable translationese subtypes from natural uses of the same surface words before another full diagnostic attempt.",
+  "policyRevision": "candidate-next",
+  "runCount": 3,
+  "caseCount": 10,
+  "pairCount": 5,
+  "passCondition": {
+    "actionMatchPerRun": "10/10",
+    "actorIdsDistinct": true,
+    "contractValidation": "pass"
+  },
+  "stopCondition": "Record the three selection action matrices once; do not revise this contrast or rerun it after seeing the key."
+}

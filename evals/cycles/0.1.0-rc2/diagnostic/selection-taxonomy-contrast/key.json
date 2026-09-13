@@ -1,0 +1,12 @@
+[
+  { "id": "STC-C01-CONDITION-NOMINALIZATION", "expectedDecision": "edit" },
+  { "id": "STC-C02-NATURAL-ELIGIBILITY-CONDITION", "expectedDecision": "retain" },
+  { "id": "STC-C03-ABSTRACT-MOVEMENT-METAPHOR", "expectedDecision": "edit" },
+  { "id": "STC-C04-LITERAL-MOVEMENT", "expectedDecision": "retain" },
+  { "id": "STC-C05-ABSTRACT-EXPERIENCE", "expectedDecision": "edit" },
+  { "id": "STC-C06-LITERAL-EXPERIENCE", "expectedDecision": "retain" },
+  { "id": "STC-C07-CALQUED-LIGHT-METAPHOR", "expectedDecision": "edit" },
+  { "id": "STC-C08-LITERAL-ILLUMINATION", "expectedDecision": "retain" },
+  { "id": "STC-C09-LIGHT-VERB-RESTRICTION", "expectedDecision": "edit" },
+  { "id": "STC-C10-DIRECT-RESTRICTION", "expectedDecision": "retain" }
+]
