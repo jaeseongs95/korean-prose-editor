@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "attempt": 3,
+  "status": "passed-selection",
+  "requiredImprovement": "9/11",
+  "actorsDistinct": true,
+  "runs": [
+    {
+      "run": 1,
+      "selectionActorId": "51000000-0000-4000-8000-000000000001",
+      "selectedEditCases": "11/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": true
+    },
+    {
+      "run": 2,
+      "selectionActorId": "52000000-0000-4000-8000-000000000002",
+      "selectedEditCases": "11/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": true
+    },
+    {
+      "run": 3,
+      "selectionActorId": "53000000-0000-4000-8000-000000000003",
+      "selectedEditCases": "11/11",
+      "selectionContract": "pass",
+      "editingStarted": false,
+      "pass": true
+    }
+  ],
+  "nextStep": "Run independent editing and verification before freezing a release candidate."
+}

@@ -215,6 +215,18 @@ test("user-facing abstraction diagnostic is a semantic contrast, not a receipt k
   assert.ok(results.runs.every((run) => run.expectedActionMatch === "10/10" && run.contractValidation === "pass"));
 });
 
+test("new semantic candidates pass the third independent selection attempt", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression", "new-candidates");
+  const input = parseJsonl(await readFile(path.join(directory, "input.jsonl"), "utf8"));
+  const results = JSON.parse(await readFile(path.join(directory, "attempt-3-results.json"), "utf8"));
+  assert.equal(input.length, 11);
+  assert.equal(results.status, "passed-selection");
+  assert.equal(results.actorsDistinct, true);
+  assert.equal(results.runs.length, 3);
+  assert.equal(new Set(results.runs.map((run) => run.selectionActorId)).size, 3);
+  assert.ok(results.runs.every((run) => run.pass && run.selectedEditCases === "11/11"));
+});
+
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
   const holdout = Array.from({ length: 30 }, (_, index) => ({
     id: `private-${index + 1}`,
