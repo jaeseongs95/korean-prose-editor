@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "1.0.0",
+  "recoveryId": "0.1.0-rc2-corpus-validity-v1",
+  "status": "failed-recovery",
+  "releaseDecision": "not-evaluated",
+  "comparableToPriorAttempts": false,
+  "executionCount": 1,
+  "candidateCommit": "8343430d5f79e0f37c353f2b267cd18669a36c7a",
+  "frameDigest": "68106d52fdae1a070950606fa78e1dc126610346dcb2292c1b93be78bcb29bd0",
+  "actorIds": [
+    "13862515-74ae-45fc-bea3-c2dd44d3be87",
+    "0b1ec695-71ff-47a9-a03a-54c33117c125",
+    "b3e1fd7b-d946-40c7-b7cb-2f29f9c1bbb2"
+  ],
+  "thresholds": {
+    "editSuccessMinimum": 7,
+    "editDenominator": 8,
+    "restraintMinimum": 4,
+    "restraintDenominator": 4,
+    "majorMeaningChangesMaximum": 0,
+    "protectedFailuresMaximum": 0
+  },
+  "feasibleUpperBound": 8,
+  "counts": {
+    "editSuccess": 5,
+    "editDenominator": 8,
+    "restraint": 4,
+    "restraintDenominator": 4,
+    "majorMeaningChanges": 0,
+    "protectedFailures": 0
+  },
+  "cases": [
+    {
+      "id": "recovery:R001",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "edit",
+      "pairPreference": "candidate",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R002",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "edit",
+      "pairPreference": "candidate",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R003",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "edit",
+      "pairPreference": "candidate",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R004",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "retain",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": false
+    },
+    {
+      "id": "recovery:R005",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "edit",
+      "pairPreference": "candidate",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R006",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "retain",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": false
+    },
+    {
+      "id": "recovery:R007",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "edit",
+      "pairPreference": "candidate",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R008",
+      "expectedDecision": "edit",
+      "selectedAction": [
+        "edit"
+      ],
+      "finalAction": "retain",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": false
+    },
+    {
+      "id": "recovery:R009",
+      "expectedDecision": "retain",
+      "selectedAction": [
+        "retain"
+      ],
+      "finalAction": "retain",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R010",
+      "expectedDecision": "retain",
+      "selectedAction": [
+        "retain"
+      ],
+      "finalAction": "retain",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R011",
+      "expectedDecision": "infeasible",
+      "selectedAction": [
+        "defer"
+      ],
+      "finalAction": "defer",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    },
+    {
+      "id": "recovery:R012",
+      "expectedDecision": "infeasible",
+      "selectedAction": [
+        "defer"
+      ],
+      "finalAction": "defer",
+      "pairPreference": "tie",
+      "majorMeaningChange": false,
+      "protectedStrings": "pass",
+      "pass": true
+    }
+  ],
+  "nextStep": "stop-and-diagnose"
+}

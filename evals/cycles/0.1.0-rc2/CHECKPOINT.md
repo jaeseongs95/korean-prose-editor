@@ -42,3 +42,7 @@
 최종 판정은 `failed-feasibility`다. 합의 수용 편집은 7건으로 고정 합격선 9건에 미달했다. 이 결과는 `comparableToPriorAttempts: false`, `releaseDecision: not-evaluated`, `executionCount: 1`로 봉인했으며 다음 경로는 `stop-and-diagnose`다. candidate freeze, fresh holdout, 통합, 릴리스, 태그, 배포, 설치와 push는 허용하지 않는다.
 
 feasibility 실패 원인을 별도 진단해 새 실행 근거가 생기기 전에는 candidate commit 봉인과 새 비공개 holdout 30건으로 넘어가지 않는다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.
+
+사용자 승인에 따라 기존 11-case gate는 기록된 `failed-feasibility`, `releaseDecision: not-evaluated`를 바꾸지 않은 채 `invalid-corpus`로 종결했다. attempt 6 run 2의 원시 최고점 10/11은 후속 판정에서 infeasible인 T071, T087, T038을 포함하므로 성능 근거로 재사용하지 않았고, 세 verifier가 만장일치로 수용한 feasible 7/7의 추상 편집 패턴만 신규 corpus 설계에 참고했다.
+
+별도 author와 adjudicator가 신규 12건의 source-authoritative 혼합 corpus를 언어 실행 전에 `VALID`로 판정했고, 후보 commit `8343430d5f79e0f37c353f2b267cd18669a36c7a`와 계약·입력·key·정책·실행기를 frame digest `68106d52fdae1a070950606fa78e1dc126610346dcb2292c1b93be78bcb29bd0`로 동결했다. 한 번의 role-separated recovery 실행 결과는 edit 5/8, restraint 4/4, major meaning change 0, protected failure 0으로 `failed-recovery`다. R004의 제품 범주 삭제, R006의 선행 공백, R008의 술어-대상 구조 변화가 독립 verifier에서 원복됐다. 실행 예산 1회를 소진했으므로 후보 수정·recovery 재실행·fixed diagnostic·private holdout·suite 통합·릴리스는 진행하지 않고 `stop-and-diagnose`에서 중단한다.
