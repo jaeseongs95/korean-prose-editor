@@ -290,6 +290,18 @@ test("fourth editing attempt preserves two passing runs and one failed run", asy
   assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
 });
 
+test("sixth editing attempt preserves carried selection provenance and final evidence", async () => {
+  const directory = path.join(cycleDir, "diagnostic", "semantic-regression", "new-candidates");
+  const provenance = JSON.parse(await readFile(path.join(directory, "attempt-6-selection-provenance.json"), "utf8"));
+  const results = JSON.parse(await readFile(path.join(directory, "attempt-6-final-results.json"), "utf8"));
+  assert.equal(provenance.sourceAttempt, 5);
+  assert.equal(provenance.files.length, 6);
+  assert.equal(results.status, "failed-final");
+  assert.equal(results.globalActorsDistinct, true);
+  assert.deepEqual(results.runs.map((run) => run.improvedCases), ["8/11", "10/11", "8/11"]);
+  assert.ok(results.runs.every((run) => run.majorMeaningChangeCount === 0 && run.protectedFailureCount === 0));
+});
+
 test("fresh holdout requires 30 unique cases balanced 10/10/10", () => {
   const holdout = Array.from({ length: 30 }, (_, index) => ({
     id: `private-${index + 1}`,

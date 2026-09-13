@@ -31,4 +31,6 @@
 
 다섯 번째 시도의 선정은 세 실행 모두 11/11이었다. 편집 run 2에서 edit의 원문 digest 오류를 검출했지만 기존 recorder가 검증 전에 work product를 써 불완전 산출물이 남았으므로 이 시도는 검증 단계로 넘기지 않는다. 이후 recorder는 전체 draft·actor 검증이 끝난 뒤에만 work product를 새로 쓴다.
 
+여섯 번째 시도는 변경되지 않은 다섯 번째 selection을 digest provenance와 함께 재사용했다. 최종 개선은 8/11, 10/11, 8/11로 한 run만 통과했고, 최종 주요 의미 변화와 보호 문자열 실패는 모두 0건이었다. 한 verifier는 의미가 바뀐 edit와 같은 사례에 있다는 이유로 독립적으로 안전한 edit까지 함께 유지했다. 다음 시도 전에는 edit별 판정이 다른 edit의 실패와 분리되고 전체 assessment가 승인된 edit 집합을 요약하도록 verification rubric을 명확히 한다.
+
 이후에만 새 candidate commit을 봉인하고 새 비공개 holdout 30건을 만든다. 정식 세 실행, 독립 감사, MCP 통합 저장소 편입, 로컬 설치 시험은 아직 수행하지 않았다. 기존 합격선, 실패 자료, 공개 설치본 `agent-governance-suite@agent-governance` `v1.0.5`는 변경하지 않는다.
