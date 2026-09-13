@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "cycleId": "0.1.0-rc2",
+  "attempt": 1,
+  "status": "failed",
+  "reasonCodes": ["RESTRAINT_GATE_FAILED", "EXECUTION_CONFIGURATION_UNVERIFIED"],
+  "frozenEvidence": {
+    "inputSha256": "2d5a7175a60e2e7ce133c55dd1d8e7715b5e6d85e65b6fe5ee51d4c0f0b89aa8",
+    "keySha256": "0ae40fce6edb796105b5bfc65de14ced22b9e7e79fe581c8335cdcacfb3d6a3b",
+    "inventorySha256": "5d9edb84749c9cbeda59905793b3b77bd9fd03464a883fc4780c0a15bc19f2a1",
+    "sourceUnitManifestSha256": "0ad97732a697c2e058c3ba32054497907209bf24f43ed1be08b1dca21da4ec3c",
+    "selectionPolicySha256": "ec321502524f5cf83075f8c61dfa394300a9d953210e9ccd6352085f9c77ff22"
+  },
+  "requestedExecution": {
+    "model": "gpt-5.6-sol",
+    "reasoningEffort": "high",
+    "verifiedByExecutionTool": false
+  },
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "f1c7cdcd-0bc9-419a-9cc5-5c6d372837f3",
+      "editRecall": "17/18",
+      "restraint": "15/20",
+      "userFacingJargonSelected": true,
+      "pass": false
+    },
+    {
+      "run": 2,
+      "actorId": "48f199bd-e003-4bf7-926f-65b11331d9c5",
+      "editRecall": "18/18",
+      "restraint": "16/20",
+      "userFacingJargonSelected": true,
+      "pass": false
+    },
+    {
+      "run": 3,
+      "actorId": "1c501aba-22a5-411d-9731-b3b2ef6bb3f7",
+      "editRecall": "17/18",
+      "restraint": "15/20",
+      "userFacingJargonSelected": true,
+      "pass": false
+    }
+  ],
+  "nextStep": "Do not create a fresh holdout. Diagnose the over-selection cluster and use a new diagnostic attempt without overwriting these files."
+}

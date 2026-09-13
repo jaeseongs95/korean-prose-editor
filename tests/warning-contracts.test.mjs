@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import Ajv2020 from "ajv/dist/2020.js";
 import { finalizeEvaluationCase } from "../scripts/evaluation-finalizer.mjs";
+import { structuredCase } from "./helpers/structured-work-products.mjs";
 
 const contractRoot = new URL("../skills/korean-prose-editor/contracts/", import.meta.url);
 const readSchema = async (name) => JSON.parse(await readFile(new URL(`${name}.schema.json`, contractRoot), "utf8"));
@@ -13,8 +14,7 @@ test("both final receipt schemas enumerate every deterministic runtime warning a
     const code = await readFile(new URL(`../skills/korean-prose-editor/scripts/${name}.mjs`, import.meta.url), "utf8");
     for (const match of code.matchAll(/warnings\.add\("([A-Z][A-Z0-9_]*)"\)/gu)) emitted.add(match[1]);
   }
-  const actorIds = ["11111111-1111-4111-8111-111111111111", "22222222-2222-4222-8222-222222222222", "33333333-3333-4333-8333-333333333333"];
-  const { receipt } = finalizeEvaluationCase({ sourceText: "비밀 원문", candidateText: "비밀 원문", actorIds, verification: { actorId: actorIds[2], finalDecision: "retain" } });
+  const { receipt } = finalizeEvaluationCase(structuredCase("비밀 원문"));
   for (const name of ["receipt", "final-text-receipt.v1"]) {
     const schema = await readSchema(name);
     assert.deepEqual([...schema.properties.warnings.items.enum].sort(), [...emitted].sort());

@@ -1,0 +1,158 @@
+[
+  {
+    "id": "legacy:T004",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T011",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T012",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T014",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T023",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T032",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T041",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T055",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T056",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T057",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T059",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T061",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T079",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T090",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "legacy:T100",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:H026",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:H029",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:H030",
+    "expectedDecision": "edit"
+  },
+  {
+    "id": "holdout:H008",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H009",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H010",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H011",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H012",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H013",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H014",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H015",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H016",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H017",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H018",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H019",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H020",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H021",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H022",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H023",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H024",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H025",
+    "expectedDecision": "retain"
+  },
+  {
+    "id": "holdout:H027",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "holdout:H028",
+    "expectedDecision": "defer"
+  },
+  {
+    "id": "regression:user-facing-jargon-001",
+    "expectedDecision": "edit"
+  }
+]

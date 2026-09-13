@@ -28,6 +28,11 @@ const required = [
   "skills/korean-prose-editor/contracts/protected-manifest.schema.json",
   "skills/korean-prose-editor/contracts/finalization-request.schema.json",
   "skills/korean-prose-editor/contracts/receipt.schema.json",
+  "skills/korean-prose-editor/contracts/source-unit-manifest.v1.schema.json",
+  "skills/korean-prose-editor/contracts/selection-work-product.v1.schema.json",
+  "skills/korean-prose-editor/contracts/editing-work-product.v1.schema.json",
+  "skills/korean-prose-editor/contracts/verification-work-product.v1.schema.json",
+  "skills/korean-prose-editor/scripts/source-units.mjs",
   "evals/legacy/BEHAVIOR_CASES.md",
   "evals/legacy/EVALUATION_PROTOCOL.md",
   "evals/legacy/translationese-100/corpus.jsonl",
@@ -39,6 +44,18 @@ const required = [
   "evals/FREEZE.json",
   "evals/EVALUATION_PROTOCOL.md",
   "evals/holdout/cases.json",
+  "evals/cycles/0.1.0-rc2/cycle-definition.json",
+  "evals/cycles/0.1.0-rc2/EVALUATION_PROTOCOL.md",
+  "evals/cycles/0.1.0-rc2/thresholds.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/inventory.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/semantic-drift-regressions.jsonl",
+  "evals/cycles/0.1.0-rc2/schemas/fresh-holdout.schema.json",
+  "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json",
+  "scripts/prepare-evaluation-cycle.mjs",
+  "scripts/prepare-source-unit-manifests.mjs",
+  "scripts/aggregate-selection-diagnostic.mjs",
+  "scripts/aggregate-evaluation-cycle.mjs",
+  "scripts/summarize-evaluation-cycle.mjs",
 ];
 
 /** @type {string[]} */
@@ -89,8 +106,11 @@ for (const [index, provider] of (descriptor.providers ?? []).entries()) {
     expect(provider.receiptPolicy?.actorIdsPointer === "/output/actorIds" && provider.receiptPolicy?.actorIdsMatch === "prior-policy-actors", "finalizer must bind prior policy actors in order");
   }
 }
+const finalizationProvider = descriptor.providers?.[3];
+expect(finalizationProvider?.requiredInputArtifacts?.includes("edit-decision-set"), "finalizer must require edit-decision-set");
+expect(finalizationProvider?.inputBindings?.some((binding) => binding.targetArtifact === "edit-decision-set" && binding.sources?.includes("provider:korean-prose-selection.edit-decision-set")), "finalizer must bind selection evidence");
 
-for (const schemaName of ["provider-plan", "protected-manifest", "finalization-request", "receipt", "edit-decision-set.v1", "edit-candidate.v1", "edit-verification-report.v1", "final-text-receipt.v1"]) {
+for (const schemaName of ["provider-plan", "protected-manifest", "finalization-request", "receipt", "edit-decision-set.v1", "edit-candidate.v1", "edit-verification-report.v1", "final-text-receipt.v1", "source-unit-manifest.v1", "selection-work-product.v1", "editing-work-product.v1", "verification-work-product.v1"]) {
   const schema = await readJson(`skills/korean-prose-editor/contracts/${schemaName}.schema.json`);
   expect(schema.$schema === "https://json-schema.org/draft/2020-12/schema", `${schemaName} schema draft mismatch`);
   expect(schema.type === "object" && schema.additionalProperties === false, `${schemaName} schema must close its root object`);
@@ -140,6 +160,17 @@ expect(freeze.bindings?.holdoutCasesSha256 === "710c1c116fec0cbbcf22634a021f48bd
 expect(freeze.bindings?.legacyCorpusSha256 === "2a457c0bf1d5478afa4cf2469d38521b0c6d1bfde4e1dad195abff1477b34a1c", "legacy corpus freeze digest mismatch");
 expect(freeze.bindings?.protocolSha256 === "ce0886a88d8efd68712210f0c1d3d59d42bfad6d18b626fed2ff36b0af944237", "evaluation protocol freeze digest mismatch");
 expect(freeze.runCount === 3, "evaluation must require three role-separated runs");
+
+const cycleDefinition = await readJson("evals/cycles/0.1.0-rc2/cycle-definition.json");
+expect(cycleDefinition.runCount === 3, "rc2 evaluation must require exactly three runs");
+expect(JSON.stringify(cycleDefinition.paths?.policies) === JSON.stringify([
+  "skills/korean-prose-editor/references/selection-policy.md",
+  "skills/korean-prose-editor/references/editing-policy.md",
+  "skills/korean-prose-editor/references/verification-rubric.md",
+]), "rc2 must freeze canonical role policies");
+for (const schema of ["source-unit-manifest.v1", "selection-work-product.v1", "editing-work-product.v1", "verification-work-product.v1"]) {
+  expect(cycleDefinition.paths?.privateSchemas?.includes(`skills/korean-prose-editor/contracts/${schema}.schema.json`), `rc2 missing canonical schema ${schema}`);
+}
 
 if (failures.length > 0) {
   for (const failure of failures) console.error(`- ${failure}`);

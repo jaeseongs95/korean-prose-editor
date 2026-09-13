@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "cycleId": "0.1.0-rc2",
+  "runCount": 3,
+  "freshHoldout": {
+    "caseCount": 30,
+    "decisionCounts": {
+      "edit": 10,
+      "retain": 10,
+      "defer": 10
+    }
+  },
+  "paths": {
+    "corpus": "evals/legacy/translationese-100/corpus.jsonl",
+    "legacyKey": "evals/legacy/translationese-100/validation-baseline.jsonl",
+    "protocol": "evals/cycles/0.1.0-rc2/EVALUATION_PROTOCOL.md",
+    "thresholds": "evals/cycles/0.1.0-rc2/thresholds.json",
+    "policies": [
+      "skills/korean-prose-editor/references/selection-policy.md",
+      "skills/korean-prose-editor/references/editing-policy.md",
+      "skills/korean-prose-editor/references/verification-rubric.md"
+    ],
+    "privateSchemas": [
+      "skills/korean-prose-editor/contracts/source-unit-manifest.v1.schema.json",
+      "skills/korean-prose-editor/contracts/selection-work-product.v1.schema.json",
+      "skills/korean-prose-editor/contracts/editing-work-product.v1.schema.json",
+      "skills/korean-prose-editor/contracts/verification-work-product.v1.schema.json",
+      "evals/cycles/0.1.0-rc2/schemas/fresh-holdout.schema.json",
+      "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json"
+    ],
+    "diagnosticInventory": "evals/cycles/0.1.0-rc2/diagnostic/inventory.json"
+  }
+}

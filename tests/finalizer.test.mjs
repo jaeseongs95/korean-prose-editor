@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { finalizeRequest, formatFinalizationResponse } from "../skills/korean-prose-editor/scripts/finalizer-core.mjs";
 import { extractProtectedSpans } from "../skills/korean-prose-editor/scripts/protected-spans.mjs";
-import { sha256 } from "../skills/korean-prose-editor/scripts/lib.mjs";
+import { sha256, stableJson } from "../skills/korean-prose-editor/scripts/lib.mjs";
 import { validateProviderPlan } from "../skills/korean-prose-editor/scripts/provider-plan.mjs";
+import { createSourceUnitManifest } from "../skills/korean-prose-editor/scripts/source-units.mjs";
 
 const actors = [
   "11111111-1111-4111-8111-111111111111",
@@ -25,17 +26,66 @@ function plan(actorIds = actors) {
 }
 
 function request(source, edits, decisions, overrides = {}) {
+  const manifest = extractProtectedSpans(source);
+  const sourceUnitManifest = createSourceUnitManifest(source, manifest);
+  const selection = {
+    schemaVersion: "1.0.0",
+    actorId: actors[0],
+    sourceDigest: sha256(source),
+    status: "ready",
+    decisions: sourceUnitManifest.units.map((unit) => ({ unitId: unit.unitId, action: unit.kind === "prose" ? "edit" : "retain", reasonCodes: [], riskFlags: [], additionalProtectedStrings: [] })),
+  };
+  const normalizedEdits = edits.map((edit) => ({ sourceDigest: sha256(source), actorId: actors[1], unitId: sourceUnitManifest.units.find((unit) => unit.start <= edit.start && edit.end <= unit.end)?.unitId, ...minimalEdit(source, edit) }));
+  const editing = {
+    schemaVersion: "1.0.0",
+    actorId: actors[1],
+    sourceDigest: sha256(source),
+    selectionDigest: sha256(stableJson(selection)),
+    edits: normalizedEdits,
+    candidateDigest: sha256(applyEdits(source, normalizedEdits)),
+  };
   return {
     schemaVersion: "1.0.0",
     mode: "mcp",
     subagentsAvailable: true,
     plan: plan(),
     source,
-    manifest: extractProtectedSpans(source),
-    edits: edits.map((edit) => ({ sourceDigest: sha256(source), actorId: actors[1], ...edit })),
-    verification: { actorId: actors[2], globalDecision: "continue", decisions },
+    manifest,
+    sourceUnitManifest,
+    selection,
+    editing,
+    verification: {
+      schemaVersion: "1.0.0",
+      actorId: actors[2],
+      sourceDigest: sha256(source),
+      editingDigest: sha256(stableJson(editing)),
+      rubricDigest: sha256("rubric"),
+      globalDecision: "continue",
+      decisions,
+      assessment: { meaningPreservation: "pass", majorMeaningChange: false, registerCompliance: "pass", protectedStrings: "pass", terminologyJudgment: "not-applicable", pairPreference: "candidate" },
+    },
+    rubricDigest: sha256("rubric"),
     ...overrides,
   };
+}
+
+function minimalEdit(source, edit) {
+  let { start, end, replacement } = edit;
+  while (start < end && replacement.length > 0 && source[start] === replacement[0]) {
+    start += 1;
+    replacement = replacement.slice(1);
+  }
+  while (start < end && replacement.length > 0 && source[end - 1] === replacement.at(-1)) {
+    end -= 1;
+    replacement = replacement.slice(0, -1);
+  }
+  return { ...edit, start, end, replacement };
+}
+
+function applyEdits(source, edits) {
+  let result = source;
+  for (const edit of [...edits].sort((left, right) => right.start - left.start)) result = `${result.slice(0, edit.start)}${edit.replacement}${result.slice(edit.end)}`;
+  return result;
 }
 
 test("retain leaves a rejected edit unchanged", () => {

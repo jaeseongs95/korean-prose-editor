@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Known diagnostic inventory derived from the failed historical release evaluation; not a fresh holdout.",
+  "thresholds": {
+    "editRecallMinimum": 15,
+    "editRecallDenominator": 18,
+    "restraintMinimum": 18,
+    "restraintDenominator": 20
+  },
+  "editCases": [
+    { "caseId": "legacy:T004", "sourceId": "T004", "origin": "legacy" },
+    { "caseId": "legacy:T011", "sourceId": "T011", "origin": "legacy" },
+    { "caseId": "legacy:T012", "sourceId": "T012", "origin": "legacy" },
+    { "caseId": "legacy:T014", "sourceId": "T014", "origin": "legacy" },
+    { "caseId": "legacy:T023", "sourceId": "T023", "origin": "legacy" },
+    { "caseId": "legacy:T032", "sourceId": "T032", "origin": "legacy" },
+    { "caseId": "legacy:T041", "sourceId": "T041", "origin": "legacy" },
+    { "caseId": "legacy:T055", "sourceId": "T055", "origin": "legacy" },
+    { "caseId": "legacy:T056", "sourceId": "T056", "origin": "legacy" },
+    { "caseId": "legacy:T057", "sourceId": "T057", "origin": "legacy" },
+    { "caseId": "legacy:T059", "sourceId": "T059", "origin": "legacy" },
+    { "caseId": "legacy:T061", "sourceId": "T061", "origin": "legacy" },
+    { "caseId": "legacy:T079", "sourceId": "T079", "origin": "legacy" },
+    { "caseId": "legacy:T090", "sourceId": "T090", "origin": "legacy" },
+    { "caseId": "legacy:T100", "sourceId": "T100", "origin": "legacy" },
+    { "caseId": "holdout:H026", "sourceId": "P04", "origin": "historical-holdout" },
+    { "caseId": "holdout:H029", "sourceId": "P07", "origin": "historical-holdout" },
+    { "caseId": "holdout:H030", "sourceId": "P08", "origin": "historical-holdout" }
+  ],
+  "controlCases": [
+    { "caseId": "holdout:H008", "sourceId": "N01", "origin": "historical-holdout" },
+    { "caseId": "holdout:H009", "sourceId": "N02", "origin": "historical-holdout" },
+    { "caseId": "holdout:H010", "sourceId": "N03", "origin": "historical-holdout" },
+    { "caseId": "holdout:H011", "sourceId": "N04", "origin": "historical-holdout" },
+    { "caseId": "holdout:H012", "sourceId": "N05", "origin": "historical-holdout" },
+    { "caseId": "holdout:H013", "sourceId": "N06", "origin": "historical-holdout" },
+    { "caseId": "holdout:H014", "sourceId": "N07", "origin": "historical-holdout" },
+    { "caseId": "holdout:H015", "sourceId": "A01", "origin": "historical-holdout" },
+    { "caseId": "holdout:H016", "sourceId": "A02", "origin": "historical-holdout" },
+    { "caseId": "holdout:H017", "sourceId": "A03", "origin": "historical-holdout" },
+    { "caseId": "holdout:H018", "sourceId": "A04", "origin": "historical-holdout" },
+    { "caseId": "holdout:H019", "sourceId": "A05", "origin": "historical-holdout" },
+    { "caseId": "holdout:H020", "sourceId": "A06", "origin": "historical-holdout" },
+    { "caseId": "holdout:H021", "sourceId": "A07", "origin": "historical-holdout" },
+    { "caseId": "holdout:H022", "sourceId": "A08", "origin": "historical-holdout" },
+    { "caseId": "holdout:H023", "sourceId": "P01", "origin": "historical-holdout" },
+    { "caseId": "holdout:H024", "sourceId": "P02", "origin": "historical-holdout" },
+    { "caseId": "holdout:H025", "sourceId": "P03", "origin": "historical-holdout" },
+    { "caseId": "holdout:H027", "sourceId": "P05", "origin": "historical-holdout" },
+    { "caseId": "holdout:H028", "sourceId": "P06", "origin": "historical-holdout" }
+  ],
+  "regressionCases": [
+    {
+      "caseId": "regression:user-facing-jargon-001",
+      "category": "user-facing-jargon",
+      "sourceText": "현재까지는 우선순위가 선명합니다. 공개판 v1.0.5의 거버넌스 10개는 완료됐고, 남은 핵심은 v1.1.0 후보의 한국어 산문 품질 게이트와 그 평가 영수증 연결입니다. 후속 작업은 바로 그 부분—선정 결과를 finalization까지 결속하고, 최신 평가 산출물의 digest·SQLite 비유출 검증을 강화하는 변경—을 진행 중입니다.",
+      "userRequest": "사용자에게 보여 줄 진행 업데이트로 자연스럽고 구체적으로 다듬어 주세요.",
+      "expectedDecision": "edit",
+      "protectedStrings": ["v1.0.5", "10개", "v1.1.0", "finalization", "digest", "SQLite"],
+      "judgmentTarget": "`평가 영수증 연결`, `결속`, 명사구 적층을 구체적인 행동으로 풀되 기술 식별자를 보존한다.",
+      "thresholds": {
+        "protectedExactRate": 100,
+        "pairPreference": "candidate"
+      }
+    }
+  ]
+}

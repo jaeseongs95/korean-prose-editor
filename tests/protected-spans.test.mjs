@@ -24,6 +24,14 @@ test("detects a changed protected span", () => {
   assert.equal(JSON.stringify(result).includes("https://example.com/v1"), false);
 });
 
+test("detects duplication of a protected string at its boundary", () => {
+  const source = "오류는 12건입니다.";
+  const manifest = extractProtectedSpans(source);
+  const result = checkResult(source, "오류는 12건 12건입니다.", manifest);
+  assert.equal(result.decisions.protectedSpansPreserved, false);
+  assert.ok(result.warnings.includes("PROTECTED_SPAN_MISSING_OR_REORDERED"));
+});
+
 test("protects Korean counters, units, dates, times and percentages with particles", () => {
   const values = ["12건", "1,200명", "2.5kg", "2026년", "9월", "12일", "오후 3시", "1시간30분", "09:30:45", "12.5%", "-3도", "2026-09-12"];
   for (const value of values) {

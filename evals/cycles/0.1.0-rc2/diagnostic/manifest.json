@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "cycleId": "0.1.0-rc2",
+  "caseCount": 39,
+  "fixedDiagnosticCounts": {
+    "edit": 18,
+    "control": 20,
+    "userFacingJargon": 1
+  },
+  "inputSha256": "2d5a7175a60e2e7ce133c55dd1d8e7715b5e6d85e65b6fe5ee51d4c0f0b89aa8",
+  "keySha256": "0ae40fce6edb796105b5bfc65de14ced22b9e7e79fe581c8335cdcacfb3d6a3b",
+  "inventorySha256": "5d9edb84749c9cbeda59905793b3b77bd9fd03464a883fc4780c0a15bc19f2a1",
+  "historicalInputSha256": "90777685ca0f928f6b3902f8196d0fcae659f0b95b7acd140fad0f99a274ca8a",
+  "runCount": 3,
+  "thresholds": {
+    "editRecallMinimum": 15,
+    "editRecallDenominator": 18,
+    "restraintMinimum": 18,
+    "restraintDenominator": 20
+  }
+}

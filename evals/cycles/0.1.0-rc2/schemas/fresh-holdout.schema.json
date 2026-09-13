@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/korean-prose-editor/evaluation/fresh-holdout.schema.json",
+  "title": "Private fresh holdout",
+  "type": "array",
+  "minItems": 30,
+  "maxItems": 30,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "genre", "context", "sourceText", "userRequest", "register", "meaningConstraints", "protectedStrings", "expectedDecision"],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "genre": { "type": "string", "minLength": 1 },
+      "context": { "type": ["string", "null"] },
+      "sourceText": { "type": "string", "minLength": 1 },
+      "userRequest": { "type": "string", "minLength": 1 },
+      "register": { "type": "string", "minLength": 1 },
+      "meaningConstraints": { "type": "array", "items": { "type": "string" } },
+      "protectedStrings": { "type": "array", "items": { "type": "string" } },
+      "expectedDecision": { "enum": ["edit", "retain", "defer"] }
+    }
+  }
+}
