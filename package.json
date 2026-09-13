@@ -25,6 +25,7 @@
     "eval:selection:record": "node scripts/record-selection-run.mjs",
     "eval:editing:record": "node scripts/record-editing-run.mjs",
     "eval:diagnostic:aggregate": "node scripts/aggregate-selection-diagnostic.mjs",
+    "eval:selection:contrast:aggregate": "node scripts/aggregate-selection-taxonomy-contrast.mjs",
     "eval:cycle:prepare": "node scripts/prepare-evaluation-cycle.mjs",
     "eval:cycle:aggregate": "node scripts/aggregate-evaluation-cycle.mjs",
     "eval:cycle:summarize": "node scripts/summarize-evaluation-cycle.mjs"

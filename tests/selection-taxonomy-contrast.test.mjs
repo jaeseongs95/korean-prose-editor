@@ -41,3 +41,22 @@ test("selection taxonomy contrast is balanced, blinded, and structurally valid",
   assert.equal(decisionsByPair.size, 5);
   for (const decisions of decisionsByPair.values()) assert.deepEqual(decisions.sort(), ["edit", "retain"]);
 });
+
+test("selection taxonomy contrast records three independent perfect runs", async () => {
+  const [inputText, resultsText] = await Promise.all([
+    readFile(new URL("input.jsonl", contrastRoot), "utf8"),
+    readFile(new URL("results.json", contrastRoot), "utf8"),
+  ]);
+  const input = parseJsonl(inputText);
+  const results = JSON.parse(resultsText);
+
+  assert.equal(results.status, "pass");
+  assert.equal(results.actorsDistinct, true);
+  assert.equal(results.runs.length, 3);
+  assert.equal(new Set(results.runs.map((run) => run.actorId)).size, 3);
+  for (const run of results.runs) {
+    assert.equal(run.pass, true);
+    assert.equal(run.actionMatch, `${input.length}/${input.length}`);
+    assert.equal(run.actions.length, input.length);
+  }
+});

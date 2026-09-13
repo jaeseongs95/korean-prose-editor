@@ -52,6 +52,10 @@ const required = [
   "evals/cycles/0.1.0-rc2/thresholds.json",
   "evals/cycles/0.1.0-rc2/diagnostic/inventory.json",
   "evals/cycles/0.1.0-rc2/diagnostic/semantic-drift-regressions.jsonl",
+  "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/spec.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/input.jsonl",
+  "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/key.json",
+  "evals/cycles/0.1.0-rc2/diagnostic/selection-taxonomy-contrast/source-unit-manifest.jsonl",
   "evals/cycles/0.1.0-rc2/schemas/fresh-holdout.schema.json",
   "evals/cycles/0.1.0-rc2/schemas/run-meta.schema.json",
   "scripts/prepare-evaluation-cycle.mjs",
@@ -64,6 +68,7 @@ const required = [
   "scripts/prepare-verification-minimal-contrast.mjs",
   "scripts/prepare-new-semantic-candidates.mjs",
   "scripts/aggregate-selection-diagnostic.mjs",
+  "scripts/aggregate-selection-taxonomy-contrast.mjs",
   "scripts/aggregate-evaluation-cycle.mjs",
   "scripts/summarize-evaluation-cycle.mjs",
 ];

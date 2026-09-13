@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "pass",
+  "purpose": "Distinguish locally editable translationese subtypes from natural uses of the same surface words before another full diagnostic attempt.",
+  "inputSha256": "163daa230e682895ec43bb551d09510c319a13b0a24c67d348101cb2b220b34f",
+  "policySha256": "916ae244f2a044b28daaf4ef1ca68cb1badb1f8c34290b5042548bf1b38869b3",
+  "expectedActions": [
+    "edit",
+    "retain",
+    "edit",
+    "retain",
+    "edit",
+    "retain",
+    "edit",
+    "retain",
+    "edit",
+    "retain"
+  ],
+  "actorsDistinct": true,
+  "runs": [
+    {
+      "run": 1,
+      "actorId": "41000000-0000-4000-8000-000000000001",
+      "workProductSha256": "732a25f7ef59fe94228886aba2be325fdbc0a8ada9394babf20742240f0dc70b",
+      "actions": [
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain"
+      ],
+      "actionMatch": "10/10",
+      "pass": true
+    },
+    {
+      "run": 2,
+      "actorId": "42000000-0000-4000-8000-000000000002",
+      "workProductSha256": "d09871c0ce88ac32318c06c6f3a096e70fecada96fcbb5cdc0fdb93812cd5a41",
+      "actions": [
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain"
+      ],
+      "actionMatch": "10/10",
+      "pass": true
+    },
+    {
+      "run": 3,
+      "actorId": "43000000-0000-4000-8000-000000000003",
+      "workProductSha256": "0fbe6e4ff6a16b26b87ffec129e752ba2919d8a0e2441203cdd417166d864de2",
+      "actions": [
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain",
+        "edit",
+        "retain"
+      ],
+      "actionMatch": "10/10",
+      "pass": true
+    }
+  ],
+  "conclusion": "All three blinded selection runs separated the five local translationese defects from their five natural controls."
+}
