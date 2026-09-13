@@ -112,6 +112,43 @@ test("editing drafts are deterministically sealed with per-record digests", () =
   assert.throws(() => sealEditingDraft(nonMinimal, { source: sourceText, selection }), /EDIT_NOT_MINIMAL/u);
 });
 
+test("editing recorder leaves no work product when draft validation fails", async () => {
+  const temporaryCycle = await mkdtemp(path.join(root, "evals", "cycles", "recorder-failure-"));
+  const suiteDirectory = path.join(temporaryCycle, "diagnostic", "test-suite");
+  const runDirectory = path.join(suiteDirectory, "runs", "run-1");
+  try {
+    await mkdir(runDirectory, { recursive: true });
+    const sourceText = "안녕 하세요.";
+    const manifest = sourceManifest(sourceText);
+    const selection = selectionProduct(sourceText, "edit");
+    const draft = {
+      schemaVersion: "1.0.0",
+      actorId: actorIds[1],
+      sourceDigest: sha256(sourceText),
+      edits: [{
+        id: "edit-1", unitId: "unit-0001", sourceDigest: sha256("잘못된 원문"),
+        start: 2, end: 3, replacement: "", actorId: actorIds[1],
+      }],
+    };
+    await Promise.all([
+      writeFile(path.join(suiteDirectory, "input.jsonl"), `${JSON.stringify({ id: "case-1", sourceText })}\n`, "utf8"),
+      writeFile(path.join(suiteDirectory, "source-unit-manifest.jsonl"), `${JSON.stringify(manifest)}\n`, "utf8"),
+      writeFile(path.join(runDirectory, "selection-work-product.jsonl"), `${JSON.stringify(selection)}\n`, "utf8"),
+      writeFile(path.join(runDirectory, "editing-draft.jsonl"), `${JSON.stringify(draft)}\n`, "utf8"),
+    ]);
+    const cycleArgument = path.relative(root, temporaryCycle).replaceAll(path.sep, "/");
+    const result = spawnSync(process.execPath, [
+      "scripts/record-editing-run.mjs", "--cycle-dir", cycleArgument,
+      "--suite-dir", "test-suite", "--run", "1",
+    ], { cwd: root, encoding: "utf8" });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /EDIT_SOURCE_DIGEST_MISMATCH/u);
+    await assert.rejects(readFile(path.join(runDirectory, "editing-work-product.jsonl"), "utf8"), { code: "ENOENT" });
+  } finally {
+    await rm(temporaryCycle, { recursive: true, force: true });
+  }
+});
+
 test("diagnostic inventory fixes 18 expected edits, 20 controls, and 15/18 plus 18/20 gates", async () => {
   const inventory = JSON.parse(await readFile(path.join(cycleDir, "diagnostic", "inventory.json"), "utf8"));
   assert.equal(inventory.editCases.length, 18);

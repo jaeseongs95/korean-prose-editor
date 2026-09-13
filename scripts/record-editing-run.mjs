@@ -20,6 +20,7 @@ const manifests = parseJsonl(await readFile(path.join(suiteDir, "source-unit-man
 const selections = parseJsonl(await readFile(path.join(runDir, "selection-work-product.jsonl"), "utf8"));
 const editingFile = path.join(runDir, "editing-work-product.jsonl");
 let editings;
+let shouldWriteEditing = false;
 try {
   await access(editingFile);
   editings = parseJsonl(await readFile(editingFile, "utf8"));
@@ -28,7 +29,7 @@ try {
   const drafts = parseJsonl(await readFile(path.join(runDir, "editing-draft.jsonl"), "utf8"));
   if (drafts.length !== input.length) throw new Error("EDITING_DRAFT_COUNT_MISMATCH");
   editings = drafts.map((draft, index) => sealEditingDraft(draft, { selection: selections[index], source: input[index].sourceText }));
-  await writeNewFile(editingFile, serializeJsonl(editings));
+  shouldWriteEditing = true;
 }
 if (input.length === 0 || [manifests, selections, editings].some((items) => items.length !== input.length)) throw new Error("EDITING_RECORD_COUNT_MISMATCH");
 for (let index = 0; index < input.length; index += 1) {
@@ -38,6 +39,7 @@ for (let index = 0; index < input.length; index += 1) {
 }
 const actors = new Set(editings.map((record) => record.actorId));
 if (actors.size !== 1) throw new Error("EDITING_ACTOR_CHANGED_WITHIN_RUN");
+if (shouldWriteEditing) await writeNewFile(editingFile, serializeJsonl(editings));
 const meta = { schemaVersion: "2.0.0", run, role: "editing", actorId: [...actors][0], caseCount: editings.length, inputSha256: sha256(inputText), workProductSha256: sha256(stableJson(editings)), status: "complete" };
 await writeNewFile(path.join(runDir, "editing-meta.json"), `${JSON.stringify(meta, null, 2)}\n`);
 console.log(JSON.stringify(meta, null, 2));
