@@ -2,40 +2,64 @@
   "schemaVersion": "1.0",
   "purpose": "evaluation-only",
   "canonicalSkill": false,
+  "sourceRepository": {
+    "name": "jaeseongs95/humanizer-ko",
+    "url": "https://github.com/jaeseongs95/humanizer-ko",
+    "license": "MIT",
+    "publicBaseTag": "v2.0.2",
+    "publicBaseCommit": "3326ce796be98e90ea23c807f36fe0482c14ec09",
+    "snapshotKind": "local-unpublished-working-tree",
+    "snapshotNote": "Artifact SHA-256 values identify the copied snapshot. Some artifacts differ from the public base commit; no humanizer-ko v2.0.3 release or tag is claimed."
+  },
+  "upstreamRepository": {
+    "name": "blader/humanizer",
+    "url": "https://github.com/blader/humanizer",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Siqi Chen",
+    "baseTag": "v3.0.0",
+    "baseCommit": "9862685f575c65a8247f90369951df1b3416e3d6"
+  },
   "artifacts": [
     {
       "copyPath": "evals/legacy/BEHAVIOR_CASES.md",
-      "sourcePath": "D:/codex/내 말투 학습/tests/BEHAVIOR_CASES.md",
+      "sourcePath": "tests/BEHAVIOR_CASES.md",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "638949ad2f0d6b2d0dd085b3922923bb5f454d5920cb2b73135e74da0e35887e"
     },
     {
       "copyPath": "evals/legacy/EVALUATION_PROTOCOL.md",
-      "sourcePath": "D:/codex/내 말투 학습/tests/EVALUATION_PROTOCOL.md",
+      "sourcePath": "tests/EVALUATION_PROTOCOL.md",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "d9e480c4522ca2bc2cdd3aa23ba777b6d6822f44af89b3e3b9720a82462aae9b"
     },
     {
       "copyPath": "evals/legacy/translationese-100/corpus.jsonl",
-      "sourcePath": "D:/codex/내 말투 학습/tests/evidence/translationese-100/corpus.jsonl",
+      "sourcePath": "tests/evidence/translationese-100/corpus.jsonl",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "2a457c0bf1d5478afa4cf2469d38521b0c6d1bfde4e1dad195abff1477b34a1c"
     },
     {
       "copyPath": "evals/legacy/translationese-100/EVALUATION_PLAN.md",
-      "sourcePath": "D:/codex/내 말투 학습/tests/evidence/translationese-100/EVALUATION_PLAN.md",
+      "sourcePath": "tests/evidence/translationese-100/EVALUATION_PLAN.md",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "bfea69599598eb23ad4767939fe427203430fed2ea43c98014d184bce14ce534"
     },
     {
       "copyPath": "evals/legacy/translationese-100/validation-baseline.jsonl",
-      "sourcePath": "D:/codex/내 말투 학습/tests/evidence/translationese-100/validation-baseline.jsonl",
+      "sourcePath": "tests/evidence/translationese-100/validation-baseline.jsonl",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "4d05bcc4335726b7cf7d05c8ef20052dd21630873bb9e27a76a1cff5f66e810c"
     },
     {
       "copyPath": "evals/legacy/failures/ROOT_CAUSE_1.0.2.md",
-      "sourcePath": "D:/codex/내 말투 학습/tests/ROOT_CAUSE_1.0.2.md",
+      "sourcePath": "tests/ROOT_CAUSE_1.0.2.md",
+      "sourceState": "public-base-commit",
       "sha256": "5acd7e9643e87fc903597c28bce1880979284a2204fe069bbde217ea3860eddb"
     },
     {
       "copyPath": "evals/legacy/failures/cases-2.0.3.json",
-      "sourcePath": "D:/codex/내 말투 학습/tests/cases/2.0.3.json",
+      "sourcePath": "tests/cases/2.0.3.json",
+      "sourceState": "local-unpublished-working-tree",
       "sha256": "aa8f2bb1da227847d217166169e45acd8c991fbc7339b0d6b5612fd65a5a1687"
     }
   ]

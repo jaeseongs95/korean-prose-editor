@@ -16,6 +16,8 @@ const required = [
   "package.json",
   "pnpm-lock.yaml",
   "skills/korean-prose-editor/SKILL.md",
+  "skills/korean-prose-editor/LICENSE",
+  "skills/korean-prose-editor/THIRD_PARTY_NOTICES.md",
   "skills/korean-prose-editor/agents/openai.yaml",
   "skills/korean-prose-editor/integration/skill-descriptor.json",
   "skills/korean-prose-editor/integration/skill-descriptor.v2.schema.json",
@@ -88,6 +90,22 @@ expect(packageJson.version === "0.1.0", "package version must be 0.1.0");
 expect(packageJson.engines?.node === ">=22", "Node engine must be >=22");
 expect(packageJson.packageManager === "pnpm@11.19.0", "packageManager must be pnpm@11.19.0");
 expect(packageJson.license === "MIT", "package license must be MIT");
+const rootLicense = await readFile(path.join(root, "LICENSE"), "utf8");
+const rootNotices = await readFile(path.join(root, "THIRD_PARTY_NOTICES.md"), "utf8");
+const skillLicense = await readFile(path.join(skillRoot, "LICENSE"), "utf8");
+const skillNotices = await readFile(path.join(skillRoot, "THIRD_PARTY_NOTICES.md"), "utf8");
+expect(rootLicense.includes("Copyright (c) 2025 Siqi Chen"), "upstream MIT copyright notice missing");
+expect(rootLicense.includes("Copyright (c) 2026 korean-prose-editor contributors"), "project copyright notice missing");
+expect(normalizeNewlines(skillLicense) === normalizeNewlines(rootLicense), "skill LICENSE must match root LICENSE");
+expect(normalizeNewlines(skillNotices) === normalizeNewlines(rootNotices), "skill THIRD_PARTY_NOTICES must match root notices");
+for (const requiredNotice of [
+  "https://github.com/jaeseongs95/humanizer-ko",
+  "3326ce796be98e90ea23c807f36fe0482c14ec09",
+  "https://github.com/blader/humanizer",
+  "9862685f575c65a8247f90369951df1b3416e3d6",
+  "Copyright (c) 2025 Siqi Chen",
+  "미출시 로컬 작업본",
+]) expect(rootNotices.includes(requiredNotice), `third-party notice missing: ${requiredNotice}`);
 for (const command of ["eval:prepare", "eval:prepare-verification", "eval:prepare-audit", "eval:aggregate"]) {
   expect(!Object.hasOwn(packageJson.scripts ?? {}, command), `legacy candidateText evaluation command must stay removed: ${command}`);
 }
@@ -170,8 +188,14 @@ for (const scriptPath of scriptFiles) {
 
 const provenance = await readJson("evals/legacy/provenance.json");
 expect(provenance.purpose === "evaluation-only" && provenance.canonicalSkill === false, "legacy provenance boundary mismatch");
+expect(provenance.sourceRepository?.url === "https://github.com/jaeseongs95/humanizer-ko", "humanizer-ko provenance URL mismatch");
+expect(provenance.sourceRepository?.publicBaseTag === "v2.0.2" && provenance.sourceRepository?.publicBaseCommit === "3326ce796be98e90ea23c807f36fe0482c14ec09", "humanizer-ko public base mismatch");
+expect(provenance.sourceRepository?.snapshotKind === "local-unpublished-working-tree", "legacy snapshot kind mismatch");
+expect(provenance.upstreamRepository?.url === "https://github.com/blader/humanizer" && provenance.upstreamRepository?.baseCommit === "9862685f575c65a8247f90369951df1b3416e3d6", "upstream provenance mismatch");
 for (const artifact of provenance.artifacts ?? []) {
   expect(!/SKILL\.md$/i.test(artifact.sourcePath), "legacy candidate SKILL.md must not be copied");
+  expect(!path.isAbsolute(artifact.sourcePath) && !/^[A-Za-z]:[\\/]/u.test(artifact.sourcePath), "legacy provenance must not expose a local absolute source path");
+  expect(["public-base-commit", "local-unpublished-working-tree"].includes(artifact.sourceState), "legacy artifact source state mismatch");
   const artifactPath = path.join(root, artifact.copyPath);
   const digest = createHash("sha256").update(await readFile(artifactPath)).digest("hex");
   expect(digest === artifact.sha256, `legacy artifact digest mismatch: ${artifact.copyPath}`);
@@ -228,4 +252,9 @@ async function listFiles(directory, extension) {
     return entry.name.endsWith(extension) ? [child] : [];
   }));
   return nested.flat();
+}
+
+/** @param {string} value */
+function normalizeNewlines(value) {
+  return value.replace(/\r\n/g, "\n");
 }

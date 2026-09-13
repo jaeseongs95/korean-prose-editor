@@ -76,4 +76,4 @@ MCP 경로의 receipt에는 원문이나 결과문이 들어가지 않는다. �
 
 ## 라이선스
 
-MIT License. 자세한 내용은 `LICENSE`에서 확인할 수 있다.
+새로 작성한 코드와 문서는 MIT License로 제공한다. 복사한 평가 자료의 원본 저장소, 기준 커밋과 변경 상태는 `THIRD_PARTY_NOTICES.md`와 `evals/legacy/provenance.json`에서 확인할 수 있다. 재배포할 때는 `LICENSE`와 해당 고지를 함께 보존한다.
